@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>中国平安</title>
+	
+	<!-- Styles -->
+    <link href="assets/css/lib/font-awesome.min.css" rel="stylesheet">
+    <link href="assets/css/lib/themify-icons.css" rel="stylesheet">
+    <link href="assets/css/lib/owl.carousel.min.css" rel="stylesheet" />
+    <link href="assets/css/lib/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="assets/css/lib/weather-icons.css" rel="stylesheet" />
+    <link href="assets/css/lib/mmc-chat.css" rel="stylesheet" />
+    <link href="assets/css/lib/sidebar.css" rel="stylesheet">
+    <link href="assets/css/lib/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/lib/simdahs.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+
+<!--  测试jquery点击跳转超链接  -->
+    <script type="text/javascript" src="../static/js/jquery.min.js">
+    </script>
+    <script type="text/javascript">
+        $(function(){
+            /* 点击事件会在超链接跳转前发生 */
+            $("#div_test a").click(function(){
+                var link = $(this).attr('href');
+                $('#div_view').attr('src', link);
+                var href = window.location.href;
+                window.location.href = href.substr(0, href.indexOf('#')) + '#' + link;
+                return false;
+            });
+        });
+
+    </script>
+
+</head>
+
+<body>
+
+    <div class="sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures" id="div_test">
+        <div class="nano">
+            <div class="nano-content">
+                <ul>
+					<li class="label">查询</li>
+                    <li class="active"><a href="user.html"><i class="ti-home"></i> 综合查询 </a></li>
+					<li class="label">管理</li>
+                    <li><a href="user.html"><i class="ti-user"></i> 用户管理</a></li>
+                    <li><a href="role.html"><i class="ti-layout"></i> 角色管理</a></li>
+                    <li><a href="permission.html"><i class="ti-panel"></i> 权限管理</a></li>
+                    <li><a href="menu.html"><i class="ti-view-list-alt"></i> 菜单管理</a></li>
+                    <li><a href="member.html"><i class="ti-heart"></i> 修改密码</a></li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="header">
+        <div class="pull-left">
+            <div class="logo" id="sideLogo">
+                <a href="index.html">
+                    <img class="full-logo" src="assets/images/logo-big.png" alt="SimDahs">
+                    <img class="small-logo" src="assets/images/logo-small.png" alt="SimDahs">
+                </a>
+            </div>
+            <div class="hamburger sidebar-toggle">
+                <span class="ti-menu"></span>
+            </div>
+        </div>
+
+        <div class="pull-right p-r-15">
+            <ul>
+
+                <li class="header-icon dib"><img class="avatar-img" src="assets/images/avatar/1.jpg" alt="" /> <span class="user-avatar">user<i class="ti-angle-down f-s-10"></i></span>
+                    <div class="drop-down dropdown-profile">
+                        <div class="dropdown-content-body">
+                            <ul>
+                                <li><a href="#"><i class="ti-user"></i> <span>修改密码</span></a></li>
+                                <li><a href="#"><i class="ti-wallet"></i> <span>退出登录</span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+	<div class="chat-sidebar">
+        <!-- BEGIN chat -->
+        <div id="mmc-chat" class="color-default">
+            <!-- BEGIN CHAT BOX -->
+            <div class="chat-box">
+                <!-- BEGIN CHAT BOXS -->
+                <ul class="boxs"></ul>
+                <!-- END CHAT BOXS -->
+                <div class="icons-set">
+                    <div class="stickers">
+                        <div class="had-container">
+                            <div class="row">
+                                <div class="s12">
+                                    <ul class="tabs" style="width: 100%;height: 60px;">
+                                        <li class="tab col s3">
+                                            <a href="#tab1" class="active">
+                                                <img src="assets/images/1.png" alt="" />
+                                            </a>
+                                        </li>
+                                        <li class="tab col s3"><a href="#tab2">Test 2</a></li>
+                                    </ul>
+                                </div>
+                                <div id="tab1" class="s12 tab-content">
+                                    <ul>
+                                        <li><img src="assets/images/1.png" alt="" /></li>
+                                        <li><img src="assets/images/1.png" alt="" /></li>
+                                        <li><img src="assets/images/1.png" alt="" /></li>
+                                        <li><img src="assets/images/1.png" alt="" /></li>
+                                        <li><img src="assets/images/1.png" alt="" /></li>
+                                        <li><img src="assets/images/1.png" alt="" /></li>
+                                        <li><img src="assets/images/1.png" alt="" /></li>
+                                        <li><img src="assets/images/1.png" alt="" /></li>
+                                        <li><img src="assets/images/1.png" alt="" /></li>
+                                        <li><img src="assets/images/1.png" alt="" /></li>
+                                        <li><img src="assets/images/1.png" alt="" /></li>
+                                        <li><img src="assets/images/1.png" alt="" /></li>
+                                        <li><img src="assets/images/1.png" alt="" /></li>
+                                    </ul>
+                                </div>
+                                <div id="tab2" class="s12 tab-content">Test 2</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tlinks">Collect from <a href="http://www.baidu.com/" >中国平安</a></div>
+        </div>
+        <!-- END chat -->
+    </div>
+    <!--右侧主页面-->
+    <div class="content-wrap" >
+        <div class="main">
+            <iframe id="div_view" src="user.html" width="100%" height="580px" frameborder="0"></iframe>
+        </div><!-- /# main -->
+    </div><!-- /# content wrap -->
+	
+    <script src="assets/js/lib/jquery.min.js"></script><!-- jquery vendor -->
+    <script src="assets/js/lib/jquery.nanoscroller.min.js"></script><!-- nano scroller -->
+    <script src="assets/js/lib/sidebar.js"></script><!-- sidebar -->
+    <script src="assets/js/lib/bootstrap.min.js"></script><!-- bootstrap -->
+    <script src="assets/js/lib/mmc-common.js"></script>
+    <script src="assets/js/lib/mmc-chat.js"></script>
+	<!--  Chart js -->
+	<script src="assets/js/lib/chart-js/Chart.bundle.js"></script>
+	<script src="assets/js/lib/chart-js/chartjs-init.js"></script>
+	<!-- // Chart js -->
+
+    <script src="assets/js/lib/sparklinechart/jquery.sparkline.min.js"></script><!-- scripit init-->
+    <script src="assets/js/lib/sparklinechart/sparkline.init.js"></script><!-- scripit init-->
+
+	<!--  Datamap -->
+    <script src="assets/js/lib/datamap/d3.min.js"></script>
+    <script src="assets/js/lib/datamap/topojson.js"></script>
+    <script src="assets/js/lib/datamap/datamaps.world.min.js"></script>
+    <script src="assets/js/lib/datamap/datamap-init.js"></script>
+	<!-- // Datamap &ndash;&gt;-->
+    <script src="assets/js/lib/weather/jquery.simpleWeather.min.js"></script>
+    <script src="assets/js/lib/weather/weather-init.js"></script>
+    <script src="assets/js/lib/owl-carousel/owl.carousel.min.js"></script>
+    <script src="assets/js/lib/owl-carousel/owl.carousel-init.js"></script>
+    <script src="assets/js/scripts.js"></script><!-- scripit init-->
+</body>
+</html>

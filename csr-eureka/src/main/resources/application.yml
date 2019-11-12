@@ -1,0 +1,24 @@
+server:
+  port: 10086
+
+eureka:
+  instance:
+    hostname: localhost
+    prefer-ip-address: true  #以IP地址注册到服务中心，相互注册使用IP地址
+
+  client:
+    fetch-registry: false #不拉取服务
+    register-with-eureka: false #不注册自己
+
+    service-url:
+     defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@${eureka.instance.hostname}:10086/eureka
+
+spring:
+  application:
+    name: eureka-server
+
+  security:
+    user:
+      name: admin
+      password: admin
+      roles: SUPERUSER
