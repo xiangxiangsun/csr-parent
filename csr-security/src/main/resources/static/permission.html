@@ -5,24 +5,24 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>permission</title>
-    <meta name="description" content="健康">
-    <meta name="keywords" content="健康">
+    <meta name="description" content="客服系统">
+    <meta name="keywords" content="客服系统">
     <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
     <!-- 引入样式 -->
-    <link rel="stylesheet" href="../static/plugins/elementui/index.css">
-    <link rel="stylesheet" href="../static/plugins/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="plugins/elementui/index.css">
+    <link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="hold-transition">
 <div id="app">
     <div class="content-header">
-        <h1>权限管理
-            <small>权限管理项</small>
+        <h1>系统设置
+            <small>权限管理</small>
         </h1>
         <el-breadcrumb separator-class="el-icon-arrow-right" class="breadcrumb">
             <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item>系统设置</el-breadcrumb-item>
             <el-breadcrumb-item>权限管理</el-breadcrumb-item>
-            <el-breadcrumb-item>权限管理项</el-breadcrumb-item>
         </el-breadcrumb>
     </div>
     <div class="app-container">
@@ -127,10 +127,10 @@
 </div>
 </body>
 <!-- 引入组件库 -->
-<script src="../static/js/vue.js"></script>
-<script src="../static/plugins/elementui/index.js"></script>
-<script type="text/javascript" src="../static/js/jquery.min.js"></script>
-<script src="../static/js/axios-0.18.0.js"></script>
+<script src="js/vue.js"></script>
+<script src="plugins/elementui/index.js"></script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script src="js/axios-0.18.0.js"></script>
 <script>
     var vue = new Vue({
         el: '#app',
@@ -157,7 +157,7 @@
         methods: {
             //编辑
             handleEdit() {
-                axios.post("/permission/edit.do",this.formData).then((res)=>{
+                axios.post("/permission/edit",this.formData).then((res)=>{
                     //编辑成功
                     this.dialogFormVisible4Edit = false;
                     if (res.data.flag) {
@@ -174,7 +174,7 @@
             //添加
             handleAdd() {
                 // 添加权限管理项
-                axios.post("/permission/add.do",this.formData).then((res)=>{
+                axios.post("/permission/add",this.formData).then((res)=>{
 
                     // 添加成功
                     this.dialogFormVisible = false;
@@ -201,7 +201,7 @@
                     pageSize: this.pagination.pageSize,
                     queryString: this.pagination.queryString4
                 };
-                axios.post("/permission/findPage.do",param).then((res)=>{
+                axios.post("/permission/findPage",param).then((res)=>{
 
                     // 为模型添加双向绑定
                     this.dataList = res.data.rows;
@@ -221,7 +221,7 @@
             },
             // 弹出编辑窗口
             handleUpdate(row) {
-                axios.get("/permission/findById.do?id="+ row.id).then((res)=>{
+                axios.get("/permission/findById?id="+ row.id).then((res)=>{
 
                     if (res.data.flag){
 
@@ -242,7 +242,7 @@
             handleDelete(row) {
                 this.$confirm("确认删除当前选中记录吗？", "提示", {type: 'warning'}).then(() => {
 
-                    axios.get("/permission/delete.do?id=" + row.id).then((res)=>{
+                    axios.get("/permission/delete?id=" + row.id).then((res)=>{
                         if (res.data.flag){
                             this.$message.success(res.data.message);
 
