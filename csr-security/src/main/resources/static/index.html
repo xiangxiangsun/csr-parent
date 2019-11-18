@@ -1,339 +1,151 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
+    <!-- 页面meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <title>中国平安</title>
-	
-	<!-- Styles -->
-    <link href="assets/css/lib/font-awesome.min.css" rel="stylesheet">
-    <link href="assets/css/lib/themify-icons.css" rel="stylesheet">
-    <link href="assets/css/lib/owl.carousel.min.css" rel="stylesheet" />
-    <link href="assets/css/lib/owl.theme.default.min.css" rel="stylesheet" />
-    <link href="assets/css/lib/weather-icons.css" rel="stylesheet" />
-    <link href="assets/css/lib/mmc-chat.css" rel="stylesheet" />
-    <link href="assets/css/lib/sidebar.css" rel="stylesheet">
-    <link href="assets/css/lib/bootstrap.min.css" rel="stylesheet">
-    <link href="assets/css/lib/simdahs.css" rel="stylesheet">
-    <link href="assets/css/style.css" rel="stylesheet">
+    <meta name="description" content="客服">
+    <meta name="keywords" content="客服">
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="plugins/elementui/index.css">
+    <link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css">
 
-<!--  测试jquery点击跳转超链接  -->
-    <script type="text/javascript" src="js/jquery.min.js">
-    </script>
-    <script type="text/javascript">
-        $(function(){
-            /* 点击事件会在超链接跳转前发生 */
-            $("#div_test a").click(function(){
-                var link = $(this).attr('href');
-                $('#div_view').attr('src', link);
-                var href = window.location.href;
-                window.location.href = href.substr(0, href.indexOf('#')) + '#' + link;
-                return false;
-            });
-        });
-
-    </script>
-
+    <style type="text/css">
+        .el-main{
+            position: absolute;
+            top: 70px;
+            bottom: 0px;
+            left: 200px;
+            right: 10px;
+            padding: 0;
+        }
+    </style>
 </head>
+<body class="hold-transition skin-purple sidebar-mini">
+<div id="app">
+    <el-container>
+        <el-header  class="main-header" style="height:70px;">
+            <nav class="navbar navbar-static-top" :class=''>
+                <!-- Logo -->
 
-<body>
-
-    <div class="sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures" id="div_test">
-        <div class="nano">
-            <div class="nano-content">
-                <ul>
-					<li class="label">业务查询</li>
-                    <li class="active"><a href="user.html"><i class="ti-home"></i> 综合查询 </a></li>
-					<li class="label">系统设置</li>
-                    <li><a href="user.html"><i class="ti-user"></i> 用户管理</a></li>
-                    <li><a href="role.html"><i class="ti-layout"></i> 角色管理</a></li>
-                    <li><a href="permission.html"><i class="ti-panel"></i> 权限管理</a></li>
-                    <li><a href="menu.html"><i class="ti-view-list-alt"></i> 菜单管理</a></li>
-                    <li><a href="member.html"><i class="ti-heart"></i> 修改密码</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <div class="header">
-        <div class="pull-left">
-            <div class="logo" id="sideLogo">
-                <a href="index.html">
-                    <img class="full-logo" src="assets/images/logo-big.png" alt="SimDahs">
-                    <img class="small-logo" src="assets/images/logo-small.png" alt="SimDahs">
+                <a href="#" class="logo" style="text-align:center;margin-top:-15px">
+                    <span class="logo-lg"><img src="img/logo.png"></span>
                 </a>
-            </div>
-            <div class="hamburger sidebar-toggle">
-                <span class="ti-menu"></span>
-            </div>
-        </div>
-
-        <div class="pull-right p-r-15">
-            <ul>
-
-                <li class="header-icon dib"><img class="avatar-img" src="assets/images/avatar/1.jpg" alt="" /> <span class="user-avatar">user<i class="ti-angle-down f-s-10"></i></span>
-                    <div class="drop-down dropdown-profile">
-                        <div class="dropdown-content-body">
-                            <ul>
-                                <li><a href="#"><i class="ti-user"></i> <span>修改密码</span></a></li>
-                                <li><a href="#"><i class="ti-wallet"></i> <span>退出登录</span></a></li>
-                            </ul>
+                <div class="right-menu">
+<!--                    <span class="help"><i class="fa fa-exclamation-circle" aria-hidden="true"></i>帮助</span>-->
+                    <el-dropdown class="avatar-container right-menu-item" trigger="click">
+                        <div class="avatar-wrapper">
+                            <img src="img/user-160x160.jpg" class="user-avatar">
+                            {{username}}
                         </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
-
-	<div class="chat-sidebar">
-        <!-- BEGIN chat -->
-        <div id="mmc-chat" class="color-default">
-            <!-- BEGIN CHAT BOX -->
-            <div class="chat-box">
-                <!-- BEGIN CHAT BOXS -->
-                <ul class="boxs"></ul>
-                <!-- END CHAT BOXS -->
-                <div class="icons-set">
-                    <div class="stickers">
-                        <div class="had-container">
-                            <div class="row">
-                                <div class="s12">
-                                    <ul class="tabs" style="width: 100%;height: 60px;">
-                                        <li class="tab col s3">
-                                            <a href="#tab1" class="active">
-                                                <img src="assets/images/1.png" alt="" />
-                                            </a>
-                                        </li>
-                                        <li class="tab col s3"><a href="#tab2">Test 2</a></li>
-                                    </ul>
-                                </div>
-                                <div id="tab1" class="s12 tab-content">
-                                    <ul>
-                                        <li><img src="assets/images/1.png" alt="" /></li>
-                                        <li><img src="assets/images/1.png" alt="" /></li>
-                                        <li><img src="assets/images/1.png" alt="" /></li>
-                                        <li><img src="assets/images/1.png" alt="" /></li>
-                                        <li><img src="assets/images/1.png" alt="" /></li>
-                                        <li><img src="assets/images/1.png" alt="" /></li>
-                                        <li><img src="assets/images/1.png" alt="" /></li>
-                                        <li><img src="assets/images/1.png" alt="" /></li>
-                                        <li><img src="assets/images/1.png" alt="" /></li>
-                                        <li><img src="assets/images/1.png" alt="" /></li>
-                                        <li><img src="assets/images/1.png" alt="" /></li>
-                                        <li><img src="assets/images/1.png" alt="" /></li>
-                                        <li><img src="assets/images/1.png" alt="" /></li>
-                                    </ul>
-                                </div>
-                                <div id="tab2" class="s12 tab-content">Test 2</div>
-                            </div>
-                        </div>
-                    </div>
+                        <el-dropdown-menu slot="dropdown">
+                            <el-dropdown-item divided>
+                                <span style="display:block;">修改密码</span>
+                            </el-dropdown-item>
+                            <el-dropdown-item divided>
+                                        <span style="display:block;">
+                                            <a href="/logout">退出</a>
+                                        </span>
+                            </el-dropdown-item>
+                        </el-dropdown-menu>
+                    </el-dropdown>
                 </div>
-            </div>
-            <div class="tlinks">Collect from <a href="http://www.baidu.com/" >中国平安</a></div>
-        </div>
-        <!-- END chat -->
-    </div>
-    <!--右侧主页面-->
-    <div class="content-wrap" >
-        <div class="main">
-            <iframe id="div_view" src="user.html" width="100%" height="580px" frameborder="0"></iframe>
-        </div><!-- /# main -->
-    </div><!-- /# content wrap -->
-	
-    <script src="assets/js/lib/jquery.min.js"></script><!-- jquery vendor -->
-    <script src="assets/js/lib/jquery.nanoscroller.min.js"></script><!-- nano scroller -->
-    <script src="assets/js/lib/sidebar.js"></script><!-- sidebar -->
-    <script src="assets/js/lib/bootstrap.min.js"></script><!-- bootstrap -->
-    <script src="assets/js/lib/mmc-common.js"></script>
-    <script src="assets/js/lib/mmc-chat.js"></script>
-	<!--  Chart js -->
-	<script src="assets/js/lib/chart-js/Chart.bundle.js"></script>
-	<script src="assets/js/lib/chart-js/chartjs-init.js"></script>
-	<!-- // Chart js -->
-
-    <script src="assets/js/lib/sparklinechart/jquery.sparkline.min.js"></script><!-- scripit init-->
-    <script src="assets/js/lib/sparklinechart/sparkline.init.js"></script><!-- scripit init-->
-
-	<!--  Datamap -->
-    <script src="assets/js/lib/datamap/d3.min.js"></script>
-    <script src="assets/js/lib/datamap/topojson.js"></script>
-    <script src="assets/js/lib/datamap/datamaps.world.min.js"></script>
-    <script src="assets/js/lib/datamap/datamap-init.js"></script>
-	<!-- // Datamap &ndash;&gt;-->
-    <script src="assets/js/lib/weather/jquery.simpleWeather.min.js"></script>
-    <script src="assets/js/lib/weather/weather-init.js"></script>
-    <script src="assets/js/lib/owl-carousel/owl.carousel.min.js"></script>
-    <script src="assets/js/lib/owl-carousel/owl.carousel-init.js"></script>
-    <script src="assets/js/scripts.js"></script><!-- scripit init-->
+            </nav>
+        </el-header>
+        <el-container>
+            <el-aside width="200px">
+                <el-menu :collapse="false">
+                    <el-submenu v-for="menu in menuList"  :index="menu.path">
+                        <template slot="title">
+                            <i class="fa" :class="menu.icon"></i>
+                            {{menu.title}}
+                        </template>
+                        <template v-for="child in menu.children">
+                            <el-menu-item :index="child.path">
+                                <a :href="child.linkUrl" target="right">{{child.title}}</a>
+                            </el-menu-item>
+                        </template>
+                    </el-submenu>
+                </el-menu>
+            </el-aside>
+            <el-container>
+                <iframe name="right" class="el-main" src="user.html" width="100%" height="580px" frameborder="0"></iframe>
+            </el-container>
+        </el-container>
+    </el-container>
+</div>
 </body>
-
 <!-- 引入组件库 -->
 <script src="js/vue.js"></script>
 <script src="plugins/elementui/index.js"></script>
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script src="js/axios-0.18.0.js"></script>
+
 <script>
     new Vue({
         el: '#app',
         data:{
-            username:null, // 用户名
+            username:'',
             menuList:[
-                /*{
+                {
                     "path": "1",
                     "title": "工作台",
                     "icon":"fa-dashboard",
-                    "children": []
-                },
-                {
-                    "path": "2",
-                    "title": "会员管理",
-                    "icon":"fa-user-md",
                     "children": [
                         {
-                            "path": "/2-1",
-                            "title": "会员档案",
-                            "linkUrl":"member.html",
-                            "children":[]
-                        },
-                        {
-                            "path": "/2-2",
-                            "title": "体检上传",
-                            "children":[]
-                        },
-                        {
-                            "path": "/2-3",
-                            "title": "会员统计",
-                            "linkUrl":"all-item-list.html",
-                            "children":[]
-                        },
-                    ]
-                },
-                {
-                    "path": "3",
-                    "title": "预约管理",
-                    "icon":"fa-tty",
-                    "children": [
-                        {
-                            "path": "/3-1",
-                            "title": "预约列表",
-                            "linkUrl":"ordersettinglist.html",
-                            "children":[]
-                        },
-                        {
-                            "path": "/3-2",
-                            "title": "预约设置",
-                            "linkUrl":"ordersetting.html",
-                            "children":[]
-                        },
-                        {
-                            "path": "/3-3",
-                            "title": "套餐管理",
-                            "linkUrl":"setmeal.html",
-                            "children":[]
-                        },
-                        {
-                            "path": "/3-4",
-                            "title": "检查组管理",
-                            "linkUrl":"checkgroup.html",
-                            "children":[]
-                        },
-                        {
-                            "path": "/3-5",
-                            "title": "检查项管理",
-                            "linkUrl":"checkitem.html",
-                            "children":[]
-                        },
-                    ]
-                },
-                {
-                    "path": "4",
-                    "title": "健康评估",
-                    "icon":"fa-stethoscope",
-                    "children":[
-                        {
-                            "path": "/4-1",
-                            "title": "中医体质辨识",
-                            "linkUrl":"all-medical-list.html",
-                            "children":[]
-                        },
-                    ]
-                },
-                {
-                    "path": "5",     //菜单项所对应的路由路径
-                    "title": "统计分析",     //菜单项名称
-                    "icon":"fa-heartbeat",
-                    "children":[//是否有子菜单，若没有，则为[]
-                        {
-                            "path": "/5-1",
-                            "title": "会员数量",
-                            "linkUrl":"report_member.html",
-                            "children":[]
-                        },
-                        {
-                            "path": "/5-2",
-                            "title": "套餐占比",
-                            "linkUrl":"report_setmeal.html",
-                            "children":[]
-                        },
-                        {
-                            "path": "/5-3",
-                            "title": "运营数据",
-                            "linkUrl":"report_business.html",
+                            "path": "/1-1",
+                            "title": "综合查询",
+                            "linkUrl":"updatePSW.html",
                             "children":[]
                         }
                     ]
                 },
                 {
-                    "path": "6",     //菜单项所对应的路由路径
-                    "title": "系统设置",     //菜单项名称
-                    "icon":"fa-h-square",
-                    "children":[//是否有子菜单，若没有，则为[]
+                    "path": "2",
+                    "title": "系统设置",
+                    "icon":"fa-user-md",
+                    "children": [
                         {
-                            "path": "/6-1",
-                            "title": "菜单管理",
-                            "linkUrl":"menu.html",
+                            "path": "/2-1",
+                            "title": "用户管理",
+                            "linkUrl":"user.html",
                             "children":[]
                         },
                         {
-                            "path": "/6-2",
-                            "title": "权限管理",
-                            "linkUrl":"permission.html",
-                            "children":[]
-                        },
-                        {
-                            "path": "/6-3",
+                            "path": "/2-2",
                             "title": "角色管理",
                             "linkUrl":"role.html",
                             "children":[]
                         },
                         {
-                            "path": "/6-4",
-                            "title": "用户管理",
-                            "linkUrl":"user.html",
+                            "path": "/2-3",
+                            "title": "权限管理",
+                            "linkUrl":"permission.html",
+                            "children":[]
+                        },{
+                            "path": "/2-4",
+                            "title": "菜单管理",
+                            "linkUrl":"menu.html",
+                            "children":[]
+                        },{
+                            "path": "/2-5",
+                            "title": "修改密码",
+                            "linkUrl":"updatePSW.html",
                             "children":[]
                         }
                     ]
-                }*/
+                }
             ]
         },
         created(){
-            // 发送请求获取当前登录用户的用户名
-            axios.get("/user/getUserName.do").then((res)=>{
+            axios.get("/user/getUserName").then((res)=>{
                 this.username = res.data.data;
-            // 发送请求获取侧边栏菜单
-
-            axios.get("/menu/getMenuList.do?username=" + this.username).then((res)=>{
-                console.log(res.data.data);
-            this.menuList = res.data.data;
-        })
-        });
+            })
         }
     });
-
     $(function() {
         var wd = 200;
         $(".el-main").css('width', $('body').width() - wd + 'px');
