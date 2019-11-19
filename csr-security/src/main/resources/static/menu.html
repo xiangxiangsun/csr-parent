@@ -5,13 +5,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>menu</title>
-    <meta name="description" content="健康">
-    <meta name="keywords" content="健康">
+    <meta name="description" content="客服系统">
+    <meta name="keywords" content="客服系统">
     <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
     <!-- 引入样式 -->
-    <link rel="stylesheet" href="../static/plugins/elementui/index.css">
-    <link rel="stylesheet" href="../static/plugins/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="plugins/elementui/index.css">
+    <link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css">
 
 </head>
 <body class="hold-transition">
@@ -42,6 +42,7 @@
                       type="text"
                       size="mini"
                       @click="handleAdd(node,data)">
+
                 添加
               </el-button>
                 <el-button
@@ -111,10 +112,10 @@
 </div>
 </body>
 <!-- 引入组件库 -->
-<script src="../static/js/vue.js"></script>
-<script src="../static/plugins/elementui/index.js"></script>
-<script type="text/javascript" src="../static/js/jquery.min.js"></script>
-<script src="../static/js/axios-0.18.0.js"></script>
+<script src="js/vue.js"></script>
+<script src="plugins/elementui/index.js"></script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script src="js/axios-0.18.0.js"></script>
 <script>
     new Vue( {
         el: "#app",
@@ -157,7 +158,7 @@
             // 编辑弹框
             handleUpdate(node,data){
               // 回显数据
-              axios.get("/menu/findMenuById.do?id=" + data.id).then((res)=>{
+              axios.get("/menu/findMenuById?id=" + data.id).then((res)=>{
                   console.log(res.data.data);
                   this.formData = res.data.data;
                   this.dialog4UpdateVisible = true;
@@ -174,7 +175,7 @@
                 * */
                 console.log(this.formData);
                 // 发送ajax请求将数据发送到后台
-                axios.post("/menu/add.do",this.formData).then((res)=>{
+                axios.post("/menu/add",this.formData).then((res)=>{
                     // 隐藏弹框
                     this.dialog4AddVisible = false;
                     if (res.data.flag){
@@ -191,7 +192,7 @@
             // 编辑
             update(){
                 // 发送ajax请求将数据发送到后台
-                axios.post("/menu/update.do",this.formData).then((res)=>{
+                axios.post("/menu/update",this.formData).then((res)=>{
                     // 隐藏弹框
                     this.dialog4UpdateVisible = false;
                     if (res.data.flag){
@@ -208,7 +209,7 @@
             // 刷新页面
             findMenu(){
                 // 发送ajax请求获取菜单数据
-                axios.get("/menu/getAll.do").then((res)=>{
+                axios.get("/menu/getAll").then((res)=>{
                     console.log(res.data.data);
                     // 将数据赋值给menudata
                     this.menudata = res.data.data;
@@ -218,7 +219,7 @@
             // 删除
             remove(node, data) {
                 // 发送ajax请求删除数据
-                axios.get("/menu/remove.do?id=" + data.id).then((res)=>{
+                axios.get("/menu/remove?id=" + data.id).then((res)=>{
                     if (res.data.flag){
                         // 删除成功
                         this.$message.success(res.data.message);

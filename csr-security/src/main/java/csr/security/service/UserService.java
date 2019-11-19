@@ -1,22 +1,23 @@
 package csr.security.service;
 
+import csr.security.entity.PageResult;
 import csr.security.entity.SysUser;
-import csr.security.mapper.UserMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
+import java.util.List;
 
-@Service
-public class UserService {
-    @Resource
-    private UserMapper userMapper;
+public interface UserService {
+    SysUser loadUserByUsername(String username);
 
-    public SysUser selectById(Integer id){
-        return userMapper.selectById(id);
-    }
+    PageResult findPage(Integer currentPage, Integer pageSize, String queryString);
 
-    public SysUser selectByName(String name){
-        return userMapper.selectByName(name);
-    }
+    void add(SysUser user, Integer[] roleIds);
+
+    SysUser findById(Integer id);
+
+    List<Integer> findRoleIdsByUserId(Integer id);
+
+    void edit(SysUser user, Integer[] roleIds);
+
+    void deleteById(Integer id);
 }

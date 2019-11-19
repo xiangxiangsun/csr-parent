@@ -1,7 +1,9 @@
 package csr.security.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -38,12 +40,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 // 如果有允许匿名的url，填在下面
-                .antMatchers("/css/*.css").permitAll()
-                .antMatchers("/images/*.jpg").permitAll()
+                .antMatchers("/css/*.css").permitAll() //登陆所需资源
+                .antMatchers("/images/*.jpg").permitAll() //登陆所需资源
+                //其他地址的访问均需验证权限
                 .anyRequest().authenticated()
                 .and()
                 // 设置登陆页
-                .formLogin().loginPage("/login")
+                .formLogin() //form提交登陆
+                .loginPage("/login")  //登陆页
                 // 设置登陆成功页
                 .defaultSuccessUrl("/",true)
                 .failureUrl("/login?error")
@@ -52,15 +56,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .usernameParameter("username")
 //                .passwordParameter("password")
                 .and()
-                .logout().logoutUrl("/logout")
-                .logoutSuccessUrl("/login")
-                .deleteCookies("JSESSIONID")
-                .permitAll();
+                .logout()  //添加 /logout访问点，能退出
+                .logoutSuccessUrl("/login");  //退出后访问
 
-        // 关闭CSRF跨域
+        //开启跨域访问
+        http.cors().disable();
+        //开启模拟请求，比如API POST测试工具的测试，不开启时，API POST为报403错误
         http.csrf().disable();
-//        super.configure(http);
-        // 设置可以iframe访问
+        // 设置可以iframe访问，内部刷新用到的
         http.headers().frameOptions().sameOrigin();
     }
 
@@ -69,4 +72,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // 设置拦截忽略文件夹，可以对静态资源放行
         web.ignoring().antMatchers("/static/assets/**","/static/css/**","/static/images/**","/static/img/**","/static/js/**","/static/plugins/**","/static/template/**");
     }
+
 }

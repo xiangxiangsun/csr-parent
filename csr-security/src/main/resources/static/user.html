@@ -5,19 +5,19 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>user</title>
-        <meta name="description" content="健康">
-        <meta name="keywords" content="健康">
+        <meta name="description" content="客服系统">
+        <meta name="keywords" content="客服系统">
         <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
         <!-- 引入样式 -->
-        <link rel="stylesheet" href="../static/plugins/elementui/index.css">
-        <link rel="stylesheet" href="../static/plugins/font-awesome/css/font-awesome.min.css">
-        <link rel="stylesheet" href="../static/css/style.css">
+        <link rel="stylesheet" href="plugins/elementui/index.css">
+        <link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="css/style.css">
         <!-- 引入组件库 -->
-        <script type="text/javascript" src="../static/js/jquery.min.js"></script>
-        <script src="../static/js/vue.js"></script>
-        <script src="../static/plugins/elementui/index.js"></script>
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script src="js/vue.js"></script>
+        <script src="plugins/elementui/index.js"></script>
 
-        <script src="../static/js/axios-0.18.0.js"></script>
+        <script src="js/axios-0.18.0.js"></script>
         <style>
             .datatable {
                 position: relative;
@@ -114,8 +114,6 @@
                                             </el-row>
                                             <el-row>
 
-
-
                                                 <!--<template>-->
                                                     <!--<div class="block">-->
                                                         <!--<span class="demonstration">默认</span>-->
@@ -125,7 +123,6 @@
                                                                 <!--placeholder="选择日期">-->
                                                         <!--</el-date-picker>-->
                                                     <!--</div>-->
-
 
                                                 <el-col :span="12">
                                                     <el-form-item label="生日">
@@ -144,7 +141,7 @@
                                             <el-row>
                                                 <el-col :span="24">
                                                     <el-form-item label="状态">
-                                                        <el-input v-model="formData.status" type="textarea"></el-input>
+                                                        <el-input v-model="formData.station" type="textarea"></el-input>
                                                     </el-form-item>
                                                 </el-col>
                                             </el-row>
@@ -216,18 +213,15 @@
                                             </el-row>
                                             <el-row>
 
-
-
-                                                <!--<template>-->
-                                                <!--<div class="block">-->
-                                                <!--<span class="demonstration">默认</span>-->
-                                                <!--<el-date-picker-->
-                                                <!--v-model="value1"-->
-                                                <!--type="date"-->
-                                                <!--placeholder="选择日期">-->
-                                                <!--</el-date-picker>-->
-                                                <!--</div>-->
-
+<!--                                                <template>-->
+<!--                                                <div class="block">-->
+<!--                                                <span class="demonstration">默认</span>-->
+<!--                                                <el-date-picker-->
+<!--                                                v-model="value1"-->
+<!--                                                type="date"-->
+<!--                                                placeholder="选择日期">-->
+<!--                                                </el-date-picker>-->
+<!--                                                </div>-->
 
                                                 <el-col :span="12">
                                                     <el-form-item label="生日">
@@ -323,7 +317,7 @@
                 handleEdit() {
                     // console.log(this.roleIds,this.formData);
                     //发送ajax请求,提交模型数据
-                    axios.post("/user/edit.do?roleIds=" + this.roleIds,this.formData)
+                    axios.post("/user/edit?roleIds=" + this.roleIds,this.formData)
                         .then((res)=>{
                             //隐藏编辑窗口
                             this.dialogFormVisible4Edit = false;
@@ -343,7 +337,7 @@
                 handleAdd () {
                     //发送ajax请求将模型数据提交到后台进行处理
                     console.log(this.roleIds,this.formData);
-                    axios.post("/user/add.do?roleIds=" + this.roleIds,this.formData)
+                    axios.post("/user/add?roleIds=" + this.roleIds,this.formData)
                         .then((res)=>{
                             //关闭新增窗口
                             this.dialogFormVisible = false;
@@ -370,7 +364,7 @@
                         queryString : this.pagination.queryString//查询条件
                     };
                     //请求后台
-                    axios.post("/user/findPage.do",param).then((res) => {
+                    axios.post("/user/findPage",param).then((res) => {
                         //为模型数据赋值,基于Vue的v-model双向绑定展示到页面中
                         this.dataList = res.data.rows;
                         this.pagination.total = res.data.total;
@@ -390,7 +384,7 @@
                     this.roleIds = [];
                     //发送axios请求查询所有检查项信息
                     // alert("11111");
-                    axios.get("/role/findAll.do").then((res) => {
+                    axios.get("/role/findAll").then((res) => {
                         if (res.data.flag){
                             //成功就将检查项列表数据赋值给模型数据用于页面表格展示
                             this.tableData = res.data.data;
@@ -403,7 +397,7 @@
                 // 弹出编辑窗口
                 handleUpdate(row) {
                     // alert(row);
-                    axios.get("/user/findById.do?id=" + row.id).then((res) => {
+                    axios.get("/user/findById?id=" + row.id).then((res) => {
                         if (res.data.flag){
                             //弹出编辑窗口
                             this.dialogFormVisible4Edit = true;
@@ -412,13 +406,13 @@
                             //为模型数据赋值,通过vue数据双向绑定进行信息的回显
                             this.formData = res.data.data;
                             //发送ajax请求查询所有的检查项信息,用于查询项表格展示
-                            axios.get("/role/findAll.do").then((res) => {
+                            axios.get("/role/findAll").then((res) => {
                                 if (res.data.flag){
                                     //为模型数据赋值,通过vue数据双向绑定进袭姑娘数据回显
                                     this.tableData = res.data.data;
                                     //查询当前检查组包含的所有检查项id, 用于页面回显
 
-                                    axios.get("/user/findRoleIdsByUserId.do?id="+row.id).then((res)=>{
+                                    axios.get("/user/findRoleIdsByUserId?id="+row.id).then((res)=>{
                                         //为模型数据进行赋值,通过vue数据双向绑定进行信息的回显
                                         this.roleIds = res.data;
                                     });
@@ -439,7 +433,7 @@
                 },
                 // 删除
                 handleDelete(row) {
-                    axios.get("/user/deleteById.do?id=" + row.id).then((res) => {
+                    axios.get("/user/deleteById?id=" + row.id).then((res) => {
                         if (res.data.flag){
                             this.$message.success("用户信息删除成功")
                         } else {

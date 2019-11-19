@@ -24,8 +24,6 @@
         </el-breadcrumb>
     </div>
 
-
-
     <div class="app-container">
 
         <div class="box">
@@ -40,21 +38,19 @@
                     label-width="100px"
             >
                 <el-form-item label="旧密码：" prop="password">
-                    <el-input type="password" v-model="resetForm.password" auto-complete="off"></el-input>
+                    <el-input type="password" v-model="resetForm.password"  auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="新密码：" prop="newpwd">
                     <el-input type="password" v-model="resetForm.newpwd" auto-complete="off"></el-input>
                 </el-form-item>
-                <el-form-item label="确认密码：" prop="newpassword1">
-                    <el-input type="password" v-model="resetForm.newpassword1" auto-complete="off"></el-input>
+                <el-form-item label="确认密码：" prop="newpassword">
+                    <el-input type="password" v-model="resetForm.newpassword" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click.native.prevent="toAmend">确认修改</el-button>
                 </el-form-item>
             </el-form>
         </div>
-
-
 
             </div>
 
@@ -67,6 +63,7 @@
 <script src="plugins/elementui/index.js"></script>
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script src="js/axios-0.18.0.js"></script>
+
 <script>
 
     var vue = new Vue({
@@ -90,77 +87,65 @@
                     callback();
                 }
             };
+
             return {
                 resetForm: {
-                    //传给后台所需要的参数
-                    newpassword1: "",
+                    // //传给后台所需要的参数
+                    newpassword: "",
                     password: "",
-                    username: ""//此处只是后台需要的字段而已，如果前期有公用cookie里面有获取并且保存过，现在需要另外调用进来，具体的获取方法就看个人了
+                    username: "",//此处只是后台需要的字段而已，如果前期有公用cookie里面有获取并且保存过，现在需要另外调用进来，具体的获取方法就看个人了
                 },
                 resetFormRules: {
                     password: [
-                        { required: true, message: "请输入旧密码", trigger: 'blur' }
+                        { required: true, message: "请输入正确的旧密码", trigger: 'blur' }
                     ],
                     newpwd: [
                         { required: true, validator: validatePass, trigger: 'blur' }
                     ],
-                    newpassword1: [
+                    newpassword: [
                         { required: true, validator: validatePass2, trigger: "blur" }
                     ]
                 }
             };
         },
+        created(){
+        axios.get("/user/getUserName").then((res)=>{
+            this.resetForm.username = res.data.data;
+        })
+    },
         methods: {
             toAmend() {
                 this.$refs.resetForm.validate(valid => {
                     if (valid) {
-
-                        // 发送请求
-                        axios.post("/pwd/update",this.resetForm).then((response)=> {
+                        axios.post("/pwd/Confirm",this.resetForm).then((response)=> {
                             if (response.data.flag) {
-                                // 编辑成功，弹出成功提示信息
-                                this.$message({
-                                    message: response.data.message,
-                                    type: 'success'
-                                });
-                                this.logout();
-                            } else {
+                                // 发送请求
+                                axios.post("/pwd/update", this.resetForm).then((response2) => {
+                                    if (response2.data.flag) {
+                                        // 编辑成功，弹出成功提示信息
+                                        this.$message({
+                                            message: response2.data.message,
+                                            type: 'success'
+                                        });
+                                        // this.logout();
+                                        setTimeout(() => {
+                                            window.parent.location.href = "/logout";
+                                        },2000)
+                                    } else {
+                                        // 编辑失败，弹出错误提示
+                                        this.$message.error(response2.data.message);
+                                    }
+                                })
+                            }else {
                                 // 编辑失败，弹出错误提示
                                 this.$message.error(response.data.message);
                             }
                         })
 
-                        //这里的api.materialQuery.toAmend是调用前期我们统一的api接口url路径，不作参考 ，只要把后台需要的字段正常传进去即可
-                        // api.materialQuery.toAmend(this.resetForm)
-                        //     .then(res => {
-                        //         if(res.code === 2){
-                        //             this.$message({
-                        //                 message: res.msg,
-                        //                 type: "error",
-                        //                 duration: "2000"
-                        //             });
-                        //             return false;
-                        //         }
-                        //         if (res.code === 0) {
-                        //             this.$message.success("修改成功,3秒后跳转到登录页！");
-                        //             setTimeout(() => {
-                        //                 this.logout();//调用跳转到登陆页的方法
-                        //             }, 3000);
-                        //         }
-                        //         ic
-                        //     })
-                        //     .catch(() => {});
                     }
                 });
-            },
-            //这是修改成功后重新返回登陆页的方法，看个人需要自行调整
-            async logout() {
-                await this.$store.dispatch("user/logout");
-                this.$router.push(`/login`);
             }
-        },
+        }
     })
-
-
 </script>
 </html>

@@ -23,6 +23,7 @@ spring:
       name: admin
       password: admin
 
+
 eureka:
   client:
     service-url:
@@ -40,4 +41,4 @@ mybatis-plus:
   type-aliases-package: csr.security.eneity
   configuration:
     map-underscore-to-camel-case: true
-  mapper-locations: mappers/*.xml
+  mapper-locations: mapper/*.xml

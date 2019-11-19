@@ -1,19 +1,21 @@
 package csr.security.service;
 
+import csr.security.entity.PageResult;
 import csr.security.entity.SysRole;
-import csr.security.mapper.RoleMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.apache.ibatis.annotations.Param;
 
-import javax.annotation.Resource;
+import java.util.List;
 
-@Service
-public class RoleService {
+public interface RoleService {
+    PageResult findPage(Integer currentPage, Integer pageSize, String queryString);
 
-    @Resource
-    private RoleMapper roleMapper;
+    void add(SysRole role);
 
-    public SysRole selectById(Integer id){
-        return roleMapper.selectById(id);
-    }
+    void edit(SysRole role,Integer[] MenuIds,Integer[] PermissionIds);
+
+    void delete(Integer id);
+
+    List<SysRole> findAll();
+
+    SysRole findById(@Param("id") Integer id);
 }

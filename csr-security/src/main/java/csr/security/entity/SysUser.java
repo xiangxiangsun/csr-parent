@@ -2,25 +2,39 @@ package csr.security.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 public class SysUser implements Serializable {
     static final long serialVersionUID = 1L;
 
-    private Integer id;
+    private Integer id; // 主键
 
-    private String username;
+    private String username; // 用户名，唯一
 
-    private String password;
+    private String password; // 密码
 
-    private String gender;
+    private String gender; // 性别
 
-    private Date birthday;
+    private Date birthday; // 生日
 
-    private String remark;
+    private String remark; // 备注
 
-    private String station;
+    private String station; // 状态
 
-    private String telephone;
+    private String telephone; // 联系电话
+
+    private Set<SysRole> roles = new HashSet<SysRole>(0);//对应角色集合
+
+    private String newpassword; //修改的新密码
+
+    public String getNewpassword() {
+        return newpassword;
+    }
+
+    public void setNewpassword(String newpassword) {
+        this.newpassword = newpassword;
+    }
 
     public Integer getId() {
         return id;
@@ -84,5 +98,13 @@ public class SysUser implements Serializable {
 
     public void setTelephone(String telephone) {
         this.telephone = telephone;
+    }
+
+    public Set<SysRole> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<SysRole> roles) {
+        this.roles = roles;
     }
 }

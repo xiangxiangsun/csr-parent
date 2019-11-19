@@ -3,9 +3,9 @@ package csr.security.security;
 import csr.security.entity.SysRole;
 import csr.security.entity.SysUser;
 import csr.security.entity.SysUserRole;
-import csr.security.service.RoleService;
+import csr.security.service.RoleSecurityService;
 import csr.security.service.UserRoleService;
-import csr.security.service.UserService;
+import csr.security.service.UserSecurityService;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -20,10 +20,10 @@ import java.util.*;
 @Service("userDetailsService")
 public class CustomUserDetailsService implements UserDetailsService {
     @Resource
-    private UserService userService;
+    private UserSecurityService userSecurityService;
 
     @Resource
-    private RoleService roleService;
+    private RoleSecurityService roleService;
 
     @Resource
     private UserRoleService userRoleService;
@@ -32,7 +32,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         // 从数据库中取出用户信息
-        SysUser user = userService.selectByName(username);
+        SysUser user = userSecurityService.selectByName(username);
 
         // 判断用户是否存在
         if(user == null) {
@@ -41,7 +41,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         // 添加权限
         List<SysUserRole> userRoles = userRoleService.listByUserId(user.getId());
-//
+
 //        System.out.println("------------");
 //        System.out.println(userService.selectByName(username));
 //        System.out.println(user.getId());
