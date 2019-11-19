@@ -25,7 +25,7 @@ public class MenuServiceImpl implements MenuService {
             //根节点
             List<Menu> rootMenu = new ArrayList<Menu>();
             for (Menu nav : allMenu) {
-                if(nav.getParentMenuId() == null || nav.getParentMenuId().equals("")){//父节点是NULL的，为根节点。
+                if(nav.getParentmenuid() == null || nav.getParentmenuid().equals("")){//父节点是NULL的，为根节点。
                     rootMenu.add(nav);
                 }
             }
@@ -90,8 +90,12 @@ public class MenuServiceImpl implements MenuService {
             if (CollectionUtil.isNotEmpty(menuListFirst)){
                 for (Menu menu : menuListFirst) {
                     // 获取二级菜单
-                    List<Menu> menuListSecond = menuDao.findSecondMenu(menu.getId());
-                    menu.setChildren(menuListSecond);
+                    String str = menu.getId();
+                    if (str != null) {
+                        Integer SecondMenu = Integer.valueOf(str);
+                        List<Menu> menuListSecond = menuDao.findSecondMenu(SecondMenu);
+                        menu.setChildren(menuListSecond);
+                    }
                 }
             }
         }
@@ -105,7 +109,7 @@ public class MenuServiceImpl implements MenuService {
         for (Menu nav : allMenu) {
             // 遍历所有节点，将所有菜单的父id与传过来的根节点的id比较
             //相等说明：为该根节点的子节点。
-            if(nav.getParentMenuId() != null && nav.getParentMenuId().equals(id)){
+            if(nav.getParentmenuid() != null && nav.getParentmenuid().equals(id)){
                 childList.add(nav);
             }
         }

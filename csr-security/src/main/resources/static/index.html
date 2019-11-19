@@ -57,22 +57,23 @@
         </el-header>
         <el-container>
             <el-aside width="200px">
-                <el-menu :collapse="false">
+                <el-menu>
+<!--                <el-menu :collapse="false">-->
                     <el-submenu v-for="menu in menuList"  :index="menu.path">
                         <template slot="title">
                             <i class="fa" :class="menu.icon"></i>
-                            {{menu.title}}
+                            {{menu.name}}
                         </template>
                         <template v-for="child in menu.children">
                             <el-menu-item :index="child.path">
-                                <a :href="child.linkUrl" target="right">{{child.title}}</a>
+                                <a :href="child.linkUrl" target="right">{{child.name}}</a>
                             </el-menu-item>
                         </template>
                     </el-submenu>
                 </el-menu>
             </el-aside>
             <el-container>
-                <iframe name="right" class="el-main" src="user.html" width="100%" height="580px" frameborder="0"></iframe>
+                <iframe name="right" class="el-main" src="" width="100%" height="580px" frameborder="0"></iframe>
             </el-container>
         </el-container>
     </el-container>
@@ -90,59 +91,65 @@
         data:{
             username:'',
             menuList:[
-                {
-                    "path": "1",
-                    "title": "工作台",
-                    "icon":"fa-dashboard",
-                    "children": [
-                        {
-                            "path": "/1-1",
-                            "title": "综合查询",
-                            "linkUrl":"updatePSW.html",
-                            "children":[]
-                        }
-                    ]
-                },
-                {
-                    "path": "2",
-                    "title": "系统设置",
-                    "icon":"fa-user-md",
-                    "children": [
-                        {
-                            "path": "/2-1",
-                            "title": "用户管理",
-                            "linkUrl":"user.html",
-                            "children":[]
-                        },
-                        {
-                            "path": "/2-2",
-                            "title": "角色管理",
-                            "linkUrl":"role.html",
-                            "children":[]
-                        },
-                        {
-                            "path": "/2-3",
-                            "title": "权限管理",
-                            "linkUrl":"permission.html",
-                            "children":[]
-                        },{
-                            "path": "/2-4",
-                            "title": "菜单管理",
-                            "linkUrl":"menu.html",
-                            "children":[]
-                        },{
-                            "path": "/2-5",
-                            "title": "修改密码",
-                            "linkUrl":"updatePSW.html",
-                            "children":[]
-                        }
-                    ]
-                }
+                // {
+                //     "path": "1",
+                //     "title": "工作台",
+                //     "icon":"fa-dashboard",
+                //     "children": [
+                //         {
+                //             "path": "/1-1",
+                //             "title": "综合查询",
+                //             "linkUrl":"updatePSW.html",
+                //             "children":[]
+                //         }
+                //     ]
+                // },
+                // {
+                //     "path": "2",
+                //     "title": "系统设置",
+                //     "icon":"fa-user-md",
+                //     "children": [
+                //         {
+                //             "path": "/2-1",
+                //             "title": "用户管理",
+                //             "linkUrl":"user.html",
+                //             "children":[]
+                //         },
+                //         {
+                //             "path": "/2-2",
+                //             "title": "角色管理",
+                //             "linkUrl":"role.html",
+                //             "children":[]
+                //         },
+                //         {
+                //             "path": "/2-3",
+                //             "title": "权限管理",
+                //             "linkUrl":"permission.html",
+                //             "children":[]
+                //         },{
+                //             "path": "/2-4",
+                //             "title": "菜单管理",
+                //             "linkUrl":"menu.html",
+                //             "children":[]
+                //         },{
+                //             "path": "/2-5",
+                //             "title": "修改密码",
+                //             "linkUrl":"updatePSW.html",
+                //             "children":[]
+                //         }
+                //     ]
+                // }
             ]
         },
         created(){
             axios.get("/user/getUserName").then((res)=>{
                 this.username = res.data.data;
+
+                // 发送请求获取侧边栏菜单
+                axios.get("/menu/getMenuList?username=" + this.username).then((res)=>{
+                    console.log(res.data.data);
+                    this.menuList = res.data.data;
+                })
             })
         }
     });

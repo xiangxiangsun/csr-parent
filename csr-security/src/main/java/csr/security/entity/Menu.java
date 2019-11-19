@@ -16,7 +16,7 @@ public class Menu implements Serializable {
     private String icon;//图标
     private Set<SysRole> roles = new HashSet<SysRole>(0);//角色集合
     private List<Menu> children = new ArrayList<>();//子菜单集合
-    private String parentMenuId;//父菜单id
+    private String parentmenuid;//父菜单id
     private String label;
 
     public String getLabel() {
@@ -100,11 +100,11 @@ public class Menu implements Serializable {
         this.id = id;
     }
 
-    public String getParentMenuId() {
-        return parentMenuId;
+    public String getParentmenuid() {
+        return parentmenuid;
     }
 
-    public void setParentMenuId(String parentMenuId) {
-        this.parentMenuId = parentMenuId;
+    public void setParentmenuid(String parentmenuid) {
+        this.parentmenuid = parentmenuid;
     }
 }

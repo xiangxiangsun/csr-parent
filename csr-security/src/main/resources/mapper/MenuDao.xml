@@ -11,11 +11,11 @@
 
     <!--添加子菜单-->
     <insert id="add" parameterType="csr.security.entity.Menu" useGeneratedKeys="true" keyProperty="id">
-        insert into t_menu (name,linkUrl,parentMenuId)
+        insert into t_menu (name,linkUrl,parentmenuid)
         values (
         #{name},
         #{linkUrl},
-        #{parentMenuId}
+        #{parentmenuid}
         )
     </insert>
 
@@ -29,8 +29,8 @@
             <if test="linkUrl != null">
                 linkUrl = #{linkUrl},
             </if>
-            <if test="parentMenuId != null">
-                parentMenuId = #{parentMenuId},
+            <if test="parentmenuid != null">
+                parentmenuid = #{parentmenuid},
             </if>
         </set>
         where id = #{id}
@@ -42,12 +42,12 @@
 
     <!--查询一级菜单-->
     <select id="findFirstMenu" resultType="csr.security.entity.Menu">
-        select * from t_menu where parentMenuId is NULL
+        select * from t_menu where parentmenuid is NULL
     </select>
 
     <!--查询二级菜单-->
     <select id="findSecondMenu" resultType="csr.security.entity.Menu">
-        select * from t_menu where parentMenuId = #{id}
+        select * from t_menu where parentmenuid = #{id}
     </select>
 
     <!--通过id查询菜单-->
@@ -70,7 +70,7 @@
 
     <!--通过menu_id获取一级菜单-->
     <select id="getMenuListFirst" resultType="csr.security.entity.Menu">
-        select * from t_menu where parentMenuId is NULL and id in
+        select * from t_menu where parentmenuid is NULL and id in
         <foreach collection="menuIds" item="item" open="(" close=")" separator=",">
             #{item}
         </foreach>
