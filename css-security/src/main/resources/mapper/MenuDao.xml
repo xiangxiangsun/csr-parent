@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+   mapper标签:配置各类声明
+   namespace：名称空间，由于映射文件可能有多个，为了防止crud语句的唯一标识被重复，需要设置空间名称。
+ -->
+
+<mapper namespace="css.security.dao.MenuDao">
+
+    <!--添加子菜单-->
+    <insert id="add" parameterType="css.security.entity.Menu" useGeneratedKeys="true" keyProperty="id">
+        insert into t_menu (name,linkUrl,parentmenuid)
+        values (
+        #{name},
+        #{linkUrl},
+        #{parentmenuid}
+        )
+    </insert>
+
+    <!--编辑菜单-->
+    <update id="update" parameterType="css.security.entity.Menu">
+        update t_menu
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="linkUrl != null">
+                linkUrl = #{linkUrl},
+            </if>
+            <if test="parentmenuid != null">
+                parentmenuid = #{parentmenuid},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="remove" parameterType="integer">
+        delete from t_menu where id = #{id}
+    </delete>
+
+    <!--查询一级菜单-->
+    <select id="findFirstMenu" resultType="css.security.entity.Menu">
+        select * from t_menu where parentmenuid is NULL
+    </select>
+
+    <!--查询二级菜单-->
+    <select id="findSecondMenu" resultType="css.security.entity.Menu">
+        select * from t_menu where parentmenuid = #{id}
+    </select>
+
+    <!--通过id查询菜单-->
+    <select id="findMenuById" resultType="css.security.entity.Menu">
+        select * from t_menu where id = #{id}
+    </select>
+
+    <!--通过id查询角色和菜单表间是否有约束-->
+    <select id="findRelationByMenuId" parameterType="integer" resultType="java.lang.Integer">
+        select count(*) from t_role_menu where menu_id = #{id}
+    </select>
+
+    <!--通过用户名查询对应的menu_id-->
+    <select id="findMenuIdByUsername" parameterType="string" resultType="java.lang.Integer">
+        SELECT distinct menu_id from t_role_menu
+        WHERE role_id in (SELECT role_id from t_user_role
+        WHERE user_id = (SELECT id from t_user
+        WHERE username = #{username}))
+    </select>
+
+    <!--通过menu_id获取一级菜单-->
+    <select id="getMenuListFirst" resultType="css.security.entity.Menu">
+        select * from t_menu where parentmenuid is NULL and id in
+        <foreach collection="menuIds" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="findTree" resultType="css.security.entity.Menu">
+        select * from t_menu
+    </select>
+
+</mapper>
