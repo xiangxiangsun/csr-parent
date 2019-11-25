@@ -183,7 +183,7 @@
                             </template>
                             <div slot="footer" class="dialog-footer">
                                 <el-button @click="dialogFormVisible = false">取消</el-button>
-                                <el-button type="primary" @click="handleAdd()">确定</el-button>
+                                <el-button type="primary" @click="handleAdd()">确定1</el-button>
                             </div>
                         </el-dialog>
                     </div>
@@ -213,15 +213,15 @@
                                             </el-row>
                                             <el-row>
 
-<!--                                                <template>-->
-<!--                                                <div class="block">-->
-<!--                                                <span class="demonstration">默认</span>-->
-<!--                                                <el-date-picker-->
-<!--                                                v-model="value1"-->
-<!--                                                type="date"-->
-<!--                                                placeholder="选择日期">-->
-<!--                                                </el-date-picker>-->
-<!--                                                </div>-->
+<!--                                                <template>
+                                                <div class="block">
+                                                <span class="demonstration">默认</span>
+                                                <el-date-picker
+                                                v-model="value1"
+                                                type="date"
+                                                placeholder="选择日期">
+                                                </el-date-picker>
+                                                </div>-->
 
                                                 <el-col :span="12">
                                                     <el-form-item label="生日">
@@ -282,7 +282,7 @@
                             </template>
                             <div slot="footer" class="dialog-footer">
                                 <el-button @click="dialogFormVisible4Edit = false">取消</el-button>
-                                <el-button type="primary" @click="handleEdit()">确定</el-button>
+                                <el-button type="primary" @click="handleEdit()">确定2</el-button>
                             </div>
                         </el-dialog>
                     </div>
@@ -299,7 +299,7 @@
                 pagination: {//分页相关属性
                     currentPage: 1,
                     pageSize:10,
-                    total:100,
+                    total:0,
                     queryString:null,
                 },
                 dataList: [],//列表数据

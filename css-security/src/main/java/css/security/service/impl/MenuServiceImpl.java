@@ -82,23 +82,43 @@ public class MenuServiceImpl implements MenuService {
     public List<Menu> getMenuList(String username) {
         // 通过用户名查询对应的menu_id
         List<Integer> menuIds = menuDao.findMenuIdByUsername(username);
+
+        List<Integer> secondMenuIds = menuIds;
+
         // 通过menu_id查询对应菜单数据
         List<Menu> menuListFirst = new ArrayList<>();
         if (menuIds != null && menuIds.size() > 0){
-            // 获取一级菜单
+
+            // 获取一级菜单 menuListFirst
             menuListFirst =  menuDao.getMenuListFirst(menuIds);
             if (CollectionUtil.isNotEmpty(menuListFirst)){
                 for (Menu menu : menuListFirst) {
-                    // 获取二级菜单
-                    String str = menu.getId();
-                    if (str != null) {
-                        Integer SecondMenu = Integer.valueOf(str);
+                    // 获取二级菜单（不包括一级）
+                    String fristMenu = menu.getId();
+                    if (fristMenu != null) {
+                        Integer SecondMenu = Integer.valueOf(fristMenu);
+
                         List<Menu> menuListSecond = menuDao.findSecondMenu(SecondMenu);
-                        menu.setChildren(menuListSecond);
+
+/*                        //去掉多余的
+                        if (CollectionUtil.isNotEmpty(menuListSecond)){
+                            for (Menu menuSecond : menuListSecond) {
+                                String MenuSecond = menuSecond.getId();
+                                if (MenuSecond != null) {
+                                    Integer Second = Integer.valueOf(MenuSecond);
+                                    if (!menuIds.contains(Second)) {
+                                        menuListSecond.remove(menuSecond);
+                                    }
+                                    ;
+                                }
+                            }
+                        }*/
+                            menu.setChildren(menuListSecond);
+                            }
+                        }
+
                     }
                 }
-            }
-        }
         return menuListFirst;
     }
 

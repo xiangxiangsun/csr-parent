@@ -14,6 +14,7 @@ public interface MenuDao {
     List<Menu> findFirstMenu();
 
     List<Menu> findSecondMenu(@Param("id") Integer id);
+//    Menu findSecondMenu(@Param("id") Integer id);
 
     Menu findMenuById(@Param("id") Integer id);
 

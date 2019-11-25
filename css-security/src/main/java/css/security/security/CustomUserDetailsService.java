@@ -6,12 +6,14 @@ import css.security.entity.SysUserRole;
 import css.security.service.RoleSecurityService;
 import css.security.service.UserRoleService;
 import css.security.service.UserSecurityService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -27,6 +29,9 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Resource
     private UserRoleService userRoleService;
+
+//    @Autowired
+//    private PasswordEncoder passwordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -55,6 +60,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         }
 
         // 返回UserDetails实现类
-        return new User(user.getUsername(), user.getPassword(), authorities);
+        return new User(user.getUsername(),user.getPassword(),authorities);
     }
 }

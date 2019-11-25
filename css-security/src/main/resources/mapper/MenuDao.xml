@@ -50,6 +50,11 @@
         select * from t_menu where parentmenuid = #{id}
     </select>
 
+<!--    &lt;!&ndash;查询二级菜单&ndash;&gt;-->
+<!--    <select id="findSecondMenu" resultType="css.security.entity.Menu">-->
+<!--        select * from t_menu where id = #{id}-->
+<!--    </select>-->
+
     <!--通过id查询菜单-->
     <select id="findMenuById" resultType="css.security.entity.Menu">
         select * from t_menu where id = #{id}

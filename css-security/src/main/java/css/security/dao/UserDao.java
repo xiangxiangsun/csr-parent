@@ -14,7 +14,7 @@ public interface UserDao {
 
     Page<SysUser> findPage(@Param("queryString") String queryString);
 
-    Integer add(SysUser user);
+    Integer add(@Param("user")SysUser user,@Param("password")String password);
 
     void setUserAndRole(Map<String, Integer> map);
 

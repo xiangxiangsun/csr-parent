@@ -21,7 +21,7 @@ public interface RoleDao {
 
     void addRoleAndPermission(@Param("mapList") List<Map> mapList);
 
-    void edit(SysRole role);
+    void edit(@Param("role") SysRole role);
 
     void deleteRoleAndMenu(@Param("id") Integer id);
 
@@ -38,4 +38,8 @@ public interface RoleDao {
     SysRole findById(@Param("id") Integer id);
 
     List<Integer> findMenuIdsByRoleId(@Param("id")Integer id);
+
+    List<Integer> findPermissionIdsByRoleId(@Param("id")Integer id);
+
+//    Integer getRoleId(String name);
 }

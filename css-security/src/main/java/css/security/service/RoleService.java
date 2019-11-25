@@ -11,7 +11,7 @@ public interface RoleService {
 
     void add(SysRole role);
 
-    void edit(SysRole role,Integer[] MenuIds,Integer[] PermissionIds);
+    void edit(SysRole role);
 
     void delete(Integer id);
 
@@ -20,4 +20,8 @@ public interface RoleService {
     SysRole findById(@Param("id") Integer id);
 
     List<Integer> findMenuIdsByRoleId(Integer id);
+
+    List<Integer> findPermissionIdsByRoleId(Integer id);
+
+//    Integer getRoleId(String name);
 }

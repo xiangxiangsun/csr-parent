@@ -23,7 +23,7 @@ public class RoleController {
     @RequestMapping("/findPage")
     public PageResult findPage(@RequestBody QueryPageBean queryPageBean){
         PageResult pageResult = roleService.findPage(
-                queryPageBean.getCurrentPage(),
+                    queryPageBean.getCurrentPage(),
                 queryPageBean.getPageSize(),
                 queryPageBean.getQueryString()
         );
@@ -65,11 +65,24 @@ public class RoleController {
         }
     }
 
+/*    //编辑
+    @RequestMapping("edit")
+    public Result edit(@RequestBody EditRole editRole){
+        try {
+            editRole.getSysRole().setId(roleService.getRoleId(editRole.getSysRole().getName()));
+            roleService.edit(editRole.getSysRole(),editRole.getMenuIds(),editRole.getPermissionIds());
+            return Result.success("编辑成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Result.error("编辑失败");
+        }
+    }*/
+
     //编辑
     @RequestMapping("edit")
-    public Result edit(@RequestBody SysRole role, Integer[] MenuIds, Integer[] PermissionIds){
+    public Result edit(@RequestBody SysRole role){
         try {
-            roleService.edit(role,MenuIds,PermissionIds);
+            roleService.edit(role);
             return Result.success("编辑成功");
         } catch (Exception e) {
             e.printStackTrace();
@@ -93,4 +106,8 @@ public class RoleController {
     public List<Integer> findMenuIdsByRoleId(Integer id){
         return roleService.findMenuIdsByRoleId(id);
     }
+
+    //根据角色ID查询所拥有的权限
+    @RequestMapping("/findPermissionIdsByRoleId")
+    public List<Integer> findPermissionIdsByRoleId(Integer id){ return  roleService.findPermissionIdsByRoleId(id); }
 }

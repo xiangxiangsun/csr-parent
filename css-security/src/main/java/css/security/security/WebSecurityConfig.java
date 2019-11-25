@@ -1,5 +1,6 @@
 package css.security.security;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -7,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.annotation.Resource;
@@ -18,9 +20,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Resource
     private CustomUserDetailsService userDetailsService;
 
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(new PasswordEncoder() {
+
             @Override
             public String encode(CharSequence charSequence) {
                 return charSequence.toString();
@@ -30,6 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             public boolean matches(CharSequence charSequence, String s) {
                 return s.equals(charSequence.toString());
             }
+
         });
     }
 
@@ -39,8 +48,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 如果有允许匿名的url，填在下面
                 .antMatchers("/css/*.css").permitAll() //登陆所需资源
                 .antMatchers("/images/*.jpg","/images/*.png").permitAll() //登陆所需资源
-                //其他地址的访问均需验证权限
+
+                .and()
+                //对请求进行授权
+                .authorizeRequests()
+                //任何请求链接的访问均需验证权限
                 .anyRequest().authenticated()
+
                 .and()
                 // 设置登陆页
                 .formLogin() //form提交登陆
@@ -52,6 +66,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 自定义登陆用户名和密码参数，默认为username和password
 //                .usernameParameter("username")
 //                .passwordParameter("password")
+
                 .and()
                 .logout()  //添加 /logout访问点，能退出
                 .logoutSuccessUrl("/login");  //退出后访问
