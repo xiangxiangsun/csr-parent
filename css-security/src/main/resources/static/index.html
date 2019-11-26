@@ -83,17 +83,10 @@
 
             <el-aside :class="isCollapse?'cell':'nocell'">
 
-<!--                <el-radio-group v-model="isCollapse" style="margin-bottom: 10px;">-->
-<!--                    <el-radio-button :label="false">展开</el-radio-button>-->
-<!--                    <el-radio-button :label="true">收起</el-radio-button>-->
-<!--                </el-radio-group>-->
-<!--                <i class="el-icon-s-fold" @click="isCollapse= !isCollapse"></i>-->
-
                 <img src="images/cd.png" @click="isCollapse= !isCollapse" style="width:32px;height:32px" >
 
                 <el-menu default-active="menu.path" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse">
-<!--                <el-menu>-->
-<!--                <el-menu :collapse="false">  //关闭动态菜单读取  -->
+
                     <el-submenu v-for="menu in menuList"  :index="menu.path">
                         <template slot="title">
                             <i class="fa" :class="menu.icon"></i>
@@ -126,56 +119,7 @@
         el: '#app',
         data:{
             username:'',
-            menuList:[
-                // {
-                //     "path": "1",
-                //     "title": "工作台",
-                //     "icon":"fa-dashboard",
-                //     "children": [
-                //         {
-                //             "path": "/1-1",
-                //             "title": "综合查询",
-                //             "linkUrl":"updatePSW.html",
-                //             "children":[]
-                //         }
-                //     ]
-                // },
-                // {
-                //     "path": "2",
-                //     "title": "系统设置",
-                //     "icon":"fa-user-md",
-                //     "children": [
-                //         {
-                //             "path": "/2-1",
-                //             "title": "用户管理",
-                //             "linkUrl":"user.html",
-                //             "children":[]
-                //         },
-                //         {
-                //             "path": "/2-2",
-                //             "title": "角色管理",
-                //             "linkUrl":"role.html",
-                //             "children":[]
-                //         },
-                //         {
-                //             "path": "/2-3",
-                //             "title": "权限管理",
-                //             "linkUrl":"permission.html",
-                //             "children":[]
-                //         },{
-                //             "path": "/2-4",
-                //             "title": "菜单管理",
-                //             "linkUrl":"menu.html",
-                //             "children":[]
-                //         },{
-                //             "path": "/2-5",
-                //             "title": "修改密码",
-                //             "linkUrl":"updatePSW.html",
-                //             "children":[]
-                //         }
-                //     ]
-                // }
-            ],
+            menuList:[],
             isCollapse: true
 
         },
