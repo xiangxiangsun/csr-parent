@@ -4,6 +4,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="css.security.mapper.UserRoleMapper">
     <select id="listByUserId" resultType="css.security.entity.SysUserRole" parameterType="map">
-        select * from public.t_user_role where user_id = #{userId}
+        select * from t_user_role where user_id = #{userId}
     </select>
 </mapper>

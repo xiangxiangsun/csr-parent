@@ -1,5 +1,7 @@
 package css.security.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
@@ -16,6 +18,7 @@ public class SysUser implements Serializable {
 
     private String gender; // 性别
 
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private Date birthday; // 生日
 
     private String remark; // 备注

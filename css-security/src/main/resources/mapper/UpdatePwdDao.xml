@@ -5,11 +5,11 @@
 <mapper namespace="css.security.dao.UpdatePwdDao">
 
     <select id="ConfirmPassword" resultType="css.security.entity.SysUser">
-        select * from public.t_user where username = #{username} and password = #{password}
+        select * from t_user where username = #{username} and password = #{password}
     </select>
 
     <update id="updatePwd" parameterType="css.security.entity.SysUser">
-        update public.t_user set password = #{password} where username = #{username}
+        update t_user set password = #{password} where username = #{username}
     </update>
 
 </mapper>

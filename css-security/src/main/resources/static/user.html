@@ -64,7 +64,7 @@
                         <el-table-column prop="username" label="用户名" align="center"></el-table-column>
                         <el-table-column label="性别" align="center">
                             <template slot-scope="scope">
-                                <span>{{ scope.row.sex == '0' ? '不限' : scope.row.sex == '1' ? '男' : '女'}}</span>
+                                <span>{{ scope.row.gender == '0' ? '不限' : scope.row.gender == '1' ? '男' : '女'}}</span>
                             </template>
                         </el-table-column>
                         <el-table-column prop="birthday" label="生日" align="center"></el-table-column>
@@ -114,19 +114,9 @@
                                             </el-row>
                                             <el-row>
 
-                                                <!--<template>-->
-                                                    <!--<div class="block">-->
-                                                        <!--<span class="demonstration">默认</span>-->
-                                                        <!--<el-date-picker-->
-                                                                <!--v-model="value1"-->
-                                                                <!--type="date"-->
-                                                                <!--placeholder="选择日期">-->
-                                                        <!--</el-date-picker>-->
-                                                    <!--</div>-->
-
-                                                <el-col :span="12">
+                                                <el-col :span="16">
                                                     <el-form-item label="生日">
-                                                        <el-input v-model="formData.birthday"/>
+                                                        <el-date-picker type="date" placeholder="选择日期" v-model="formData.birthday" style="width: 100%;" value-format="yyyy-MM-dd"></el-date-picker>
                                                     </el-form-item>
                                                 </el-col>
 
@@ -183,7 +173,7 @@
                             </template>
                             <div slot="footer" class="dialog-footer">
                                 <el-button @click="dialogFormVisible = false">取消</el-button>
-                                <el-button type="primary" @click="handleAdd()">确定1</el-button>
+                                <el-button type="primary" @click="handleAdd()">确定</el-button>
                             </div>
                         </el-dialog>
                     </div>
@@ -213,19 +203,9 @@
                                             </el-row>
                                             <el-row>
 
-<!--                                                <template>
-                                                <div class="block">
-                                                <span class="demonstration">默认</span>
-                                                <el-date-picker
-                                                v-model="value1"
-                                                type="date"
-                                                placeholder="选择日期">
-                                                </el-date-picker>
-                                                </div>-->
-
-                                                <el-col :span="12">
+                                                <el-col :span="16">
                                                     <el-form-item label="生日">
-                                                        <el-input v-model="formData.birthday"/>
+                                                        <el-date-picker type="date" placeholder="选择日期" v-model="formData.birthday" style="width: 100%;" value-format="yyyy-MM-dd"></el-date-picker>
                                                     </el-form-item>
                                                 </el-col>
 
@@ -240,7 +220,7 @@
                                             <el-row>
                                                 <el-col :span="24">
                                                     <el-form-item label="状态">
-                                                        <el-input v-model="formData.status" type="textarea"></el-input>
+                                                        <el-input v-model="formData.station" type="textarea"></el-input>
                                                     </el-form-item>
                                                 </el-col>
                                             </el-row>
@@ -282,7 +262,7 @@
                             </template>
                             <div slot="footer" class="dialog-footer">
                                 <el-button @click="dialogFormVisible4Edit = false">取消</el-button>
-                                <el-button type="primary" @click="handleEdit()">确定2</el-button>
+                                <el-button type="primary" @click="handleEdit()">确定</el-button>
                             </div>
                         </el-dialog>
                     </div>
