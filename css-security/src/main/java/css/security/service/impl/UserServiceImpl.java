@@ -67,9 +67,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public void add(SysUser user, Integer[] roleIds) {
         //初始密码默认123456，并用盐值加密
-        String password = passwordEncoder.encode("123456");
+//        String password = passwordEncoder.encode("123456");
         //先将用户基本信息进行添加
-        userDao.add(user,password);
+        userDao.add(user);
         //通过uesrIds回显id
         setUserAndRole(user.getId(),roleIds);
     }

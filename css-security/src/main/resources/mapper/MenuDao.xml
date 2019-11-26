@@ -85,4 +85,10 @@
         select * from t_menu
     </select>
 
+    <!--通过菜单id查询对应父级id-->
+    <select id="findParentMenuId"  resultType="java.lang.Integer">
+        select parentmenuid from t_menu where id = #{menuId};
+    </select>
+
+
 </mapper>

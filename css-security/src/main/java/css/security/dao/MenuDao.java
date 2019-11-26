@@ -29,4 +29,6 @@ public interface MenuDao {
     List<Menu> getMenuListFirst(@Param("menuIds")List<Integer> menuIds);
 
     List<Menu> findTree();
+
+    Integer findParentMenuId(@Param("menuId")Integer menuId);
 }
