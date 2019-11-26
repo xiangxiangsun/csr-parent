@@ -3,6 +3,8 @@ package css.security.controller;
 import css.security.entity.Result;
 import css.security.entity.SysUser;
 import css.security.service.UpdatePwdService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +17,9 @@ public class PasswordController {
 
     @Resource
     private UpdatePwdService updatePwdService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @RequestMapping("/update")
     public Result update(@RequestBody SysUser user) {

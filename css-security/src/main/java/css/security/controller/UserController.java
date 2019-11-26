@@ -6,6 +6,8 @@ import css.security.service.UserService;
 import css.security.entity.PageResult;
 import css.security.entity.QueryPageBean;
 import css.security.entity.Result;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -21,9 +24,12 @@ public class UserController {
     @Resource
     private UserService userService;
 
+    private Logger logger = LoggerFactory.getLogger(getClass());
+
     @RequestMapping("/getUserName")
     public Result getUsername(){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        logger.info("logger---用户名："+user.getUsername(),"密码："+user.getPassword());
         return new Result(true, MessageConstant.GET_USERNAME_SUCCESS,user.getUsername());
     }
 

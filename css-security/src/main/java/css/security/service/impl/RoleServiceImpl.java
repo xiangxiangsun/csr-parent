@@ -51,15 +51,15 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public void edit(SysRole role,Integer[] MenuIds,Integer[] PermissionIds) {
+    public void edit(SysRole role) {
         //先将角色基本信息进行修改
         roleDao.edit(role);
         //通过roleId对已有中间表进行删除
         roleDao.deleteRoleAndMenu(role.getId());
         roleDao.deleteRoleAndPermission(role.getId());
         //再次添加
-        setMenuIdByRoleId(role.getId(),MenuIds);
-        setPermissionIdByRoleId(role.getId(),PermissionIds);
+        setMenuIdByRoleId(role.getId(),role.getMenuIds());
+        setPermissionIdByRoleId(role.getId(),role.getPermissionIds());
     }
 
     // 删除
@@ -87,6 +87,16 @@ public class RoleServiceImpl implements RoleService {
         return roleDao.findMenuIdsByRoleId(id);
     }
 
+    @Override
+    public List<Integer> findPermissionIdsByRoleId(Integer id) {
+        return roleDao.findPermissionIdsByRoleId(id);
+    }
+
+//    @Override
+//    public Integer getRoleId(String name) {
+//        return roleDao.getRoleId(name);
+//    }
+
     private void deleteRelation(Integer id) {
         // 删除关系表t_role_menu表中对应数据
         roleDao.deleteRoleAndMenu(id);
@@ -110,8 +120,8 @@ public class RoleServiceImpl implements RoleService {
         }
     }
 
-    public void setMenuIdByRoleId(Integer roleId,Integer[] menuIds){
-        if (menuIds != null && menuIds.length>0){
+    public void setMenuIdByRoleId(Integer roleId,List<Integer> menuIds){
+        if (menuIds != null && menuIds.size()>0){
             for (Integer menuId: menuIds) {
                 HashMap<String, Integer> map = new HashMap<>();
                 map.put("role_id",roleId);
@@ -121,8 +131,8 @@ public class RoleServiceImpl implements RoleService {
         }
     }
 
-    public void setPermissionIdByRoleId(Integer roleId,Integer[] permissionIds){
-        if (permissionIds != null && permissionIds.length>0){
+    public void setPermissionIdByRoleId(Integer roleId,List<Integer> permissionIds){
+        if (permissionIds != null && permissionIds.size()>0){
             for (Integer permissionId: permissionIds) {
                 HashMap<String, Integer> map = new HashMap<>();
                 map.put("role_id",roleId);

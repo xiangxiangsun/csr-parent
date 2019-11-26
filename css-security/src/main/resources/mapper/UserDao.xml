@@ -8,9 +8,14 @@
     </select>
 
 
-    <insert id="add" parameterType="css.security.entity.SysUser" keyProperty="id" useGeneratedKeys="true">
+<!--    <insert id="add" parameterType="css.security.entity.SysUser" keyProperty="id" useGeneratedKeys="true">-->
+<!--        insert into public.t_user (birthday,gender,username,remark,station,telephone)-->
+<!--          values (#{birthday},#{gender},#{username},#{remark},#{station},#{telephone})-->
+<!--    </insert>    -->
+
+    <insert id="add" keyProperty="user.id" useGeneratedKeys="true">
         insert into public.t_user (birthday,gender,username,remark,station,telephone)
-          values (#{birthday},#{gender},#{username},#{remark},#{station},#{telephone})
+          values (#{user.birthday},#{user.gender},#{user.username},#{user.remark},#{user.station},#{user.telephone})
     </insert>
 
     <insert id="setUserAndRole" parameterType="hashmap">

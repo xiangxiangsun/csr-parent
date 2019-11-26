@@ -9,3 +9,8 @@ out
 gen
 */target
 rebel.xml
+/logs/*
+/.idea/*
+/target/*
+css-eureka/src/test/
+css-security/src/test/

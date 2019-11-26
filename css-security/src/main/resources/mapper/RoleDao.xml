@@ -73,17 +73,17 @@
     <update id="edit" parameterType="css.security.entity.SysRole">
         update public.t_role
         <set>
-            <if test="name != null">
-                name = #{name},
+            <if test="role.name != null">
+                name = #{role.name},
             </if>
-            <if test="keyword != null">
-                keyword = #{keyword},
+            <if test="role.keyword != null">
+                keyword = #{role.keyword},
             </if>
-            <if test="description != null">
-                description = #{description},
+            <if test="role.description != null">
+                description = #{role.description},
             </if>
         </set>
-        where id = #{id}
+        where id = #{role.id}
     </update>
 
     <select id="findById" resultType="css.security.entity.SysRole">
@@ -93,5 +93,13 @@
     <select id="findMenuIdsByRoleId" resultType="java.lang.Integer">
         select menu_id from public.t_role_menu where role_id = #{id};
     </select>
+
+    <select id="findPermissionIdsByRoleId" resultType="java.lang.Integer">
+        select permission_id from public.t_role_permission where role_id = #{id};
+    </select>
+
+<!--    <select id="getRoleId" resultType="java.lang.Integer">-->
+<!--        select role_id from public.t_role where role_name = #{name};-->
+<!--    </select>-->
 
 </mapper>

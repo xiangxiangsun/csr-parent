@@ -10,6 +10,8 @@ import css.security.entity.Permission;
 import css.security.entity.SysRole;
 import css.security.entity.SysUser;
 import css.security.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -59,8 +61,13 @@ public class UserServiceImpl implements UserService {
         return new PageResult(page.getTotal(),page.getResult());
     }
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public void add(SysUser user, Integer[] roleIds) {
+        //初始密码默认123456，并用盐值加密
+//        String password = passwordEncoder.encode("123456");
         //先将用户基本信息进行添加
         userDao.add(user);
         //通过uesrIds回显id
