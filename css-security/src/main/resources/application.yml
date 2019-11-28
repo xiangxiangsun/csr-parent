@@ -42,3 +42,5 @@ mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
   mapper-locations: mapper/*.xml
+
+

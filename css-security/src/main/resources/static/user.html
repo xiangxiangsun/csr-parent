@@ -56,7 +56,7 @@
                 <div class="box">
                     <div class="filter-container">
                         <el-input placeholder="用户名" v-model="pagination.queryString" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter"></el-input>
-                        <el-button @click="findPage()" class="dalfBut">查询</el-button>
+                        <el-button @click="userSelect()" class="dalfBut">查询</el-button>
                         <el-button type="primary" class="butT" @click="handleCreate()">新建</el-button>
                     </div>
                     <el-table size="small" current-row-key="id" :data="dataList" stripe highlight-current-row>
@@ -277,10 +277,10 @@
             data:{
                 activeName:'first',//添加/编辑窗口Tab标签名称
                 pagination: {//分页相关属性
-                    currentPage: 1,
+                    currentPage:1,
                     pageSize:10,
                     total:0,
-                    queryString:null,
+                    queryString:null
                 },
                 dataList: [],//列表数据
                 formData: {},//表单数据
@@ -348,6 +348,8 @@
                         //为模型数据赋值,基于Vue的v-model双向绑定展示到页面中
                         this.dataList = res.data.rows;
                         this.pagination.total = res.data.total;
+                        // 完成赋值后，把加载状态赋值为false
+                        this.loading = false;
                     });
                 },
                 // 重置表单
@@ -405,6 +407,12 @@
                         }
                     })
                 },
+                userSelect(){
+                    //currentPage先切换到第一页再查询
+                    this.pagination.currentPage = 1;
+                    this.findPage();
+                }
+                ,
                 //切换页码
                 handleCurrentChange(currentPage) {
                     //currentPage为切换后的页码

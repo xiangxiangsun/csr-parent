@@ -12,7 +12,7 @@ import java.util.Map;
 public interface UserDao {
     SysUser findByUserName(@Param("username") String username);
 
-    Page<SysUser> findPage(@Param("queryString") String queryString);
+    List<SysUser> findPage(@Param("queryString") String queryString);
 
 //    Integer add(@Param("user")SysUser user,@Param("password")String password);
     Integer add(@Param("user")SysUser user);
@@ -28,4 +28,6 @@ public interface UserDao {
     void deleteRoleIdByUserId(@Param("id") Integer id);
 
     void deleteByUserId(Integer id);
+
+    List<SysUser> findUserPage();
 }

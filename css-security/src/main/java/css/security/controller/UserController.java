@@ -8,6 +8,7 @@ import css.security.entity.QueryPageBean;
 import css.security.entity.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,13 +37,13 @@ public class UserController {
     //分页查询
 //    @PreAuthorize("hasAuthority('USER_QUERY')")
     @RequestMapping("/findPage")
-    public PageResult findPage(@RequestBody QueryPageBean queryPageBean){
+    public ResponseEntity findPage(@RequestBody QueryPageBean queryPageBean){
         PageResult pageResult = userService.findPage(
                 queryPageBean.getCurrentPage(),
                 queryPageBean.getPageSize(),
-                queryPageBean.getQueryString());
-        return pageResult;
-    }
+                queryPageBean.getQueryString());{
+        return ResponseEntity.ok(pageResult);
+    }}
 
     @RequestMapping("/add")
     public Result add(@RequestBody SysUser user, Integer[] roleIds){

@@ -60,7 +60,8 @@
     <select id="findPage" parameterType="string" resultType="css.security.entity.SysUser">
         select * from t_user
         <if test="queryString!=null and queryString.length>0">
-            where username = #{queryString}
+            <bind name="test" value="'%'+queryString+'%'"></bind>
+            where username like #{test}
         </if>
     </select>
 
@@ -70,6 +71,10 @@
 
     <select id="findRoleIdsByUserId" resultType="java.lang.Integer">
         select role_id from t_user_role where user_id = #{id};
+    </select>
+
+    <select id="findUserPage" resultType="css.security.entity.SysUser">
+        select * from t_user
     </select>
 
 

@@ -308,9 +308,9 @@
             activeName:'first',//添加/编辑窗口Tab标签名称
             pagination: {//分页相关属性
                 currentPage: 1, //当前页码
-                pageSize:1, // 每页显示记录数
-                total:1, // 总记录数
-                queryString:null, // 查询条件
+                pageSize:10, // 每页显示记录数
+                total:0, // 总记录数
+                queryString:null // 查询条件
             },
             dataList: [],//当前页要展示的分页列表数据
             formData: {},//表单数据
@@ -413,7 +413,6 @@
                     currentPage: this.pagination.currentPage, // 页码
                     pageSize: this.pagination.pageSize, // 每页显示的记录数
                     queryString:this.pagination.queryString, // 查询条件
-                    // total:this.pagination.total
                 };
                 // 请求后台
                 axios.post("/role/findPage",param).then((response)=> {

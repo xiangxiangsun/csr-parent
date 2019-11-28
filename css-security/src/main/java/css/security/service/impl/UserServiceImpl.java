@@ -2,17 +2,26 @@ package css.security.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import css.security.common.enums.ExceptionEnum;
+import css.security.common.exception.CssException;
 import css.security.dao.PermissionDao;
 import css.security.dao.RoleDao;
 import css.security.dao.UserDao;
+import css.security.dto.SysUserDTO;
 import css.security.entity.PageResult;
 import css.security.entity.Permission;
 import css.security.entity.SysRole;
 import css.security.entity.SysUser;
 import css.security.service.UserService;
+import css.security.utils.BeanHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
@@ -54,11 +63,29 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public PageResult findPage(Integer currentPage, Integer pageSize, String queryString) {
+    public PageResult<SysUserDTO> findPage(Integer currentPage, Integer pageSize, String queryString) {
+        System.out.println(currentPage+","+pageSize+","+queryString);
+        //分页
         PageHelper.startPage(currentPage,pageSize);
-        Page<SysUser> page = userDao.findPage(queryString);
-
-        return new PageResult(page.getTotal(),page.getResult());
+        //查询表数据
+        List<SysUser> userList = null;
+        if (queryString == null || queryString.length() == 0) {
+            userList = userDao.findUserPage();
+        }else {
+            userList = userDao.findPage(queryString);
+        }
+        if(CollectionUtils.isEmpty(userList)){
+            throw new CssException(ExceptionEnum.INSERT_OPTIONS_ERROR);
+        }
+        //解析分页结果
+        //自动计算：总元素个数，以及总页数
+        PageInfo<SysUser> pageInfo = new PageInfo<>(userList);
+        System.out.println("查询到数据："+userList.size());
+        System.out.println("总个数："+pageInfo.getTotal());
+        //转为SysUserDTO,减少流量传输
+        List<SysUserDTO> list = BeanHelper.copyWithCollection(userList,SysUserDTO.class);
+        //返回：个数，总页数，当前页数据
+        return new PageResult<>(pageInfo.getTotal(),pageInfo.getPages(),list);
     }
 
     @Autowired
