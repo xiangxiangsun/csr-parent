@@ -30,7 +30,7 @@ public class UserController {
     @RequestMapping("/getUserName")
     public Result getUsername(){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        logger.info("logger---用户名："+user.getUsername(),"密码："+user.getPassword());
+//        logger.info("logger---用户名："+user.getUsername(),"密码："+user.getPassword());
         return new Result(true, MessageConstant.GET_USERNAME_SUCCESS,user.getUsername());
     }
 

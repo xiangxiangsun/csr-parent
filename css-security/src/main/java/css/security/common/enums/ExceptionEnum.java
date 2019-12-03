@@ -9,7 +9,7 @@ public enum ExceptionEnum {
      */
     PRICE_CANNOT_BE_NULL(400,"价格不能为空!"),
     DATA_TRANSFER_ERROR(500,"后台数据转换过程出错"),
-    INSERT_OPTIONS_ERROR(500,"数据保存失败")
+    INSERT_OPTIONS_ERROR(500,"数据查询失败")
     ;
 
     private int status;
