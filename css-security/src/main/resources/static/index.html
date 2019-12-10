@@ -60,6 +60,29 @@
             cursor: pointer;
             margin-bottom: 10px;
         }
+        .btn-bell{
+            position: relative;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 24px;
+            margin-right: 20px;
+            margin-bottom: 15px;
+        }
+        .btn-bell-badge {
+            position: absolute;
+            right: 0;
+            top: 8px;
+            width: 8px;
+            height: 8px;
+            border-radius: 4px;
+            background: #f56c6c;
+        }
+        .btn-bell .el-icon-bell {
+            color: #FFFFFF;
+        }
     </style>
 </head>
 <body class="hold-transition skin-purple sidebar-mini">
@@ -80,6 +103,16 @@
                         <el-tooltip effect="dark" :content="fullscreen?'取消全屏':'全屏'" placement="bottom">
                             <i class="el-icon-rank"></i>
                         </el-tooltip>
+                    </div>
+
+                    <!-- 消息中心 -->
+                    <div class="btn-bell" @click="open">
+                        <el-tooltip effect="dark" :content="message?`有${message}条未读消息`:`消息中心`" placement="bottom">
+<!--                            <router-link to="/tabs">-->
+                                <i class="el-icon-bell"></i>
+<!--                            </router-link>-->
+                        </el-tooltip>
+                        <span class="btn-bell-badge" v-if="message"></span>
                     </div>
 
                     <el-dropdown class="avatar-container right-menu-item" trigger="click">
@@ -113,14 +146,14 @@
                 </transition>
 
                 <el-menu default-active="menu.path" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse">
-
-                    <el-submenu v-for="menu in menuList"  :index="menu.path">
+                    
+                    <el-submenu v-for="(menu,key) in menuList" :key="menu.path" index="menu.path">
                         <template slot="title">
                             <i class="fa" :class="menu.icon"></i>
                             {{menu.name}}
                         </template>
-                        <template v-for="child in menu.children">
-                            <el-menu-item :index="child.path">
+                        <template v-for="child in menu.children" >
+                            <el-menu-item index="child.path">
                                 <a :href="child.linkUrl" target="right">{{child.name}}</a>
                             </el-menu-item>
                         </template>
@@ -149,6 +182,7 @@
             menuList:[],
             isCollapse: true,
             fullscreen: false,
+            message: 2,
         },
         created(){
             axios.get("/user/getUserName").then((res)=>{
@@ -194,6 +228,15 @@
                     }
                 }
                 this.fullscreen = !this.fullscreen;
+            },
+            //消息显示
+            open(){
+                const h = this.$createElement;
+
+                this.$notify({
+                    title: '标题名称',
+                    message: h('i', { style: 'color: teal'}, '这是提示文案')
+                });
             }
         }
     });
