@@ -147,13 +147,13 @@
 
                 <el-menu default-active="menu.path" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse">
 
-                    <el-submenu v-for="(menu,key) in menuList" :key="menu.path" index="menu.path">
+                    <el-submenu v-for="(menu,key) in menuList" :key="menu.path" :index="menu.path">
                         <template slot="title">
                             <i class="fa" :class="menu.icon"></i>
                             {{menu.name}}
                         </template>
                         <template v-for="child in menu.children" >
-                            <el-menu-item index="child.path">
+                            <el-menu-item :index="child.path">
                                 <a :href="child.linkUrl" target="right">{{child.name}}</a>
                             </el-menu-item>
                         </template>
