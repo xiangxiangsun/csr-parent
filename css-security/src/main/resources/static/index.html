@@ -44,6 +44,22 @@
             height: calc(100vh - 70px);
             width: calc(100vw - 150px);
         }
+        .right-menu{
+            display: flex;
+        }
+
+        .btn-fullscreen {
+            transform: rotate(45deg);
+            margin-right: 5px;
+            font-size: 24px;
+            position: relative;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            border-radius: 15px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body class="hold-transition skin-purple sidebar-mini">
@@ -58,6 +74,14 @@
                 </a>
                 <div class="right-menu">
 <!--                    <span class="help"><i class="fa fa-exclamation-circle" aria-hidden="true"></i>帮助</span>-->
+
+                    <!-- 全屏显示 -->
+                    <div class="btn-fullscreen" @click="handleFullScreen">
+                        <el-tooltip effect="dark" :content="fullscreen?'取消全屏':'全屏'" placement="bottom">
+                            <i class="el-icon-rank"></i>
+                        </el-tooltip>
+                    </div>
+
                     <el-dropdown class="avatar-container right-menu-item" trigger="click">
                         <div class="avatar-wrapper">
                             <img src="img/user-160x160.jpg" class="user-avatar">
@@ -83,7 +107,10 @@
 
             <el-aside :class="isCollapse?'cell':'nocell'">
 
-                <img src="images/cd.png" @click="isCollapse= !isCollapse" style="width:32px;height:32px" >
+                <transition>
+                <img v-if="isCollapse" src="images/cd-l.png" @click="isCollapse= !isCollapse"  style="width:32px;height:32px" >
+                <img v-else src="images/cd-r.png" @click="isCollapse= !isCollapse" style="width:32px;height:32px">
+                </transition>
 
                 <el-menu default-active="menu.path" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse">
 
@@ -120,8 +147,8 @@
         data:{
             username:'',
             menuList:[],
-            isCollapse: true
-
+            isCollapse: true,
+            fullscreen: false,
         },
         created(){
             axios.get("/user/getUserName").then((res)=>{
@@ -140,6 +167,33 @@
             },
             handleClose(key, keyPath) {
                 console.log(key, keyPath);
+            },
+            // 全屏事件
+            handleFullScreen() {
+                let element = document.documentElement;
+                if (this.fullscreen) {
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                    } else if (document.webkitCancelFullScreen) {
+                        document.webkitCancelFullScreen();
+                    } else if (document.mozCancelFullScreen) {
+                        document.mozCancelFullScreen();
+                    } else if (document.msExitFullscreen) {
+                        document.msExitFullscreen();
+                    }
+                } else {
+                    if (element.requestFullscreen) {
+                        element.requestFullscreen();
+                    } else if (element.webkitRequestFullScreen) {
+                        element.webkitRequestFullScreen();
+                    } else if (element.mozRequestFullScreen) {
+                        element.mozRequestFullScreen();
+                    } else if (element.msRequestFullscreen) {
+                        // IE11
+                        element.msRequestFullscreen();
+                    }
+                }
+                this.fullscreen = !this.fullscreen;
             }
         }
     });
@@ -148,4 +202,25 @@
         $(".el-main").css('width', $('body').width() - wd + 'px');
     });
 </script>
+<!--<style lang="scss" >-->
+
+<!--    .right-menu{-->
+<!--        display: flex;-->
+<!--    }-->
+
+<!--    .btn-fullscreen {-->
+<!--        transform: rotate(45deg);-->
+<!--        margin-right: 5px;-->
+<!--        font-size: 24px;-->
+<!--        position: relative;-->
+<!--        width: 30px;-->
+<!--        height: 30px;-->
+<!--        text-align: center;-->
+<!--        border-radius: 15px;-->
+<!--        cursor: pointer;-->
+<!--        margin-bottom: 10px;-->
+<!--        flex: 1;-->
+<!--    }-->
+
+<!--</style>-->
 </html>

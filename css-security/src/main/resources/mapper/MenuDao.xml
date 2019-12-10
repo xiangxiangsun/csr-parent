@@ -47,13 +47,8 @@
 
     <!--查询二级菜单-->
     <select id="findSecondMenu" resultType="css.security.entity.Menu">
-        select * from t_menu where parentmenuid = #{id}
+        select * from t_menu where parentmenuid = #{id} ORDER BY id
     </select>
-
-<!--    &lt;!&ndash;查询二级菜单&ndash;&gt;-->
-<!--    <select id="findSecondMenu" resultType="css.security.entity.Menu">-->
-<!--        select * from t_menu where id = #{id}-->
-<!--    </select>-->
 
     <!--通过id查询菜单-->
     <select id="findMenuById" resultType="css.security.entity.Menu">
@@ -79,6 +74,7 @@
         <foreach collection="menuIds" item="item" open="(" close=")" separator=",">
             #{item}
         </foreach>
+        ORDER BY id
     </select>
 
     <select id="findTree" resultType="css.security.entity.Menu">
