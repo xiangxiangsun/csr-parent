@@ -7,6 +7,7 @@
   <groupId>com.pazl.csr</groupId>
   <artifactId>css-parent</artifactId>
   <version>1.0-SNAPSHOT</version>
+
   <modules>
     <module>css-eureka</module>
     <module>css-security</module>
