@@ -160,9 +160,15 @@
                                             <tbody>
                                             <tr v-for="c in tableData">
                                                 <td>
-                                                    <input :id="c.id" v-model="roleIds" type="checkbox" :value="c.id">
+<!--                                                    <input :id="c.id" v-model="roleIds" type="checkbox" :value="c.id">-->
+                                                    <el-checkbox-group
+                                                            v-model="roleIds"
+                                                            :min="0"
+                                                            :max="1">
+                                                        <el-checkbox :label="c.id" :key="c.id">{{c.id}}</el-checkbox>
+                                                    </el-checkbox-group>
                                                 </td>
-                                                <td><label :for="c.id">{{c.id}}</label></td>
+<!--                                                <td><label :for="c.id">{{c.id}}</label></td>-->
                                                 <td><label :for="c.id">{{c.name}}</label></td>
                                                 <td><label :for="c.id">{{c.keyword}}</label></td>
                                             </tr>
@@ -249,9 +255,15 @@
                                                 <tbody>
                                                 <tr v-for="c in tableData">
                                                     <td>
-                                                        <input :id="c.id" v-model="roleIds" type="checkbox" :value="c.id">
+<!--                                                        <input :id="c.id" v-model="roleIds" type="checkbox" :value="c.id">-->
+                                                        <el-checkbox-group
+                                                                v-model="roleIds"
+                                                                :min="0"
+                                                                :max="1">
+                                                            <el-checkbox :label="c.id" :key="c.id">{{c.id}}</el-checkbox>
+                                                        </el-checkbox-group>
                                                     </td>
-                                                    <td><label :for="c.id">{{c.id}}</label></td>
+<!--                                                    <td><label :for="c.id">{{c.id}}</label></td>-->
                                                     <td><label :for="c.id">{{c.name}}</label></td>
                                                     <td><label :for="c.id">{{c.keyword}}</label></td>
                                                 </tr>
@@ -431,9 +443,13 @@
                     }).finally(()=>{
                         this.findPage();
                     })
-                }
+                },
+                //角色单选
+
             }
-        })
+        });
+
+
 
     </script>
 

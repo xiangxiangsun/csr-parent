@@ -88,6 +88,7 @@
 <body class="hold-transition skin-purple sidebar-mini">
 <div id="app">
     <el-container>
+
         <el-header  class="main-header" style="height:70px;">
             <nav class="navbar navbar-static-top" :class=''>
                 <!-- Logo -->
@@ -96,7 +97,7 @@
                     <span class="logo-lg"><img src="img/logo.png"></span>
                 </a>
                 <div class="right-menu">
-<!--                    <span class="help"><i class="fa fa-exclamation-circle" aria-hidden="true"></i>帮助</span>-->
+                    <!--                    <span class="help"><i class="fa fa-exclamation-circle" aria-hidden="true"></i>帮助</span>-->
 
                     <!-- 全屏显示 -->
                     <div class="btn-fullscreen" @click="handleFullScreen">
@@ -108,9 +109,9 @@
                     <!-- 消息中心 -->
                     <div class="btn-bell" @click="open">
                         <el-tooltip effect="dark" :content="message?`有${message}条未读消息`:`消息中心`" placement="bottom">
-<!--                            <router-link to="/tabs">-->
-                                <i class="el-icon-bell"></i>
-<!--                            </router-link>-->
+                            <!--                            <router-link to="/tabs">-->
+                            <i class="el-icon-bell"></i>
+                            <!--                            </router-link>-->
                         </el-tooltip>
                         <span class="btn-bell-badge" v-if="message"></span>
                     </div>
@@ -136,13 +137,14 @@
                 </div>
             </nav>
         </el-header>
+
         <el-container>
 
             <el-aside :class="isCollapse?'cell':'nocell'">
 
                 <transition>
-                <img v-if="isCollapse" src="images/cd-l.png" @click="isCollapse= !isCollapse"  style="width:32px;height:32px" >
-                <img v-else src="images/cd-r.png" @click="isCollapse= !isCollapse" style="width:32px;height:32px">
+                    <img v-if="isCollapse" src="images/cd-l.png" @click="isCollapse= !isCollapse"  style="width:32px;height:32px" >
+                    <img v-else src="images/cd-r.png" @click="isCollapse= !isCollapse" style="width:32px;height:32px">
                 </transition>
 
                 <el-menu default-active="menu.path" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse">
@@ -160,6 +162,7 @@
                     </el-submenu>
                 </el-menu>
             </el-aside>
+
             <el-container :class="isCollapse?'left-cont':'nocell-left-cont'">
 
                 <iframe name="right" src="" width="100%" height="100%" frameborder="0" style="background-color: #ECF0F5"></iframe>

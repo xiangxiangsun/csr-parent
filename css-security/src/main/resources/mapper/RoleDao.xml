@@ -56,7 +56,7 @@
     </select>
 
     <select id="findAll" resultType="css.security.entity.SysRole">
-        select * from t_role;
+        select * from t_role order by id;
     </select>
 
     <insert id="setMenuIdByRoleId" parameterType="hashmap">
