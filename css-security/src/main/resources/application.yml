@@ -23,6 +23,14 @@ spring:
       name: admin
       password: admin
 
+  mail:
+    host: smtp.163.com
+    username: sunxiangxiang@163.com
+    password: wySun1025..
+    default-encoding: UTF-8
+    port: 25
+
+
 
 #eureka:
 #  client:

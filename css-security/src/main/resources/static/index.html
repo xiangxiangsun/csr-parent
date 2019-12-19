@@ -30,24 +30,23 @@
             width: 54px !important;
             overflow: hidden;
         }
-        .cell{
-            width: 75px !important;
+        .shrink{
+            width: 50px !important;
         }
-        .nocell{
+        .stretch{
             width: 150px !important;
         }
         .left-cont{
             height: calc(100vh - 70px);
             width: calc(100vw - 75px);
         }
-        .nocell-left-cont{
+        .stretch-left-cont{
             height: calc(100vh - 70px);
             width: calc(100vw - 150px);
         }
         .right-menu{
             display: flex;
         }
-
         .btn-fullscreen {
             transform: rotate(45deg);
             margin-right: 5px;
@@ -78,7 +77,7 @@
             width: 8px;
             height: 8px;
             border-radius: 4px;
-            background: #f56c6c;
+            background: #e12e2a;
         }
         .btn-bell .el-icon-bell {
             color: #FFFFFF;
@@ -101,19 +100,62 @@
 
                     <!-- 全屏显示 -->
                     <div class="btn-fullscreen" @click="handleFullScreen">
-                        <el-tooltip effect="dark" :content="fullscreen?'取消全屏':'全屏'" placement="bottom">
+                        <el-tooltip  :content="fullscreen?'取消全屏':'全屏'" placement="bottom">
                             <i class="el-icon-rank"></i>
                         </el-tooltip>
                     </div>
 
                     <!-- 消息中心 -->
-                    <div class="btn-bell" @click="open">
-                        <el-tooltip effect="dark" :content="message?`有${message}条未读消息`:`消息中心`" placement="bottom">
-                            <!--                            <router-link to="/tabs">-->
-                            <i class="el-icon-bell"></i>
-                            <!--                            </router-link>-->
-                        </el-tooltip>
-                        <span class="btn-bell-badge" v-if="message"></span>
+<!--                    <div class="btn-bell">-->
+<!--                        <el-tooltip  :content="message?`有${message}条未读消息`:`消息中心`" placement="bottom">-->
+<!--                            <i class="el-icon-bell"></i>-->
+<!--                        </el-tooltip>-->
+<!--                        <span class="btn-bell-badge" v-if="message"></span>-->
+<!--                    </div>-->
+
+                    <div class="btn-bell">
+
+                        <el-popover
+                                placement="bottom"
+                                width="700"
+                                trigger="hover"
+                        >
+<!--                            <el-table-->
+<!--                                    :data="tableData"-->
+<!--                                    style="width: 100%"-->
+<!--                                    :default-sort = "{prop: 'date', order: 'descending'}"-->
+
+<!--                            >-->
+
+                            <el-table
+                                    :data="tableData"
+                                    style="width: 100%;margin-bottom: 20px;"
+                                    row-key="id"
+                                    border
+                                    :default-expand-all="false"
+                                    :tree-props="{children: 'children', hasChildren: 'hasChildren'}">
+                                <el-table-column
+                                        prop="date"
+                                        label="日期"
+                                        sortable
+                                        width="180">
+                                </el-table-column>
+                                <el-table-column
+                                        prop="name"
+                                        label="姓名"
+                                        sortable
+                                        width="180">
+                                </el-table-column>
+                                <el-table-column
+                                        prop="remarks"
+                                        label="备注"
+                                        :show-overflow-tooltip="true">
+                                </el-table-column>
+                            </el-table>
+                            <a class="el-icon-bell" slot="reference" href="workOrder.html" target="right"></a>
+                        </el-popover>
+                        <span class="btn-bell-badge" v-if="tableData"></span>
+
                     </div>
 
                     <el-dropdown class="avatar-container right-menu-item" trigger="click">
@@ -140,7 +182,7 @@
 
         <el-container>
 
-            <el-aside :class="isCollapse?'cell':'nocell'">
+            <el-aside :class="isCollapse?'shrink':'stretch'">
 
                 <transition>
                     <img v-if="isCollapse" src="images/cd-l.png" @click="isCollapse= !isCollapse"  style="width:32px;height:32px" >
@@ -163,8 +205,7 @@
                 </el-menu>
             </el-aside>
 
-            <el-container :class="isCollapse?'left-cont':'nocell-left-cont'">
-
+            <el-container :class="isCollapse?'left-cont':'stretch-left-cont'">
                 <iframe name="right" src="" width="100%" height="100%" frameborder="0" style="background-color: #ECF0F5"></iframe>
             </el-container>
         </el-container>
@@ -186,6 +227,35 @@
             isCollapse: true,
             fullscreen: false,
             message: 2,
+            tableData: [{
+
+                id: 1,
+                date: '2019-12-01 09:10',
+                name: '接近响应截至时间',
+                remarks: '接近响应截至时间，请尽快处理，如已经处理请忽略此条消息',
+                children: [{
+                    id: 31,
+                    date: '2016-05-01',
+                    name: '接近响应截至时间2',
+                    remarks: '接近响应截至时间，请尽快处理，如已经处理请忽略此条消息'
+                }, {
+                    id: 32,
+                    date: '2016-05-01',
+                    name: '工接近响应截至时间3',
+                    remarks: '接近响应截至时间，请尽快处理，如已经处理请忽略此条消息'
+                }]
+            }, {
+                id: 2,
+                date: '2019-12-02 09:15',
+                name: '有新分配工单',
+                remarks: '有新分配工单给您，请尽快处理'
+            },
+               {
+                id: 3,
+                date: '2019-12-03 12:12',
+                name: '工单XXXXXXXX已被催单，请尽快处理',
+                remarks: '工单XXXXXXXX已被催单，请尽快处理。'
+            }],
         },
         created(){
             axios.get("/user/getUserName").then((res)=>{
@@ -231,16 +301,8 @@
                     }
                 }
                 this.fullscreen = !this.fullscreen;
-            },
-            //消息显示
-            open(){
-                const h = this.$createElement;
-
-                this.$notify({
-                    title: '标题名称',
-                    message: h('i', { style: 'color: teal'}, '这是提示文案')
-                });
             }
+
         }
     });
     $(function() {
