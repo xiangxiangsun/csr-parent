@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+   mapper标签:配置各类声明
+   namespace：名称空间，由于映射文件可能有多个，为了防止crud语句的唯一标识被重复，需要设置空间名称。
+ -->
+
+<mapper namespace="css.security.dao.DeptDao">
+
+    <sql id="selectDeptVo">
+        select d.dept_id, d.parent_id, d.ancestors, d.dept_name, d.order_num, d.leader, d.phone, d.email, d.status, d.del_flag, d.create_by, d.create_time
+        from t_dept d
+    </sql>
+
+    <select id="findTree" resultType="css.security.entity.Dept">
+        select * from t_dept
+    </select>
+
+    <select id="selectDeptListByRoleId" parameterType="Long" resultType="Integer">
+		select d.dept_id, d.parent_id
+		from t_dept d
+            left join t_role_dept rd on d.dept_id = rd.dept_id
+        where rd.role_id = #{roleId}
+        	and d.dept_id not in (select d.parent_id from t_dept d inner join t_role_dept rd on d.dept_id = rd.dept_id and rd.role_id = #{roleId})
+		order by d.parent_id, d.order_num
+	</select>
+
+    <select id="selectDeptList" parameterType="css.security.entity.Dept" resultType="css.security.entity.Dept">
+        <include refid="selectDeptVo"/>
+        where d.del_flag = '0'
+        <if test="parentId != null and parentId != 0">
+            AND parent_id = #{parentId}
+        </if>
+        <if test="deptName != null and deptName != ''">
+            AND dept_name like concat('%', #{deptName}, '%')
+        </if>
+        <if test="status != null and status != ''">
+            AND status = #{status}
+        </if>
+        <!-- 数据范围过滤 -->
+        ${dataScope}
+        order by d.parent_id, d.order_num
+    </select>
+
+    <select id="selectDeptById" resultType="css.security.entity.Dept">
+        select dept_id,parent_id,dept_name,order_num,leader,phone,email,status,del_flag,create_by,create_time from t_dept where dept_id = #{deptId}
+    </select>
+
+
+</mapper>

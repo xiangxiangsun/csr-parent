@@ -55,7 +55,7 @@
             <div class="app-container">
                 <div class="box">
                     <div class="filter-container">
-                        <el-input placeholder="用户名" v-model="pagination.queryString" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter"></el-input>
+                        <el-input placeholder="用户名" v-model="pagination.queryString" style="width: 200px;" class="filter-item" @keyup.enter.native="userSelect"></el-input>
 <!--                        <el-button @click="userSelect()" class="dalfBut">查询</el-button>-->
                         <el-button @click="userSelect()" class="dalfBut">查询</el-button>
                         <el-button type="primary" class="butT" @click="handleCreate()">新建</el-button>
