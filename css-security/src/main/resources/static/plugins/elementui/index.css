@@ -1438,7 +1438,7 @@
 }
 
 .el-menu--collapse .el-menu .el-submenu, .el-menu--popup {
-    min-width: 200px
+    min-width: 100px
 }
 
 .el-pager li.btn-quicknext, .el-pager li.btn-quickprev {

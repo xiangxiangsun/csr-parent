@@ -7,10 +7,13 @@ public enum ExceptionEnum {
     /**
      * 注释
      */
-    PRICE_CANNOT_BE_NULL(400,"价格不能为空!"),
     DATA_TRANSFER_ERROR(500,"后台数据转换过程出错"),
-    INSERT_OPTIONS_ERROR(500,"数据查询失败")
+    INSERT_OPTIONS_ERROR(500,"数据查询失败"),
+    INSERT_DEPT_ERROR(500,"部门已经停用，不允许添加"),
+    GET_USERNAME_ERROR(500,"获取用户名称异常"),
+    GET_USER_ERROR(500,"获取用户信息异常")
     ;
+
 
     private int status;
     private String message;

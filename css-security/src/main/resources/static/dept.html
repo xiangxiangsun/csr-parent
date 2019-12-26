@@ -81,7 +81,11 @@
 
                 <el-table-column prop="deptName" label="部门名称" align="center"></el-table-column>
                 <el-table-column prop="orderNum" label="排序" align="center"></el-table-column>
-                <el-table-column prop="status" label="状态" align="center"></el-table-column>
+                <el-table-column label="状态" align="center">
+                    <template slot-scope="scope">
+                        <span>{{ scope.row.status == '0' ? '正常' : scope.row.status == '1' ? '停用' : '未知'}}</span>
+                    </template>
+                </el-table-column>
                 <el-table-column prop="createTime" label="创建时间" align="center">
                     <template slot-scope="scope">
                         <span>{{ (scope.row.createTime) }}</span>
@@ -132,15 +136,8 @@
                         </el-col>
                         <el-col :span="12">
                             <el-form-item label="部门状态">
-<!--                                <el-radio-group v-model="form.status">-->
-<!--                                    <el-radio-->
-<!--                                            v-for="dict in statusOptions"-->
-<!--                                            :key="dict.dictValue"-->
-<!--                                            :label="dict.dictValue"-->
-<!--                                    >{{dict.dictLabel}}</el-radio>-->
                                     <el-radio v-model="form.status" label="0">正常</el-radio>
                                     <el-radio v-model="form.status" label="1">停用</el-radio>
-<!--                                </el-radio-group>-->
                             </el-form-item>
                         </el-col>
                     </el-row>
@@ -173,8 +170,6 @@
             title: "",
             // 是否显示弹出层
             open: false,
-            // 状态数据字典
-            // statusOptions: [],
             // 查询参数
             queryParams: {
                 deptName: undefined,
@@ -191,7 +186,7 @@
                     { required: true, message: "部门名称不能为空", trigger: "blur" }
                 ],
                 orderNum: [
-                    { required: true, message: "菜单顺序不能为空", trigger: "blur" }
+                    { required: true, message: "显示排序不能为空", trigger: "blur" }
                 ],
                 email: [
                     {
@@ -211,9 +206,6 @@
         },
         created() {
             this.getList();
-            // this.getDicts("sys_normal_disable").then(response => {
-            //     this.statusOptions = response.data;
-            // });
         },
         methods: {
             /** 查询部门列表 */
@@ -292,9 +284,9 @@
                 this.$refs["form"].validate(valid => {
                     if (valid) {
                         if (this.form.deptId != undefined) {
-                            axios.put("/dept"+this.form).then(response => {
-                                if (response.code === 200) {
-                                    //新增成功，弹出成功提示
+                            axios.put("/dept",this.form).then(response => {
+                                if (response.data.flag) {
+                                    //修改成功，弹出成功提示
                                     this.$message({
                                         message:response.data.message,
                                         type:'success'
@@ -306,8 +298,8 @@
                                 }
                             });
                         } else {
-                            axios.post("/dept"+this.form).then(response => {
-                                if (response.code === 200) {
+                            axios.post("/dept/addDept",this.form).then(response => {
+                                if (response.data.flag) {
                                     //新增成功，弹出成功提示
                                     this.$message({
                                         message:response.data.message,
@@ -330,15 +322,21 @@
                     cancelButtonText: "取消",
                     type: "warning"
                 }).then(function() {
-                    return axios.post("/dept"+row.deptId);
-                }).then(() => {
+                    return axios.post("/dept/deleteDept?deptId="+row.deptId);
+                }).then((response) => {
+                    if (response.data.flag) {
                     this.getList();
-                    //新增成功，弹出成功提示
+                    //删除成功，弹出成功提示
                     this.$message({
-                        message:data.message,
+                        message:response.data.message,
                         type:'success'
                     });
-                }).catch(function() {});
+                  } else {
+                        this.$message.error(response.data.message);
+                    }
+                }).catch(() => {
+                    this.$message.error("删除失败！请重新检查");
+                });
             }
         }
     })

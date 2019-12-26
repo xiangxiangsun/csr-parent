@@ -31,5 +31,15 @@ public interface DeptService {
      */
     public List<TreeSelect> buildDeptTreeSelect(List<Dept> depts);
 
-    public Dept selectDeptById(Integer deptId);
+    public Dept selectDeptById(Long deptId);
+
+    public String checkDeptNameUnique(Dept dept);
+
+    public int updateDept(Dept dept);
+
+    public int insertDept(Dept dept);
+
+    public int deleteDept(Long deptId);
+
+    boolean hasChildByDeptId(Long deptId);
 }

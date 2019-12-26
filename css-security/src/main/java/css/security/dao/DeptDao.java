@@ -3,11 +3,14 @@ package css.security.dao;
 import css.security.entity.Dept;
 import css.security.entity.TreeSelect;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 @Mapper
 public interface DeptDao {
+
+    List<Dept> selectChildrenDeptById(Long deptId);
 
     /**
      * 查询部门管理数据
@@ -33,5 +36,17 @@ public interface DeptDao {
      */
 //    public List<TreeSelect> buildDeptTreeSelect(List<Dept> depts);
 
-    public Dept selectDeptById(Integer deptId);
+    public Dept selectDeptById(Long deptId);
+
+    public int updateDept(Dept dept);
+
+    public void updateDeptStatus(Dept dept);
+
+    public int updateDeptChildren(@Param("depts") List<Dept> depts);
+
+    public int insertDept(Dept dept);
+
+    public int deleteDeptById(Long deptId);
+
+    public int hasChildByDeptId(Long deptId);
 }

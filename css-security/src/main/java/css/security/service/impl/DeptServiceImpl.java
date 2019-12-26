@@ -1,15 +1,20 @@
 package css.security.service.impl;
 
+import com.github.pagehelper.util.StringUtil;
+import css.security.common.enums.ExceptionEnum;
+import css.security.common.exception.CssException;
 import css.security.dao.DeptDao;
 import css.security.entity.Dept;
 import css.security.entity.TreeSelect;
 import css.security.service.DeptService;
+import css.security.utils.SecurityUtils;
+import css.security.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
+import javax.validation.constraints.NotBlank;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -17,7 +22,7 @@ import java.util.stream.Collectors;
 @Transactional
 public class DeptServiceImpl implements DeptService {
 
-    @Autowired
+    @Resource
     private DeptDao deptDao;
 
     @Override
@@ -65,8 +70,75 @@ public class DeptServiceImpl implements DeptService {
     }
 
     @Override
-    public Dept selectDeptById(Integer deptId) {
+    public Dept selectDeptById(Long deptId) {
         return deptDao.selectDeptById(deptId);
+    }
+
+    @Override
+    public String checkDeptNameUnique(Dept dept){
+        Long deptId = StringUtils.isNull(dept.getDeptId()) ? -1L : dept.getDeptId();
+
+
+        return null;
+    }
+
+    @Override
+    public int updateDept(Dept dept) {
+        Dept newParentDept = deptDao.selectDeptById(dept.getParentId());
+        Dept oldDept = deptDao.selectDeptById(dept.getDeptId());
+        if (StringUtils.isNotNull(newParentDept) && StringUtils.isNotNull(oldDept))
+        {
+            String newAncestors = newParentDept.getAncestors() + "," + newParentDept.getDeptId();
+            String oldAncestors = oldDept.getAncestors();
+            dept.setAncestors(newAncestors);
+            updateDeptChildren(dept.getDeptId(), newAncestors, oldAncestors);
+        }
+
+        int result = deptDao.updateDept(dept);
+//        "0"代表正常
+        if ("0".equals(dept.getStatus()))
+        {
+            // 如果该部门是启用状态，则启用该部门的所有上级部门
+            updateParentDeptStatus(dept);
+        }
+        return result;
+    }
+
+    @Override
+    public int insertDept(Dept dept) {
+        Dept deptById = deptDao.selectDeptById(dept.getParentId());
+        //0正常  1停用
+        if ("1".equals(deptById.getStatus())){
+            throw new CssException(ExceptionEnum.INSERT_DEPT_ERROR);
+        }
+        dept.setAncestors(deptById.getAncestors()+","+dept.getParentId());
+        dept.setCreateBy(SecurityUtils.getUsername());
+        dept.setDelFlag("0");
+        return deptDao.insertDept(dept);
+    }
+
+    @Override
+    public int deleteDept(Long deptId) {
+        return deptDao.deleteDeptById(deptId);
+    }
+
+    @Override
+    public boolean hasChildByDeptId(Long deptId) {
+        int result = deptDao.hasChildByDeptId(deptId);
+        return result > 0 ? true : false;
+    }
+
+    /**
+     * 修改该部门的父级部门状态
+     *
+     * @param dept 当前部门
+     */
+    private void updateParentDeptStatus(Dept dept)
+    {
+        String updateBy = dept.getUpdateBy();
+        dept = deptDao.selectDeptById(dept.getDeptId());
+        dept.setUpdateBy(updateBy);
+        deptDao.updateDeptStatus(dept);
     }
 
     // 查询子菜单
@@ -94,9 +166,25 @@ public class DeptServiceImpl implements DeptService {
         return childList;
     }
 
-/**
- * 校验部门名称是否唯一
-**/
+    /**
+     * 修改子元素关系
+     *
+     * @param deptId 被修改的部门ID
+     * @param newAncestors 新的父ID集合
+     * @param oldAncestors 旧的父ID集合
+     */
+    public void updateDeptChildren(Long deptId, String newAncestors, String oldAncestors)
+    {
+        List<Dept> children = deptDao.selectChildrenDeptById(deptId);
+        for (Dept child : children)
+        {
+            child.setAncestors(child.getAncestors().replace(oldAncestors, newAncestors));
+        }
+        if (children.size() > 0)
+        {
+            deptDao.updateDeptChildren(children);
+        }
+    }
 
 
 
