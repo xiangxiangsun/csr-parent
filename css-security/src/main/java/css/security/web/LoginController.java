@@ -1,5 +1,7 @@
 package css.security.web;
 
+import css.security.security.LoginUser;
+import css.security.utils.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,7 +19,20 @@ public class LoginController {
     public String showHome(){
 //        String name = SecurityContextHolder.getContext().getAuthentication().getName();
 //        logger.info("当前登陆用户："+name);
-        return "index.html";
+        if (SecurityUtils.getUsername().equals("liyue")){
+            return "dist/helloLy.html";
+        }
+        if (SecurityUtils.getUsername().equals("dongzhouzhou")){
+            return "dist/helloDzz.html";
+        }
+        if (SecurityUtils.getUsername().equals("dzz")){
+            return "dist/helloDzz.html";
+        }
+        if (SecurityUtils.getUsername().equals("wuhuan")){
+            return "dist/helloWh.html";
+        }else {
+            return "dist/hello.html";
+        }
     }
 
     @RequestMapping("/login")

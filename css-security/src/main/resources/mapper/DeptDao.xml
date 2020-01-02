@@ -85,25 +85,24 @@
             #{item.deptId}
         </foreach>
     </update>
+    <select id="checkDeptNameUnique" resultType="css.security.entity.Dept">
+        <include refid="selectDeptVo"/>
+        where dept_name=#{deptName} and parent_id = #{parentId}
+    </select>
 
     <select id="hasChildByDeptId" parameterType="Long" resultType="int">
         select count(1) from t_dept where del_flag = '0' and parent_id = #{deptId}
     </select>
 
-    <select id="checkDeptExistUser" parameterType="Long" resultType="int">
-		select count(1) from t_user where dept_id = #{deptId} and del_flag = '0'
-	</select>
-
-<!--    <select id="checkDeptNameUnique" resultType="css.security.entity.Dept">-->
-<!--        <include refid="selectDeptVo"/>-->
-<!--        where dept_name=#{deptName} and parent_id = #{parentId}-->
-<!--    </select>-->
+<!--    <select id="checkDeptExistUser" parameterType="Long" resultType="int">-->
+<!--		select count(1) from t_user where dept_id = #{deptId} and del_flag = '0'-->
+<!--	</select>-->
 
     <delete id="deleteDeptById" parameterType="Long">
         update t_dept set del_flag = '2' where dept_id = #{deptId}
     </delete>
 
-    <select id="findTree" resultType="css.security.entity.Dept">
+    <select id="findTree" resultType="css.security.entity.Dept" parameterType="css.security.entity.Dept">
         <include refid="selectDeptVo"/>
         where d.del_flag = '0'
         <if test="parentId != null and parentId != 0">
@@ -115,9 +114,7 @@
         <if test="status != null and status != ''">
             AND status = #{status}
         </if>
-        <!-- 数据范围过滤 -->
-        ${dataScope}
-        order by d.parent_id, d.order_num
+
     </select>
 
     <select id="selectDeptListByRoleId" parameterType="Long" resultType="Integer">
@@ -141,8 +138,7 @@
         <if test="status != null and status != ''">
             AND status = #{status}
         </if>
-        <!-- 数据范围过滤 -->
-        ${dataScope}
+
         order by d.parent_id, d.order_num
     </select>
 

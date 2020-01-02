@@ -1,6 +1,6 @@
 package css.security.service.impl;
 
-import com.github.pagehelper.util.StringUtil;
+import css.security.common.MessageConstant;
 import css.security.common.enums.ExceptionEnum;
 import css.security.common.exception.CssException;
 import css.security.dao.DeptDao;
@@ -9,12 +9,10 @@ import css.security.entity.TreeSelect;
 import css.security.service.DeptService;
 import css.security.utils.SecurityUtils;
 import css.security.utils.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
-import javax.validation.constraints.NotBlank;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -65,8 +63,7 @@ public class DeptServiceImpl implements DeptService {
 
     @Override
     public List<TreeSelect> buildDeptTreeSelect(List<Dept> depts) {
-        List<Dept> deptTrees = findTree();
-        return deptTrees.stream().map(TreeSelect::new).collect(Collectors.toList());
+        return depts.stream().map(TreeSelect::new).collect(Collectors.toList());
     }
 
     @Override
@@ -77,9 +74,12 @@ public class DeptServiceImpl implements DeptService {
     @Override
     public String checkDeptNameUnique(Dept dept){
         Long deptId = StringUtils.isNull(dept.getDeptId()) ? -1L : dept.getDeptId();
-
-
-        return null;
+        Dept info = deptDao.checkDeptNameUnique(dept.getDeptName(), dept.getParentId());
+        if (StringUtils.isNotNull(info) && info.getDeptId().longValue() != deptId.longValue())
+        {
+            return MessageConstant.NOT_UNIQUE;
+        }
+        return MessageConstant.UNIQUE;
     }
 
     @Override
@@ -93,10 +93,8 @@ public class DeptServiceImpl implements DeptService {
             dept.setAncestors(newAncestors);
             updateDeptChildren(dept.getDeptId(), newAncestors, oldAncestors);
         }
-
         int result = deptDao.updateDept(dept);
-//        "0"代表正常
-        if ("0".equals(dept.getStatus()))
+        if (MessageConstant.UNIQUE.equals(dept.getStatus()))
         {
             // 如果该部门是启用状态，则启用该部门的所有上级部门
             updateParentDeptStatus(dept);
@@ -107,8 +105,7 @@ public class DeptServiceImpl implements DeptService {
     @Override
     public int insertDept(Dept dept) {
         Dept deptById = deptDao.selectDeptById(dept.getParentId());
-        //0正常  1停用
-        if ("1".equals(deptById.getStatus())){
+        if (MessageConstant.NOT_UNIQUE.equals(deptById.getStatus())){
             throw new CssException(ExceptionEnum.INSERT_DEPT_ERROR);
         }
         dept.setAncestors(deptById.getAncestors()+","+dept.getParentId());
@@ -148,8 +145,6 @@ public class DeptServiceImpl implements DeptService {
         for (Dept nav : allDept) {
             // 遍历所有节点，将所有菜单的父id与传过来的根节点的id比较
             //相等说明：为该根节点的子节点。
-//            System.out.println(nav.getParentId());
-
             if (nav.getParentId() != null && String.valueOf(nav.getParentId()).equals(id)) {
                 childList.add(nav);
             }
@@ -186,8 +181,6 @@ public class DeptServiceImpl implements DeptService {
         }
     }
 
-
-
     public Comparator<Dept> order() {
         Comparator<Dept> comparator = new Comparator<Dept>() {
             @Override
@@ -198,5 +191,81 @@ public class DeptServiceImpl implements DeptService {
             }
         };
         return comparator;
+    }
+
+
+    @Override
+    public List<Dept> selectDeptList(Dept dept) {
+        return deptDao.selectDeptList(dept);
+    }
+
+    @Override
+    public List<Dept> buildDeptTree(List<Dept> depts) {
+        List<Dept> returnList = new ArrayList<Dept>();
+        //遍历查询到的list
+        for (Iterator<Dept> iterator = depts.iterator(); iterator.hasNext();)
+        {
+            Dept t = (Dept) iterator.next();
+            // 根据传入的某个父节点ID,遍历该父节点的所有子节点
+            if (t.getParentId() == 0)
+            {
+                recursionFn(depts, t);
+                returnList.add(t);
+            }
+        }
+        if (returnList.isEmpty())
+        {
+            returnList = depts;
+        }
+        return returnList;
+    }
+
+    /**
+     * 递归列表
+     */
+    private void recursionFn(List<Dept> list, Dept t)
+    {
+        // 得到子节点列表
+        List<Dept> childList = getChildList(list, t);
+        t.setChildren(childList);
+        for (Dept tChild : childList)
+        {
+            if (hasChild(list, tChild))
+            {
+                // 判断是否有子节点
+                Iterator<Dept> it = childList.iterator();
+                while (it.hasNext())
+                {
+                    Dept n = (Dept) it.next();
+                    recursionFn(list, n);
+                }
+            }
+        }
+    }
+
+    /**
+     * 得到子节点列表
+     */
+    private List<Dept> getChildList(List<Dept> list, Dept t)
+    {
+        List<Dept> tlist = new ArrayList<Dept>();
+        Iterator<Dept> it = list.iterator();
+        while (it.hasNext())
+        {
+            Dept n = (Dept) it.next();
+            if (n.getParentId().longValue() == t.getDeptId().longValue())
+            {
+                tlist.add(n);
+            }
+        }
+        return tlist;
+    }
+
+    /**
+     * 判断是否有子节点
+     */
+    private boolean hasChild(List<Dept> list, Dept t)
+    {
+        return getChildList(list, t).size() > 0 ? true : false;
     }
 }

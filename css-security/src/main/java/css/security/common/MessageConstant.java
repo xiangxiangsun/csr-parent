@@ -1,9 +1,11 @@
 package css.security.common;
 
 /**
- *消息常量
+ *常量
  */
 public class MessageConstant {
+
+    /** 消息常量 */
     public static final String GET_USERNAME_SUCCESS = "获取当前登录用户名成功";
     public static final String GET_MENU_SUCCESS = "获取当前登录用户菜单成功";
 
@@ -13,4 +15,8 @@ public class MessageConstant {
     public static final String UPDATE_DEPT_SUCCESS = "更新当前部门信息成功";
     public static final String ADD_DEPT_SUCCESS = "添加部门信息成功";
     public static final String DELETE_DEPT_SUCCESS = "删除部门信息成功";
+
+    /** 校验返回结果码 */
+    public final static String UNIQUE = "0";
+    public final static String NOT_UNIQUE = "1";
 }

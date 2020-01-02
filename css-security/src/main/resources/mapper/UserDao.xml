@@ -3,19 +3,14 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="css.security.dao.UserDao">
+
     <select id="findByUserName" resultType="css.security.entity.SysUser">
         select * from t_user where username = #{username}
     </select>
 
-
-<!--    <insert id="add" parameterType="css.security.entity.SysUser" keyProperty="id" useGeneratedKeys="true">-->
-<!--        insert into public.t_user (birthday,gender,username,remark,station,telephone)-->
-<!--          values (#{birthday},#{gender},#{username},#{remark},#{station},#{telephone})-->
-<!--    </insert>    -->
-
     <insert id="add" keyProperty="user.id" useGeneratedKeys="true">
-        insert into t_user (birthday,gender,username,remark,station,telephone)
-          values (#{user.birthday},#{user.gender},#{user.username},#{user.remark},#{user.station},#{user.telephone})
+        insert into t_user (birthday,gender,username,remark,station,telephone,dept_id)
+          values (#{user.birthday},#{user.gender},#{user.username},#{user.remark},#{user.station},#{user.telephone},#{user.deptid})
     </insert>
 
     <insert id="setUserAndRole" parameterType="hashmap">
@@ -45,6 +40,9 @@
             <if test="telephone != null">
                 telephone = #{telephone},
             </if>
+            <if test="deptid != null">
+                dept_id = #{deptid}
+            </if>
         </set>
         where id = #{id}
     </update>
@@ -58,10 +56,13 @@
     </delete>
 
     <select id="findPage" parameterType="string" resultType="css.security.entity.SysUser">
-        select * from t_user
+        select * from t_user WHERE 1=1
         <if test="queryString!=null and queryString.length>0">
             <bind name="test" value="'%'+queryString+'%'"></bind>
-            where username like #{test}
+            AND username like #{test}
+        </if>
+        <if test="deptId != null and deptId != 0">
+            AND (dept_id = #{deptId} OR dept_id IN ( SELECT t.dept_id FROM t_dept t WHERE FIND_IN_SET (#{deptId},ancestors) ))
         </if>
     </select>
 
@@ -75,6 +76,22 @@
 
     <select id="findUserPage" resultType="css.security.entity.SysUser">
         select * from t_user
+    </select>
+
+    <select id="selectByDeptId" resultType="css.security.entity.Dept">
+        select * from t_dept where dept_id = #{deptid}
+    </select>
+
+    <select id="selectUserList" parameterType="css.security.entity.SysUser" resultType="css.security.entity.SysUser">
+        select * from t_user WHERE 1=1
+        <if test="user.username !=null and user.username.length>0">
+            <bind name="test" value="'%'+user.username+'%'"></bind>
+            AND username like #{test}
+        </if>
+        <if test="user.deptid != null and user.deptid != 0">
+            AND (dept_id = #{user.deptid} OR dept_id IN ( SELECT t.dept_id FROM t_dept t WHERE cast(#{user.deptid} as VARCHAR) = ANY(STRING_TO_ARRAY(ancestors, ',')) ))
+
+        </if>
     </select>
 
 

@@ -19,11 +19,12 @@ public class DeptController {
     /**
      *  获取所有部门
      */
-    @RequestMapping("/getAll")
-    public Result getAll(){
+    @GetMapping("/getList")
+    public Result getList(){
         List<Dept> depts = deptService.findTree();
-        return Result.success(MessageConstant.GET_DEPT_SUCCESS,depts);
+        return new Result(true,MessageConstant.GET_DEPT_SUCCESS,depts);
     }
+
 
     /**
      *  查询部门下拉树结构
@@ -34,12 +35,12 @@ public class DeptController {
         return new Result(true,MessageConstant.GET_DEPT_SUCCESS,deptService.buildDeptTreeSelect(depts));
     }
 
-//    @GetMapping(value = "/{deptId}")
-//    public Result getInfo(@PathVariable String deptId){
-//        return Result.success(MessageConstant.GET_DEPT_SUCCESS,deptService.selectDeptById(deptId));
-//    }
-
-    @RequestMapping("/findByDeptId")
+    /**
+     * 根据部门ID查询部门信息
+     * @param deptId
+     * @return
+     */
+    @GetMapping("/findByDeptId")
     public Result selectDeptById(Long deptId){
         return new Result(true,MessageConstant.GET_DEPT_SUCCESS,deptService.selectDeptById(deptId));
     }
@@ -49,7 +50,7 @@ public class DeptController {
      */
     @PutMapping
     public Result edit(@RequestBody Dept dept){
-        if ("1".equals(deptService.checkDeptNameUnique(dept))){
+        if (MessageConstant.NOT_UNIQUE.equals(deptService.checkDeptNameUnique(dept))){
             return new Result(false,MessageConstant.UPDATE_DEPTNAME_NOTUNIQUE_ERROR);
         }else if (dept.getParentId().equals(dept.getDeptId())){
             return new Result(false,MessageConstant.UPDATE_PARENTID_NOTSELF_ERROR);
@@ -62,7 +63,7 @@ public class DeptController {
      */
     @RequestMapping("/addDept")
     public Result addDept(@RequestBody Dept dept){
-        if ("1".equals(deptService.checkDeptNameUnique(dept))){
+        if (MessageConstant.NOT_UNIQUE.equals(deptService.checkDeptNameUnique(dept))){
             return new Result(false,MessageConstant.UPDATE_DEPTNAME_NOTUNIQUE_ERROR);
         }
         return new Result(true,MessageConstant.ADD_DEPT_SUCCESS,deptService.insertDept(dept));
@@ -82,6 +83,13 @@ public class DeptController {
 //            return new Result(false,"部门存在用户，不允许删除");
 //        }
         return new Result(true,MessageConstant.DELETE_DEPT_SUCCESS,deptService.deleteDept(deptId));
+    }
+
+    @RequestMapping("/queryList")
+    public Result list(@RequestBody Dept dept)
+    {
+        List<Dept> depts = deptService.selectDeptList(dept);
+        return new Result(true,MessageConstant.GET_DEPT_SUCCESS,deptService.buildDeptTree(depts));
     }
 
 }

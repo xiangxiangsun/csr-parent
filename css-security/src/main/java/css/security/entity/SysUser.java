@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class SysUser implements Serializable {
@@ -26,6 +27,10 @@ public class SysUser implements Serializable {
     private String station; // 状态
 
     private String telephone; // 联系电话
+
+    private Integer deptid; //部门ID
+
+    private Dept dept; //部门对象
 
     private Set<SysRole> roles = new HashSet<SysRole>(0);//对应角色集合
 
@@ -110,4 +115,21 @@ public class SysUser implements Serializable {
     public void setRoles(Set<SysRole> roles) {
         this.roles = roles;
     }
+
+    public Integer getDeptid() {
+        return deptid;
+    }
+
+    public void setDeptid(Integer deptid) {
+        this.deptid = deptid;
+    }
+
+    public Dept getDept() {
+        return dept;
+    }
+
+    public void setDept(Dept dept) {
+        this.dept = dept;
+    }
+
 }

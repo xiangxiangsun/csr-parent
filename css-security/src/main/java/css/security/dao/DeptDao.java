@@ -10,15 +10,14 @@ import java.util.List;
 @Mapper
 public interface DeptDao {
 
-    List<Dept> selectChildrenDeptById(Long deptId);
+    public List<Dept> selectChildrenDeptById(Long deptId);
 
     /**
      * 查询部门管理数据
      *
-     * @param dept 部门信息
      * @return 部门信息集合
      */
-    List<Dept> findTree();
+    public List<Dept> findTree();
 
     /**
      * 根据角色ID查询部门树信息
@@ -27,14 +26,6 @@ public interface DeptDao {
      * @return 选中部门列表
      */
     public List<Integer> selectDeptListByRoleId(Long roleId);
-
-    /**
-     * 构建前端所需要下拉树结构
-     *
-     * @param depts 部门列表
-     * @return 下拉树结构列表
-     */
-//    public List<TreeSelect> buildDeptTreeSelect(List<Dept> depts);
 
     public Dept selectDeptById(Long deptId);
 
@@ -49,4 +40,14 @@ public interface DeptDao {
     public int deleteDeptById(Long deptId);
 
     public int hasChildByDeptId(Long deptId);
+
+    public Dept checkDeptNameUnique(@Param("deptName") String deptName,@Param("parentId") Long parentId);
+
+    /**
+     * 查询部门管理数据
+     *
+     * @param dept 部门信息
+     * @return 部门信息集合
+     */
+    List<Dept> selectDeptList(Dept dept);
 }

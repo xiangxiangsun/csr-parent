@@ -1,6 +1,8 @@
 package css.security.dao;
 
 import com.github.pagehelper.Page;
+import css.security.dto.SysUserDTO;
+import css.security.entity.Dept;
 import css.security.entity.SysUser;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -30,4 +32,8 @@ public interface UserDao {
     void deleteByUserId(Integer id);
 
     List<SysUser> findUserPage();
+
+    Dept selectByDeptId(Integer deptid);
+
+    List<SysUser> selectUserList(@Param("user") SysUserDTO userDTO);
 }

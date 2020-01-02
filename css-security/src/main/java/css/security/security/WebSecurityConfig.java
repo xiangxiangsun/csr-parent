@@ -47,6 +47,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 // 如果有允许匿名的url，填在下面
                 .antMatchers("/css/*.css").permitAll() //登陆所需资源
+                .antMatchers("/dist/*/*.ttf").permitAll() //登陆所需资源
                 .antMatchers("/images/*.jpg","/images/*.png").permitAll() //登陆所需资源
 
                 .and()

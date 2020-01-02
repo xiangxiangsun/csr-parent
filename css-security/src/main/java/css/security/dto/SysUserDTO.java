@@ -1,9 +1,8 @@
 package css.security.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import css.security.entity.Dept;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.Date;
 
@@ -13,8 +12,6 @@ public class SysUserDTO {
     private Integer id; // 主键
 
     private String username; // 用户名，唯一
-
-    private String password; // 密码
 
     private String gender; // 性别
 
@@ -26,5 +23,15 @@ public class SysUserDTO {
     private String station; // 状态
 
     private String telephone; // 联系电话
+
+    private Integer deptid; //部门Id
+
+    private Dept dept;
+
+    private Integer currentPage;//页码
+    private Integer pageSize;//每页记录数
+    private String queryString;//查询条件
+
+
 
 }

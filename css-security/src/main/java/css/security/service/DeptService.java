@@ -10,7 +10,6 @@ public interface DeptService {
     /**
      * 查询部门管理数据
      *
-     * @param dept 部门信息
      * @return 部门信息集合
      */
     public List<Dept> findTree();
@@ -42,4 +41,21 @@ public interface DeptService {
     public int deleteDept(Long deptId);
 
     boolean hasChildByDeptId(Long deptId);
+
+    /**
+     * 查询部门管理数据
+     *
+     * @param dept 部门信息
+     * @return 部门信息集合
+     */
+    public List<Dept> selectDeptList(Dept dept);
+
+    /**
+     * 构建前端所需要树结构
+     *
+     * @param depts 部门列表
+     * @return 树结构列表
+     */
+    public List<Dept> buildDeptTree(List<Dept> depts);
+
 }

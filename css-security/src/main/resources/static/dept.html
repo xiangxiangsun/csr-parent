@@ -41,7 +41,7 @@
             <el-form :inline="true">
                 <el-form-item label="部门名称">
                     <el-input
-                            v-model="queryParams.deptName"
+                            v-model="dept.deptName"
                             placeholder="请输入部门名称"
                             clearable
                             size="small"
@@ -49,7 +49,7 @@
                     />
                 </el-form-item>
                 <el-form-item label="状态">
-                    <el-select v-model="queryParams.status" placeholder="部门状态" clearable size="small">
+                    <el-select v-model="dept.status" placeholder="部门状态" clearable size="small">
                         <el-option label="正常" value="0"></el-option>
                         <el-option label="停用" value="1"></el-option>
                     </el-select>
@@ -171,7 +171,7 @@
             // 是否显示弹出层
             open: false,
             // 查询参数
-            queryParams: {
+            dept: {
                 deptName: undefined,
                 status: undefined
             },
@@ -210,8 +210,7 @@
         methods: {
             /** 查询部门列表 */
             getList() {
-                axios.get("/dept/getAll")
-                .then(response => {
+                axios.get("/dept/getList").then(response => {
                     this.deptList = response.data.data;
                     this.loading = false;
                 });
@@ -251,7 +250,11 @@
             },
             /** 搜索按钮操作 */
             handleQuery() {
-                this.getList();
+                // this.getList();
+                axios.post("/dept/queryList",this.dept).then(response => {
+                    this.deptList = response.data.data;
+                    this.loading = false;
+                });
             },
             /** 新增按钮操作 */
             handleAdd(row) {

@@ -9,7 +9,7 @@ import java.util.List;
 public interface UserService {
     SysUser loadUserByUsername(String username);
 
-    PageResult<SysUserDTO> findPage(Integer currentPage, Integer pageSize, String queryString);
+    PageResult<SysUserDTO> findPage(SysUserDTO userDTO);
 
     void add(SysUser user, Integer[] roleIds);
 

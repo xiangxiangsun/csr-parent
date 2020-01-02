@@ -1,10 +1,10 @@
 package css.security.controller;
 
 import css.security.common.MessageConstant;
+import css.security.dto.SysUserDTO;
 import css.security.entity.*;
 import css.security.service.UserService;
 import css.security.entity.PageResult;
-import css.security.entity.QueryPageBean;
 import css.security.entity.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,18 +30,14 @@ public class UserController {
     @RequestMapping("/getUserName")
     public Result getUsername(){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        logger.info("logger---用户名："+user.getUsername(),"密码："+user.getPassword());
         return new Result(true, MessageConstant.GET_USERNAME_SUCCESS,user.getUsername());
     }
 
     //分页查询
 //    @PreAuthorize("hasAuthority('USER_QUERY')")
     @RequestMapping("/findPage")
-    public ResponseEntity findPage(@RequestBody QueryPageBean queryPageBean){
-        PageResult pageResult = userService.findPage(
-                queryPageBean.getCurrentPage(),
-                queryPageBean.getPageSize(),
-                queryPageBean.getQueryString());{
+    public ResponseEntity findPage(@RequestBody SysUserDTO userDTO){
+        PageResult pageResult = userService.findPage(userDTO);{
         return ResponseEntity.ok(pageResult);
     }}
 
