@@ -42,9 +42,9 @@ public class UserController {
     }}
 
     @RequestMapping("/add")
-    public Result add(@RequestBody SysUser user, Integer[] roleIds){
+    public Result add(@RequestBody UserTable user){
         try {
-            userService.add(user,roleIds);
+            userService.add(user);
             return new Result(true, "用户新建成功");
         } catch (Exception e) {
             e.printStackTrace();
@@ -69,10 +69,15 @@ public class UserController {
         return userService.findRoleIdsByUserId(id);
     }
 
+    @RequestMapping("/findDeptIdsByUserId")
+    public List<Integer> findDeptIdsByUserId(Integer id){
+        return userService.findDeptIdsByUserId(id);
+    }
+
     @RequestMapping("/edit")
-    public Result edit(@RequestBody SysUser user , Integer[] roleIds){
+    public Result edit(@RequestBody UserTable user){
         try {
-            userService.edit(user,roleIds);
+            userService.edit(user);
             return new Result(true,"用户信息修改成功");
         } catch (Exception e) {
             e.printStackTrace();

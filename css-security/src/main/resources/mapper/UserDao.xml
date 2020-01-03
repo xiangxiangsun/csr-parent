@@ -47,12 +47,22 @@
         where id = #{id}
     </update>
 
+    <insert id="setUserAndDept" parameterType="hashmap">
+         insert into t_user_dept (user_id,dept_id)
+            values
+            (#{user_id},#{dept_id})
+    </insert>
+
     <delete id="deleteRoleIdByUserId">
         delete from t_user_role where user_id = #{id}
     </delete>
 
     <delete id="deleteByUserId">
         delete from t_user where id = #{id}
+    </delete>
+
+    <delete id="deleteDeptIdByUserId">
+        delete from t_user_dept where user_id = #{id}
     </delete>
 
     <select id="findPage" parameterType="string" resultType="css.security.entity.SysUser">
@@ -90,8 +100,15 @@
         </if>
         <if test="user.deptid != null and user.deptid != 0">
             AND (dept_id = #{user.deptid} OR dept_id IN ( SELECT t.dept_id FROM t_dept t WHERE cast(#{user.deptid} as VARCHAR) = ANY(STRING_TO_ARRAY(ancestors, ',')) ))
-
         </if>
+    </select>
+
+    <select id="findDeptIdsByUserId" resultType="java.lang.Integer">
+        select dept_id from t_user_dept where user_id = #{id};
+    </select>
+
+    <select id="selectUserListByDept" resultType="java.lang.Integer">
+        select user_id from t_user_dept where dept_id = #{id};
     </select>
 
 

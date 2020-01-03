@@ -77,78 +77,20 @@
                                         :props="defaultProps"
                                         :expand-on-click-node="false"
                                         :filter-node-method="filterNode"
-                                        ref="tree"
+                                        ref="treeLeft"
                                         default-expand-all
                                         @node-click="handleNodeClick"
                                 />
                             </div>
                         </el-col>
-<!--                        &lt;!&ndash;用户数据&ndash;&gt;
-                        <el-col :span="20" :xs="24">
-                            <el-form :model="queryParams" ref="queryForm" :inline="true" label-width="68px">
-                                <el-form-item label="用户名称" prop="username">
-                                    <el-input
-                                            v-model="queryParams.username"
-                                            placeholder="请输入用户名称"
-                                            clearable
-                                            size="small"
-                                            style="width: 240px"
-                                            @keyup.enter.native="handleQuery"
-                                    />
-                                </el-form-item>
-                                <el-form-item label="手机号码" prop="phone">
-                                    <el-input
-                                            v-model="queryParams.phone"
-                                            placeholder="请输入手机号码"
-                                            clearable
-                                            size="small"
-                                            style="width: 240px"
-                                            @keyup.enter.native="handleQuery"
-                                    />
-                                </el-form-item>
-                                <el-form-item label="状态" prop="status">
-                                    <el-select
-                                            v-model="queryParams.status"
-                                            placeholder="用户状态"
-                                            clearable
-                                            size="small"
-                                            style="width: 240px"
-                                    >
-                                        <el-option
-                                                v-for="dict in statusOptions"
-                                                :key="dict.dictValue"
-                                                :label="dict.dictLabel"
-                                                :value="dict.dictValue"
-                                        />
-                                    </el-select>
-                                </el-form-item>
-&lt;!&ndash;                                <el-form-item label="创建时间">&ndash;&gt;
-&lt;!&ndash;                                    <el-date-picker&ndash;&gt;
-&lt;!&ndash;                                            v-model="dateRange"&ndash;&gt;
-&lt;!&ndash;                                            size="small"&ndash;&gt;
-&lt;!&ndash;                                            style="width: 240px"&ndash;&gt;
-&lt;!&ndash;                                            value-format="yyyy-MM-dd"&ndash;&gt;
-&lt;!&ndash;                                            type="daterange"&ndash;&gt;
-&lt;!&ndash;                                            range-separator="-"&ndash;&gt;
-&lt;!&ndash;                                            start-placeholder="开始日期"&ndash;&gt;
-&lt;!&ndash;                                            end-placeholder="结束日期"&ndash;&gt;
-&lt;!&ndash;                                    ></el-date-picker>&ndash;&gt;
-&lt;!&ndash;                                </el-form-item>&ndash;&gt;
-                                <el-form-item>
-                                    <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
-                                    <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
-                                </el-form-item>
-                            </el-form>
-                        </el-col>-->
 
-<!--                    <div class="filter-container">-->
                         <el-col :span="20" :xs="24">
 
                         <el-input placeholder="用户名" v-model="queryParams.username" style="width: 200px;" class="filter-item" @keyup.enter.native="userSelect"></el-input>
-<!--                        <el-button @click="userSelect()" class="dalfBut">查询</el-button>-->
+
                         <el-button @click="userSelect()" class="dalfBut">查询</el-button>
                         <el-button type="primary" class="butT" @click="handleCreate()">新建</el-button>
-<!--                    </div>-->
+
                     <el-table size="small" current-row-key="id" :data="dataList" stripe highlight-current-row>
                         <el-table-column type="index" align="center" label="序号"></el-table-column>
                         <el-table-column prop="username" label="用户名" align="center"></el-table-column>
@@ -158,7 +100,7 @@
                             </template>
                         </el-table-column>
                         <el-table-column prop="birthday" label="生日" align="center"></el-table-column>
-                        <el-table-column prop="dept.deptName" label="部门" align="center"></el-table-column>
+                        <el-table-column prop="remark" label="备注" align="center"></el-table-column>
                         <el-table-column prop="station" label="状态" align="center"></el-table-column>
                         <el-table-column prop="telephone" label="联系电话" align="center"></el-table-column>
                         <el-table-column label="操作" align="center">
@@ -181,7 +123,6 @@
                         </el-col>
                     </el-row>
                 </div>
-
 
                     <!-- 新增标签弹层 -->
                     <div class="add-form">
@@ -209,17 +150,17 @@
                                             </el-row>
                                             <el-row>
 
-                                                <el-col :span="12">
+                                                <el-col :span="18">
                                                     <el-form-item label="生日">
                                                         <el-date-picker type="date" placeholder="选择日期" v-model="formData.birthday" style="width: 100%;" value-format="yyyy-MM-dd"></el-date-picker>
                                                     </el-form-item>
                                                 </el-col>
 
-                                                <el-col :span="12">
-                                                    <el-form-item label="归属部门" prop="deptid">
-                                                        <treeselect v-model="formData.deptid" :options="deptOptions" placeholder="请选择归属部门" />
-                                                    </el-form-item>
-                                                </el-col>
+<!--                                                <el-col :span="12">-->
+<!--                                                    <el-form-item label="归属部门" prop="deptid">-->
+<!--                                                        <treeselect v-model="formData.deptid" :options="deptOptions" placeholder="请选择归属部门" />-->
+<!--                                                    </el-form-item>-->
+<!--                                                </el-col>-->
 
                                             </el-row>
                                             <el-row>
@@ -260,7 +201,6 @@
                                             <tbody>
                                             <tr v-for="c in tableData">
                                                 <td>
-<!--                                                    <input :id="c.id" v-model="roleIds" type="checkbox" :value="c.id">-->
                                                     <el-checkbox-group
                                                             v-model="roleIds"
                                                             :min="0"
@@ -268,7 +208,6 @@
                                                         <el-checkbox :label="c.id" :key="c.id">{{c.id}}</el-checkbox>
                                                     </el-checkbox-group>
                                                 </td>
-<!--                                                <td><label :for="c.id">{{c.id}}</label></td>-->
                                                 <td><label :for="c.id">{{c.name}}</label></td>
                                                 <td><label :for="c.id">{{c.keyword}}</label></td>
                                             </tr>
@@ -276,6 +215,20 @@
                                         </table>
 									</div>
                                     </el-tab-pane>
+
+                                    <!--第三个框，角色框-->
+                                    <el-tab-pane label="部门信息" name="Three">
+                                        <el-tree
+                                                ref="tree"
+                                                :data="tableDept"
+                                                show-checkbox
+                                                node-key="id"
+                                                :default-checked-keys="deptIds"
+                                                default-expand-all
+                                                >
+                                        </el-tree>
+                                    </el-tab-pane>
+
                                 </el-tabs>
                             </template>
                             <div slot="footer" class="dialog-footer">
@@ -310,17 +263,17 @@
                                             </el-row>
                                             <el-row>
 
-                                                <el-col :span="12">
+                                                <el-col :span="18">
                                                     <el-form-item label="生日">
                                                         <el-date-picker type="date" placeholder="选择日期" v-model="formData.birthday" style="width: 100%;" value-format="yyyy-MM-dd"></el-date-picker>
                                                     </el-form-item>
                                                 </el-col>
 
-                                                <el-col :span="12">
-                                                    <el-form-item label="归属部门" prop="deptId">
-                                                        <treeselect v-model="formData.deptid" :options="deptOptions" placeholder="请选择归属部门" />
-                                                    </el-form-item>
-                                                </el-col>
+<!--                                                <el-col :span="12">-->
+<!--                                                    <el-form-item label="归属部门" prop="deptId">-->
+<!--                                                        <treeselect v-model="formData.deptid" :options="deptOptions" placeholder="请选择归属部门" />-->
+<!--                                                    </el-form-item>-->
+<!--                                                </el-col>-->
 
                                             </el-row>
                                             <el-row>
@@ -361,7 +314,6 @@
                                                 <tbody>
                                                 <tr v-for="c in tableData">
                                                     <td>
-<!--                                                        <input :id="c.id" v-model="roleIds" type="checkbox" :value="c.id">-->
                                                         <el-checkbox-group
                                                                 v-model="roleIds"
                                                                 :min="0"
@@ -369,7 +321,6 @@
                                                             <el-checkbox :label="c.id" :key="c.id">{{c.id}}</el-checkbox>
                                                         </el-checkbox-group>
                                                     </td>
-<!--                                                    <td><label :for="c.id">{{c.id}}</label></td>-->
                                                     <td><label :for="c.id">{{c.name}}</label></td>
                                                     <td><label :for="c.id">{{c.keyword}}</label></td>
                                                 </tr>
@@ -377,6 +328,20 @@
                                             </table>
                                         </div>
                                 </el-tab-pane>
+
+                                    <!--第三个框，角色框-->
+                                    <el-tab-pane label="部门信息" name="Three">
+                                        <el-tree
+                                                ref="tree"
+                                                :data="tableDept"
+                                                show-checkbox
+                                                node-key="id"
+                                                :default-checked-keys="deptIds"
+                                                default-expand-all
+                                                >
+                                        </el-tree>
+                                    </el-tab-pane>
+
                             </el-tabs>
                             </template>
                             <div slot="footer" class="dialog-footer">
@@ -417,7 +382,9 @@
                 dataList: [],//列表数据
                 formData: {},//表单数据
                 tableData: [],//新增和编辑表单中对应的角色列表数据
-                roleIds: [],//新增和编辑表单中检查项对应的复选框，基于双向绑定可以进行回显和数据提交
+                tableDept: [],//新增和编辑表单中对应的部门数据
+                roleIds: [],//新增和编辑表单中权限信息对应的复选框，基于双向绑定可以进行回显和数据提交
+                deptIds: [],//新增和编辑表单中部门信息对应的复选框
                 dialogFormVisible: false,//控制添加窗口显示/隐藏
                 dialogFormVisible4Edit: false,//控制编辑窗口显示/隐藏
                 // 查询参数
@@ -429,7 +396,7 @@
             watch: {
                 // 根据名称筛选部门树
                 deptName(val) {
-                    this.$refs.tree.filter(val);
+                    this.$refs.treeLeft.filter(val);
                 }
             },
             created() {
@@ -439,10 +406,15 @@
             methods: {
                 //编辑
                 handleEdit() {
-                    // console.log(this.roleIds,this.formData);
-                    //发送ajax请求,提交模型数据
-                    axios.post("/user/edit?roleIds=" + this.roleIds, this.formData)
-                        .then((res) => {
+                    //发送ajax请求将模型数据提交到后台进行处理
+                    alert(this.$refs.tree.getCheckedKeys());
+                    // console.log(this.roleIds, this.formData ,this.deptIds, this.tableDept.id);
+                    var editParam = {
+                        sysUser: this.formData,
+                        roleIds: this.roleIds,
+                        deptIds: this.$refs.tree.getCheckedKeys(),
+                    };
+                    axios.post("/user/edit",editParam).then((res) => {
                             //隐藏编辑窗口
                             this.dialogFormVisible4Edit = false;
                             if (res.data.flag) {
@@ -460,9 +432,14 @@
                 //添加
                 handleAdd() {
                     //发送ajax请求将模型数据提交到后台进行处理
-                    console.log(this.roleIds, this.formData);
-                    axios.post("/user/add?roleIds=" + this.roleIds, this.formData)
-                        .then((res) => {
+                    // alert(this.$refs.tree.getCheckedKeys());
+                    // console.log(this.roleIds, this.formData ,this.deptIds, this.tableDept.id);
+                    var addParam = {
+                        sysUser: this.formData,
+                        roleIds: this.roleIds,
+                        deptIds: this.$refs.tree.getCheckedKeys(),
+                    };
+                    axios.post("/user/add",addParam).then((res) => {
                             //关闭新增窗口
                             this.dialogFormVisible = false;
                             if (res.data.flag) {
@@ -510,6 +487,7 @@
                     this.activeName = 'first';
                     //重置
                     this.roleIds = [];
+                    this.deptIds = [];
                     //发送axios请求查询所有检查项信息
                     // alert("11111");
                     axios.get("/role/findAll").then((res) => {
@@ -519,11 +497,22 @@
                         } else {
                             this.$message.error(res.data.message);
                         }
-                    })
-
+                    });
+                    //发送ajax请求查询所有的部门信息,用于查询项表格展示
+                    axios.get("dept/treeSelect").then((res) => {
+                        if (res.data.flag) {
+                            this.tableDept = res.data.data;
+                        } else {
+                            this.$message.error(res.data.message);
+                        }
+                    });
                 },
                 // 弹出编辑窗口
                 handleUpdate(row) {
+                    //重置
+                    this.resetForm();
+                    this.roleIds = [];
+                    this.deptIds = [];
                     // alert(row);
                     axios.get("/user/findById?id=" + row.id).then((res) => {
                         if (res.data.flag) {
@@ -533,16 +522,26 @@
                             this.activeName = "first";
                             //为模型数据赋值,通过vue数据双向绑定进行信息的回显
                             this.formData = res.data.data;
-                            //发送ajax请求查询所有的检查项信息,用于查询项表格展示
+                            //发送ajax请求查询所有的权限信息,用于查询项表格展示
                             axios.get("/role/findAll").then((res) => {
                                 if (res.data.flag) {
                                     //为模型数据赋值,通过vue数据双向绑定进行数据回显
                                     this.tableData = res.data.data;
                                     //查询当前检查组包含的所有检查项id, 用于页面回显
-
                                     axios.get("/user/findRoleIdsByUserId?id=" + row.id).then((res) => {
                                         //为模型数据进行赋值,通过vue数据双向绑定进行信息的回显
                                         this.roleIds = res.data;
+                                    });
+                                } else {
+                                    this.$message.error(res.data.message);
+                                }
+                            });
+                            //发送ajax请求查询所有的部门信息,用于查询项表格展示
+                            axios.get("dept/treeSelect").then((res) => {
+                                if (res.data.flag) {
+                                    this.tableDept = res.data.data;
+                                    axios.get("/user/findDeptIdsByUserId?id=" + row.id).then((res) => {
+                                        this.deptIds = res.data;
                                     });
                                 } else {
                                     this.$message.error(res.data.message);

@@ -31,7 +31,7 @@ public class LoginController {
         if (SecurityUtils.getUsername().equals("wuhuan")){
             return "dist/helloWh.html";
         }else {
-            return "dist/hello.html";
+            return "index.html";
         }
     }
 

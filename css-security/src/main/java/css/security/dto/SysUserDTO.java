@@ -24,7 +24,7 @@ public class SysUserDTO {
 
     private String telephone; // 联系电话
 
-    private Integer deptid; //部门Id
+    private Integer deptid; //Tree 部门Id 查询方式
 
     private Dept dept;
 

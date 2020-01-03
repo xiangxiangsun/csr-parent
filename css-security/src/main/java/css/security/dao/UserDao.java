@@ -36,4 +36,12 @@ public interface UserDao {
     Dept selectByDeptId(Integer deptid);
 
     List<SysUser> selectUserList(@Param("user") SysUserDTO userDTO);
+
+    List<Integer> findDeptIdsByUserId(@Param("id")Integer id);
+
+    void setUserAndDept(Map<String, Integer> map);
+
+    void deleteDeptIdByUserId(@Param("id")Integer id);
+
+    List<Integer> selectUserListByDept(@Param("id")Integer id);
 }

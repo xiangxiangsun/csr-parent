@@ -58,19 +58,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public PageResult<SysUserDTO> findPage(SysUserDTO userDTO) {
-//        System.out.println(currentPage+","+pageSize+","+queryString);
         //分页
         PageHelper.startPage(userDTO.getCurrentPage(),userDTO.getPageSize());
-        //查询表数据
-/*        List<SysUser> userList = null;
-        if (queryString == null || queryString.length() == 0) {
-            userList = userDao.findUserPage();
+        List<SysUser> userList = null ;
+        if (userDTO.getDeptid() != null){
+            List<Integer> userListByDept = userDao.selectUserListByDept(userDTO.getDeptid());
+            for (Integer userId : userListByDept) {
+                userList.add(userDao.findById(userId));
+            }
+        }else {
+            userList = userDao.selectUserList(userDTO);
         }
-        else {
-            userList = userDao.findPage(queryString);
-        }*/
-        List<SysUser> userList = userDao.selectUserList(userDTO);
-
 /*        if(CollectionUtils.isEmpty(userList)){
             throw new CssException(ExceptionEnum.INSERT_OPTIONS_ERROR);
         }*/
@@ -80,16 +78,13 @@ public class UserServiceImpl implements UserService {
 //        System.out.println("查询到数据："+userList.size());
 //        System.out.println("总个数："+pageInfo.getTotal());
 
-        for (Iterator<SysUser> it = userList.iterator();it.hasNext();){
+/*        for (Iterator<SysUser> it = userList.iterator();it.hasNext();){
             SysUser deptUser = it.next();
             if (deptUser.getDeptid() != null){
-                System.out.println(deptUser.getDeptid());
                 Dept dept = userDao.selectByDeptId(deptUser.getDeptid());
-                System.out.println(dept.getDeptName());
                 deptUser.setDept(dept);
             }
-        }
-
+        }*/
         //转为SysUserDTO,减少流量传输
         List<SysUserDTO> list = BeanHelper.copyWithCollection(userList,SysUserDTO.class);
         //返回：个数，总页数，当前页数据
@@ -100,13 +95,15 @@ public class UserServiceImpl implements UserService {
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public void add(SysUser user, Integer[] roleIds) {
+    public void add(UserTable user) {
         //初始密码默认123456，并用盐值加密
 //        String password = passwordEncoder.encode("123456");
         //先将用户基本信息进行添加
-        userDao.add(user);
-        //通过uesrIds回显id
-        setUserAndRole(user.getId(),roleIds);
+        userDao.add(user.getSysUser());
+        //通过uesrIds修改角色信息
+        setUserAndRole(user.getSysUser().getId(),user.getRoleIds());
+        //通过uesrIds修改部门信息
+        setUserAndDept(user.getSysUser().getId(),user.getDeptIds());
     }
 
     @Override
@@ -120,21 +117,31 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void edit(SysUser user, Integer[] roleIds) {
+    public void edit(UserTable user) {
         //先将用户基本信息进行修改
-        userDao.edit(user);
-        //通过userId对已有中间表进行删除
-        userDao.deleteRoleIdByUserId(user.getId());
+        userDao.edit(user.getSysUser());
+        //通过userId对已有角色中间表进行删除
+        userDao.deleteRoleIdByUserId(user.getSysUser().getId());
         //再次添加
-        setUserAndRole(user.getId(),roleIds);
+        setUserAndRole(user.getSysUser().getId(),user.getRoleIds());
+        //通过userId对已有部门中间表进行删除
+        userDao.deleteDeptIdByUserId(user.getSysUser().getId());
+        //再次添加
+        setUserAndDept(user.getSysUser().getId(),user.getDeptIds());
     }
 
     @Override
     public void deleteById(Integer id) {
         //先删除中价表关系
         userDao.deleteRoleIdByUserId(id);
+        userDao.deleteDeptIdByUserId(id);
         //再删除user表基本信息
         userDao.deleteByUserId(id);
+    }
+
+    @Override
+    public List<Integer> findDeptIdsByUserId(Integer id) {
+        return userDao.findDeptIdsByUserId(id);
     }
 
     public void setUserAndRole(Integer userId, Integer[] roleIds) {
@@ -144,6 +151,17 @@ public class UserServiceImpl implements UserService {
                 map.put("user_id",userId);
                 map.put("role_id",roleId);
                 userDao.setUserAndRole(map);
+            }
+        }
+    }
+
+    public void setUserAndDept(Integer userId, Integer[] deptIds){
+        if (deptIds != null && deptIds.length>0){
+            for (Integer deptId : deptIds) {
+                Map<String,Integer> map = new HashMap<>();
+                map.put("user_id",userId);
+                map.put("dept_id",deptId);
+                userDao.setUserAndDept(map);
             }
         }
     }

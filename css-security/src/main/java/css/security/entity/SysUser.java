@@ -1,13 +1,12 @@
 package css.security.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
+@Data
 public class SysUser implements Serializable {
     static final long serialVersionUID = 1L;
 
@@ -44,7 +43,7 @@ public class SysUser implements Serializable {
         this.newpassword = newpassword;
     }
 
-    public Integer getId() {
+/*    public Integer getId() {
         return id;
     }
 
@@ -130,6 +129,6 @@ public class SysUser implements Serializable {
 
     public void setDept(Dept dept) {
         this.dept = dept;
-    }
+    }*/
 
 }
