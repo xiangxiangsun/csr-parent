@@ -77,11 +77,11 @@
     </select>
 
     <select id="findById" resultType="css.security.entity.SysUser">
-        select * from t_user where id = #{id};
+        select * from t_user where id = #{id}
     </select>
 
     <select id="findRoleIdsByUserId" resultType="java.lang.Integer">
-        select role_id from t_user_role where user_id = #{id};
+        select role_id from t_user_role where user_id = #{id}
     </select>
 
     <select id="findUserPage" resultType="css.security.entity.SysUser">
@@ -104,11 +104,11 @@
     </select>
 
     <select id="findDeptIdsByUserId" resultType="java.lang.Integer">
-        select dept_id from t_user_dept where user_id = #{id};
+        select dept_id from t_user_dept where user_id = #{id}
     </select>
 
     <select id="selectUserListByDept" resultType="java.lang.Integer">
-        select user_id from t_user_dept where dept_id = #{id};
+        select user_id from t_user_dept where dept_id = #{deptid}
     </select>
 
 

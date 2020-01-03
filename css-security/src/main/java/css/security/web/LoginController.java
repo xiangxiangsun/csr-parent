@@ -22,9 +22,6 @@ public class LoginController {
         if (SecurityUtils.getUsername().equals("liyue")){
             return "dist/helloLy.html";
         }
-        if (SecurityUtils.getUsername().equals("dongzhouzhou")){
-            return "dist/helloDzz.html";
-        }
         if (SecurityUtils.getUsername().equals("dzz")){
             return "dist/helloDzz.html";
         }

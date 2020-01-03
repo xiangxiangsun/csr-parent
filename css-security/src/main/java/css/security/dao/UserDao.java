@@ -43,5 +43,5 @@ public interface UserDao {
 
     void deleteDeptIdByUserId(@Param("id")Integer id);
 
-    List<Integer> selectUserListByDept(@Param("id")Integer id);
+    List<Integer> selectUserListByDept(@Param("deptid")Integer deptid);
 }

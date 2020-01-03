@@ -60,11 +60,12 @@ public class UserServiceImpl implements UserService {
     public PageResult<SysUserDTO> findPage(SysUserDTO userDTO) {
         //分页
         PageHelper.startPage(userDTO.getCurrentPage(),userDTO.getPageSize());
-        List<SysUser> userList = null ;
+        List<SysUser> userList = new ArrayList<>() ;
         if (userDTO.getDeptid() != null){
+            //判断是否是根节点
             List<Integer> userListByDept = userDao.selectUserListByDept(userDTO.getDeptid());
-            for (Integer userId : userListByDept) {
-                userList.add(userDao.findById(userId));
+            for (Integer userIdByDept : userListByDept) {
+                userList.add(userDao.findById(userIdByDept));
             }
         }else {
             userList = userDao.selectUserList(userDTO);
