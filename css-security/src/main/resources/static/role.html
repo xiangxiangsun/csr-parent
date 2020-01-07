@@ -81,24 +81,6 @@
                             </el-tab-pane>
                             <el-tab-pane label="菜单信息" name="second">
                                 <div class="checkScrol">
-                                    <!--<table class="datatable">
-                                        <thead>
-                                        <tr>
-                                            <th>选择</th>
-                                            <th>菜单名称</th>
-                                            <th>菜单地址</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr v-for="c in tableData1">
-                                            <td>
-                                                <input :id="c.id" v-model="menuIds" type="checkbox" :value="c.id">
-                                            </td>
-                                            <td><label :for="c.id">{{c.name}}</label></td>
-                                            <td><label :for="c.id">{{c.linkUrl}}</label></td>
-                                        </tr>
-                                        </tbody>
-                                    </table>-->
                                     <el-tree
                                             :data="menudata"
                                             show-checkbox
@@ -139,26 +121,7 @@
                                                 show-overflow-tooltip>
                                         </el-table-column>
                                     </el-table>
-                                    <!--<table class="datatable">
-                                        <thead>
-                                        <tr>
-                                            <th>选择</th>
-                                            <th>权限编码</th>
-                                            <th>权限名称</th>
-                                            <th>权限描述</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr v-for="c in tableData">
-                                            <td>
-                                                <input :id="c.id" v-model="permissionIds" type="checkbox" :value="c.id">
-                                            </td>
-                                            <td><label :for="c.id">{{c.keyword}}</label></td>
-                                            <td><label :for="c.id">{{c.name}}</label></td>
-                                            <td><label :for="c.id">{{c.description}}</label></td>
-                                        </tr>
-                                        </tbody>
-                                    </table>-->
+
                                 </div>
                             </el-tab-pane>
                         </el-tabs>
@@ -198,24 +161,7 @@
                             </el-tab-pane>
                             <el-tab-pane label="菜单信息" name="second">
                                 <div class="checkScrol">
-                                    <!--<table class="datatable">
-                                        <thead>
-                                        <tr>
-                                            <th>选择</th>
-                                            <th>菜单名称</th>
-                                            <th>菜单地址</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr v-for="c in tableData1">
-                                            <td>
-                                                <input :id="c.id" v-model="menuIds" type="checkbox" :value="c.id">
-                                            </td>
-                                            <td><label :for="c.id">{{c.name}}</label></td>
-                                            <td><label :for="c.id">{{c.linkUrl}}</label></td>
-                                        </tr>
-                                        </tbody>
-                                    </table>-->
+
                                     <el-tree
                                             :data="menudata"
                                             show-checkbox
@@ -261,26 +207,7 @@
                                                 show-overflow-tooltip>
                                         </el-table-column>
                                     </el-table>
-                                    <!--<table class="datatable">
-                                        <thead>
-                                        <tr>
-                                            <th>选择</th>
-                                            <th>权限编码</th>
-                                            <th>权限名称</th>
-                                            <th>权限描述</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr v-for="c in tableData">
-                                            <td>
-                                                <input :id="c.id" v-model="permissionIds" type="checkbox" :value="c.id">
-                                            </td>
-                                            <td><label :for="c.id">{{c.keyword}}</label></td>
-                                            <td><label :for="c.id">{{c.name}}</label></td>
-                                            <td><label :for="c.id">{{c.description}}</label></td>
-                                        </tr>
-                                        </tbody>
-                                    </table>-->
+
                                 </div>
                             </el-tab-pane>
                         </el-tabs>
@@ -432,7 +359,7 @@
             handleCreate() {
                 this.resetForm();
                 this.dialogFormVisible = true;
-                axios.get("/menu/getAll").then((res)=>{
+                axios.get("/menu/treeSelect").then((res)=>{
                     this.menudata = res.data.data;
                 });
                 axios.get("/permission/findAll").then((res)=>{
@@ -455,7 +382,7 @@
 
 
                         // 发送ajax请求查询所有的菜单项信息，用于展示
-                        axios.get("/menu/getAll").then((res)=>{
+                        axios.get("/menu/treeSelect").then((res)=>{
                             if (res.data.flag) {
                                 // 为模型数据赋值,通过vue数据双向绑定进行数据回显
                                 this.menudata = res.data.data;

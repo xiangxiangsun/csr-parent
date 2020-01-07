@@ -1,15 +1,20 @@
 package css.security.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
+import css.security.common.MessageConstant;
 import css.security.dao.MenuDao;
+import css.security.entity.Dept;
 import css.security.entity.Menu;
+import css.security.entity.TreeSelect;
 import css.security.service.MenuService;
+import css.security.utils.StringUtils;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
 import java.lang.reflect.Array;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Component
 @Transactional
@@ -40,7 +45,6 @@ public class MenuServiceImpl implements MenuService {
             }
             /**
              * 输出构建好的菜单数据。
-             *
              */
             return rootMenu;
         } catch (Exception e) {
@@ -56,25 +60,26 @@ public class MenuServiceImpl implements MenuService {
 
     // 通过id查找菜单
     @Override
-    public Menu findMenuById(Integer id) {
+    public Menu findMenuById(Long id) {
         return menuDao.findMenuById(id);
     }
 
     // 编辑菜单
     @Override
-    public void update(Menu menu) {
-        menuDao.update(menu);
+    public int updateMenu(Menu menu) {
+       return menuDao.updateMenu(menu);
     }
 
     // 删除
     @Override
-    public void remove(Integer id) {
-        // 先查询是否有约束
+    public int deleteMenuById(Integer id) {
+        // 先查询是否有角色约束
         Integer count = menuDao.findRelationByMenuId(id);
         if (count > 0) {
             System.out.println("存在约束联系，无法删除");
+            return 1;
         } else {
-            menuDao.remove(id);
+            return menuDao.deleteMenuById(id);
         }
     }
 
@@ -95,19 +100,16 @@ public class MenuServiceImpl implements MenuService {
         Set<Integer> set = new HashSet<>(menuIds);
         menuIds.clear();
         menuIds.addAll(set);
-//        System.out.println("初始菜单是："+menuIds.toString());
         // 通过menu_id查询对应菜单数据
         List<Menu> menuListFirst = new ArrayList<>();
         if (menuIds != null && menuIds.size() > 0) {
             // 获取一级菜单 menuListFirst
             menuListFirst = menuDao.getMenuListFirst(menuIds);
-//            System.out.println("一级菜单是："+menuListFirst.toString());
             if (CollectionUtil.isNotEmpty(menuListFirst)) {
                 //菜单里去除一级菜单，以便匹配剩下二级菜单
                 for (Menu menu : menuListFirst) {
                     menuIds.remove(Integer.valueOf(menu.getId()));
                 }
-//                System.out.println("去除一级菜单是："+menuIds.toString());
                 for (int i = menuListFirst.size() - 1; i >= 0; i--) {
                     // 获取一级菜单对应的所有二级菜单（不包括一级）
                     Menu menu = menuListFirst.get(i);
@@ -115,18 +117,13 @@ public class MenuServiceImpl implements MenuService {
                     if (fristMenu != null) {
                         Integer SecondMenu = Integer.valueOf(fristMenu);
                         List<Menu> menuListSecond = menuDao.findSecondMenu(SecondMenu);
-//                        System.out.println("删除菜单前："+menuListSecond.toString());
                         List<Integer> integerSecond = new ArrayList<>();
                         for (Menu menuSecond : menuListSecond) {
                             integerSecond.add(Integer.valueOf(menuSecond.getId()));
                         }
-//                        System.out.println("获取到的当前父级内所有二级菜单是："+integerSecond.toString());
                         List<Integer> newIntegerSecond = new ArrayList<>(integerSecond);
                         integerSecond.retainAll(menuIds);
-//                        System.out.println("实际父级内的二级菜单应该是："+integerSecond.toString());
                         newIntegerSecond.removeAll(integerSecond);
-//                        System.out.println("实际父级内的二级菜单应该去除的是："+newIntegerSecond.toString());
-//                        System.out.println("菜单前："+menuListSecond.toString());
                         for (Integer integer : newIntegerSecond) {
                             for (int j = menuListSecond.size() - 1; j >= 0; j--) {
                                 if (Integer.valueOf(menuListSecond.get(j).getId()).equals(integer)) {
@@ -134,13 +131,29 @@ public class MenuServiceImpl implements MenuService {
                                 }
                             }
                         }
-//                        System.out.println("菜单后："+menuListSecond.toString());
                         menu.setChildren(menuListSecond);
                     }
                 }
             }
         }
         return menuListFirst;
+    }
+
+    //构建前端需要结构
+    @Override
+    public List<TreeSelect> buildDeptTreeSelect(List<Menu> menus) {
+        return menus.stream().map(TreeSelect::new).collect(Collectors.toList());
+    }
+
+    @Override
+    public String checkMenuNameUnique(Menu menu) {
+        Long menuId = StringUtils.isNull(menu.getId()) ? -1L : Long.parseLong(menu.getId());
+        Menu info = menuDao.checkDeptNameUnique(menu.getName(), Long.parseLong(menu.getParentmenuid()));
+        if (StringUtils.isNotNull(info) && Long.parseLong(info.getId()) != menuId)
+        {
+            return MessageConstant.NOT_UNIQUE;
+        }
+        return MessageConstant.UNIQUE;
     }
 
     // 查询子菜单

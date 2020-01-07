@@ -15,6 +15,9 @@ public class MessageConstant {
     public static final String UPDATE_DEPT_SUCCESS = "更新当前部门信息成功";
     public static final String ADD_DEPT_SUCCESS = "添加部门信息成功";
     public static final String DELETE_DEPT_SUCCESS = "删除部门信息成功";
+    public static final String UPDATE_MENU_SUCCESS = "编辑菜单成功";
+    public static final String DELETE_MENU_SUCCESS = "删除菜单信息成功";
+    public static final String DELETE_MENU_ERROR = "删除菜单信息失败";
 
     /** 校验返回结果码 */
     public final static String UNIQUE = "0";

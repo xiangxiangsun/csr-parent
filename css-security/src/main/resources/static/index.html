@@ -287,7 +287,6 @@
 
                 // 发送请求获取侧边栏菜单
                 axios.get("/menu/getMenuList?username=" + this.username).then((res)=>{
-                    // console.log(res.data.data);
                     this.menuList = res.data.data;
                 })
             })

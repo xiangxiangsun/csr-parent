@@ -16,13 +16,13 @@ public interface MenuDao {
     List<Menu> findSecondMenu(@Param("id") Integer id);
 //    Menu findSecondMenu(@Param("id") Integer id);
 
-    Menu findMenuById(@Param("id") Integer id);
+    Menu findMenuById(@Param("id") long id);
 
-    void update(Menu menu);
+    int updateMenu(Menu menu);
 
     Integer findRelationByMenuId(@Param("id") Integer id);
 
-    void remove(@Param("id") Integer id);
+    int deleteMenuById(@Param("id") Integer id);
 
     List<Integer> findMenuIdByUsername(@Param("username") String username);
 
@@ -31,4 +31,6 @@ public interface MenuDao {
     List<Menu> findTree();
 
     Integer findParentMenuId(@Param("menuId")Integer menuId);
+
+    Menu checkDeptNameUnique(@Param("name") String name,@Param("parentmenuid") Long parentmenuid);
 }

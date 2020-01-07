@@ -1,12 +1,12 @@
 package css.security.controller;
 
 import css.security.common.MessageConstant;
+import css.security.entity.Dept;
 import css.security.entity.Menu;
 import css.security.entity.Result;
 import css.security.service.MenuService;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import css.security.utils.SecurityUtils;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -31,15 +31,20 @@ public class MenuController {
     }
 
     // 编辑菜单
-    @RequestMapping("/update")
-    public Result update(@RequestBody Menu menu){
-        try {
-            menuService.update(menu);
-            return Result.success("编辑菜单成功");
-        } catch (Exception e) {
-            e.printStackTrace();
-            return Result.error("编辑菜单失败");
+    @PutMapping
+    public Result updateMenu(@RequestBody Menu menu){
+        if (MessageConstant.NOT_UNIQUE.equals(menuService.checkMenuNameUnique(menu))){
+            return Result.error("修改菜单"+menu.getName()+"失败,菜单名称已存在");
         }
+        menu.setUpdateBy(SecurityUtils.getUsername());
+        return new Result(true,MessageConstant.UPDATE_MENU_SUCCESS,menuService.updateMenu(menu));
+    }
+
+    //构建菜单页以外的树结构
+    @RequestMapping("/treeSelect")
+    public Result treeSelect(){
+        List<Menu> menus = menuService.findTree();
+        return new Result(true,MessageConstant.GET_DEPT_SUCCESS,menuService.buildDeptTreeSelect(menus));
     }
 
     // 获取所有菜单
@@ -59,10 +64,10 @@ public class MenuController {
 
     // 通过id查询菜单
     @RequestMapping("/findMenuById")
-    public Result findMenuById(Integer id){
+    public Result findMenuById(String id){
         try {
-            Menu menu = menuService.findMenuById(id);
-            return Result.success("",menu);
+            Menu menu = menuService.findMenuById(Long.parseLong(id));
+            return Result.success("查询Menu成功",menu);
         } catch (Exception e) {
             e.printStackTrace();
             return Result.error("查询菜单详情失败");
@@ -71,13 +76,13 @@ public class MenuController {
 
     // 删除
     @RequestMapping("/remove")
-    public Result remove(Integer id){
+    public Result deleteMenuById(Integer id){
         try {
-            menuService.remove(id);
-            return Result.success("删除成功");
+            menuService.deleteMenuById(id);
+            return Result.success(MessageConstant.DELETE_MENU_SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
-            return Result.error("删除失败");
+            return Result.error(MessageConstant.DELETE_MENU_ERROR);
         }
     }
 
