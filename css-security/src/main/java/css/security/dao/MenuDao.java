@@ -9,7 +9,7 @@ import java.util.List;
 @Mapper
 public interface MenuDao {
     // 添加子菜单
-    void add(Menu menu);
+    int insertMenu(Menu menu);
 
     List<Menu> findFirstMenu();
 

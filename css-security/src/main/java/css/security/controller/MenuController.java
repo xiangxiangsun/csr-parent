@@ -19,14 +19,17 @@ public class MenuController {
     private MenuService menuService;
 
     // 添加子菜单
-    @RequestMapping("/add")
-    public Result add(@RequestBody Menu menu){
+    @RequestMapping("/addMenu")
+    public Result insertMenu(@RequestBody Menu menu){
         try {
-            menuService.add(menu);
-            return Result.success("添加菜单成功");
+            if (MessageConstant.NOT_UNIQUE.equals(menuService.checkMenuNameUnique(menu))){
+                return Result.error("添加菜单"+menu.getName()+"失败,菜单名称已存在");
+            }
+            menu.setCreateBy(SecurityUtils.getUsername());
+            return new Result(true,MessageConstant.ADD_MENU_SUCCESS,menuService.insertMenu(menu));
         } catch (Exception e) {
             e.printStackTrace();
-            return Result.error("添加菜单失败");
+            return Result.error(MessageConstant.ADD_MENU_ERROR);
         }
     }
 

@@ -10,7 +10,7 @@ public interface MenuService {
     List<Menu> findTree();
 
     // 添加子菜单
-    void add(Menu menu);
+    int insertMenu(Menu menu);
 
     // 通过id查找菜单
     Menu findMenuById(Long id);

@@ -14,12 +14,33 @@
     </sql>
 
     <!--添加子菜单-->
-    <insert id="add" parameterType="css.security.entity.Menu" useGeneratedKeys="true" keyProperty="id">
-        insert into t_menu (name,linkUrl,parentmenuid)
-        values (
-        #{name},
-        #{linkUrl},
-        #{parentmenuid}
+    <insert id="insertMenu" parameterType="css.security.entity.Menu" useGeneratedKeys="true" keyProperty="id">
+        insert into t_menu(
+        <if test="id != null and id != 0">id,</if>
+        <if test="name != null and name != ''">name,</if>
+        <if test="parentmenuid != null and parentmenuid != 0">parentmenuid,</if>
+        <if test="priority != null and priority != ''">priority,</if>
+        <if test="path != null and path != ''">path,</if>
+        <if test="linkUrl != null and linkUrl != ''">linkurl,</if>
+        <if test="menuType != null and menuType != ''">menu_type,</if>
+        <if test="visible != null">visible,</if>
+        <if test="perms !=null">perms,</if>
+        <if test="icon !=null and icon != ''">icon,</if>
+        <if test="createBy != null and createBy != ''">create_by,</if>
+        create_time
+        )values(
+        <if test="id != null and id != 0">#{id},</if>
+        <if test="name != null and name != ''">#{name},</if>
+        <if test="parentmenuid != null and parentmenuid != 0">#{parentmenuid},</if>
+        <if test="priority != null and priority != ''">CAST(#{priority} AS bigint),</if>
+        <if test="path != null and path != ''">#{path},</if>
+        <if test="linkUrl != null and linkUrl != ''">#{linkUrl},</if>
+        <if test="menuType != null and menuType != ''">#{menuType},</if>
+        <if test="visible != null">#{visible},</if>
+        <if test="perms !=null">#{perms},</if>
+        <if test="icon !=null and icon != ''">#{icon},</if>
+        <if test="createBy != null and createBy != ''">#{createBy},</if>
+        now()::timestamp(0)without time zone
         )
     </insert>
 

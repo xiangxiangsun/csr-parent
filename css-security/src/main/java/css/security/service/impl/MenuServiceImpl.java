@@ -54,8 +54,8 @@ public class MenuServiceImpl implements MenuService {
 
     // 添加子菜单
     @Override
-    public void add(Menu menu) {
-        menuDao.add(menu);
+    public int insertMenu(Menu menu) {
+        return menuDao.insertMenu(menu);
     }
 
     // 通过id查找菜单

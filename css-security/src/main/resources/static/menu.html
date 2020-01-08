@@ -510,7 +510,7 @@
                 cancelButtonText: "取消",
                 type: "warning"
             }).then(function() {
-                return axios.post("/menu/remove?id=",row.id);
+                return axios.post("/menu/remove?id="+row.id);
             }).then(() => {
                 this.getList();
                 this.$message({
