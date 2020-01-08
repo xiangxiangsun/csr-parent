@@ -108,25 +108,25 @@ public class MenuServiceImpl implements MenuService {
             if (CollectionUtil.isNotEmpty(menuListFirst)) {
                 //菜单里去除一级菜单，以便匹配剩下二级菜单
                 for (Menu menu : menuListFirst) {
-                    menuIds.remove(Integer.valueOf(menu.getId()));
+                    menuIds.remove(menu.getId());
                 }
                 for (int i = menuListFirst.size() - 1; i >= 0; i--) {
                     // 获取一级菜单对应的所有二级菜单（不包括一级）
                     Menu menu = menuListFirst.get(i);
-                    String fristMenu = menu.getId();
+                    Long fristMenu = menu.getId();
                     if (fristMenu != null) {
-                        Integer SecondMenu = Integer.valueOf(fristMenu);
+                        Integer SecondMenu = (fristMenu).intValue();
                         List<Menu> menuListSecond = menuDao.findSecondMenu(SecondMenu);
                         List<Integer> integerSecond = new ArrayList<>();
                         for (Menu menuSecond : menuListSecond) {
-                            integerSecond.add(Integer.valueOf(menuSecond.getId()));
+                            integerSecond.add(menuSecond.getId().intValue());
                         }
                         List<Integer> newIntegerSecond = new ArrayList<>(integerSecond);
                         integerSecond.retainAll(menuIds);
                         newIntegerSecond.removeAll(integerSecond);
                         for (Integer integer : newIntegerSecond) {
                             for (int j = menuListSecond.size() - 1; j >= 0; j--) {
-                                if (Integer.valueOf(menuListSecond.get(j).getId()).equals(integer)) {
+                                if (menuListSecond.get(j).getId().equals(integer)) {
                                     menuListSecond.remove(menuListSecond.get(j));
                                 }
                             }
@@ -147,9 +147,9 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public String checkMenuNameUnique(Menu menu) {
-        Long menuId = StringUtils.isNull(menu.getId()) ? -1L : Long.parseLong(menu.getId());
-        Menu info = menuDao.checkDeptNameUnique(menu.getName(), Long.parseLong(menu.getParentmenuid()));
-        if (StringUtils.isNotNull(info) && Long.parseLong(info.getId()) != menuId)
+        Long menuId = StringUtils.isNull(menu.getId()) ? -1L : menu.getId();
+        Menu info = menuDao.checkDeptNameUnique(menu.getName(), menu.getParentmenuid());
+        if (info != null && info.getId() != menuId)
         {
             return MessageConstant.NOT_UNIQUE;
         }
@@ -157,19 +157,19 @@ public class MenuServiceImpl implements MenuService {
     }
 
     // 查询子菜单
-    public List<Menu> getChild(String id, List<Menu> allMenu) {
+    public List<Menu> getChild(Long id, List<Menu> allMenu) {
         //子菜单
         List<Menu> childList = new ArrayList<Menu>();
         for (Menu nav : allMenu) {
             // 遍历所有节点，将所有菜单的父id与传过来的根节点的id比较
             //相等说明：为该根节点的子节点。
-            if (nav.getParentmenuid() != null && nav.getParentmenuid().equals(id)) {
+            if (nav.getParentmenuid() != null && nav.getParentmenuid().longValue()==id.longValue()) {
                 childList.add(nav);
             }
         }
         //递归
         for (Menu nav : childList) {
-            nav.setChildren(getChild(nav.getId(), allMenu));
+            nav.setChildren(getChild((nav.getId()), allMenu));
         }
         Collections.sort(childList, order());//排序
         //如果节点下没有子节点，返回一个空List（递归退出）
@@ -184,8 +184,8 @@ public class MenuServiceImpl implements MenuService {
             @Override
             public int compare(Menu o1, Menu o2) {
                 if (o1.getId().equals(o2.getId())) {
-                    Integer id1 = Integer.parseInt(o1.getId());
-                    Integer id2 = Integer.parseInt(o2.getId());
+                    Integer id1 = (o1.getId()).intValue();
+                    Integer id2 = (o2.getId()).intValue();
                     return id1 - id2;
                 }
                 return 0;

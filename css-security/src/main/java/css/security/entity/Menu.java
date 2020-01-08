@@ -8,16 +8,16 @@ import java.util.*;
 
 @Data
 public class Menu implements Serializable {
-    private String id;
+    private Long id;
+    private Long parentmenuid;//父菜单id
     private String name; // 菜单名称
     private String linkUrl; // 访问路径
     private String path;//菜单项所对应的路由路径
-    private Integer priority; // 优先级（用于排序）
+    private String priority; // 优先级（用于排序）
     private String description; // 描述
     private String icon;//图标
     private Set<SysRole> roles = new HashSet<SysRole>(0);//角色集合
     private List<Menu> children = new ArrayList<>();//子菜单集合
-    private String parentmenuid;//父菜单id
     private String label;
     private String visible;
     private String perms;
