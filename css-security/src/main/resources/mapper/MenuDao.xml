@@ -102,7 +102,7 @@
 
     <!--通过menu_id获取一级菜单-->
     <select id="getMenuListFirst" resultType="css.security.entity.Menu">
-        select * from t_menu where parentmenuid is NULL and id in
+        select * from t_menu where parentmenuid = 0 and id in
         <foreach collection="menuIds" item="item" open="(" close=")" separator=",">
             #{item}
         </foreach>
@@ -116,6 +116,14 @@
     <!--通过菜单id查询对应父级id-->
     <select id="findParentMenuId"  resultType="java.lang.Integer">
         select parentmenuid from t_menu where id = #{menuId};
+    </select>
+
+    <select id="findMenuListByUsername" parameterType="string" resultType="css.security.entity.Menu">
+        <include refid="selectMenuVo"/>
+        where id in (SELECT distinct menu_id from t_role_menu
+        WHERE role_id in (SELECT role_id from t_user_role
+        WHERE user_id = (SELECT id from t_user
+        WHERE username = #{username})))
     </select>
 
 

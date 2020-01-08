@@ -414,7 +414,7 @@
         getTreeselect() {
             axios.get("/menu/treeSelect").then(response => {
                 this.menuOptions = [];
-                const menu = { id: 0, label: '主类目', children: [] };
+                const menu = { id: 0, label: '顶级菜单', children: [] };
                 menu.children = response.data.data;
                 this.menuOptions.push(menu);
             });

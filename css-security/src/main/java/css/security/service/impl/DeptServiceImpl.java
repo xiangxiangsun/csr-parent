@@ -31,7 +31,7 @@ public class DeptServiceImpl implements DeptService {
             //根节点
             List<Dept> rootDept = new ArrayList<Dept>();
             for (Dept nav : allDept) {
-                if (nav.getParentId() == null || nav.getParentId().equals("")) {//首节点是NULL的，为根节点
+                if (nav.getParentId() == null || nav.getParentId().toString().equals("")) {//首节点是NULL的，为根节点
                     rootDept.add(nav);
                 }
                 if (nav.getParentId() == 0){//首节点是0的，为根节点

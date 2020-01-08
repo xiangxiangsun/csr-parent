@@ -33,4 +33,6 @@ public interface MenuDao {
     Integer findParentMenuId(@Param("menuId")Integer menuId);
 
     Menu checkDeptNameUnique(@Param("name") String name,@Param("parentmenuid") Long parentmenuid);
+
+    List<Menu> findMenuListByUsername(@Param("username") String username);
 }

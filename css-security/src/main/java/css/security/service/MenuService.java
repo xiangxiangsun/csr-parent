@@ -25,7 +25,9 @@ public interface MenuService {
     List<Menu> getMenuList(String username);
 
     //构建前端所需要下拉树结构
-    public List<TreeSelect> buildDeptTreeSelect(List<Menu> menus);
+    public List<TreeSelect> buildMenuTreeSelect(List<Menu> menus);
 
     String checkMenuNameUnique(Menu menu);
+
+    List<Menu> getMenuList2(String username);
 }

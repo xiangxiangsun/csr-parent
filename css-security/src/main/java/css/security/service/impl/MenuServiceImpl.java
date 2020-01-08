@@ -31,7 +31,7 @@ public class MenuServiceImpl implements MenuService {
             //根节点
             List<Menu> rootMenu = new ArrayList<Menu>();
             for (Menu nav : allMenu) {
-                if (nav.getParentmenuid() == null || nav.getParentmenuid().equals("")) {//父节点是NULL的，为根节点。
+                if (nav.getParentmenuid() == 0 ) {//父节点是0的，为根节点。
                     rootMenu.add(nav);
                 }
             }
@@ -83,14 +83,19 @@ public class MenuServiceImpl implements MenuService {
         }
     }
 
-    // 通过用户名获取对应菜单
+    /**
+     * 通过用户名获取对应菜单
+     * @param username
+     * @return
+     */
+    //方法1
     @Override
     public List<Menu> getMenuList(String username) {
         // 通过用户名查询对应的menu_id
         List<Integer> menuIds = menuDao.findMenuIdByUsername(username);
-        //如果上级菜单组件未选择，而子菜单有值，则手动加入上级id到数组
+        //针对Tree结构，默认只有部分子节点是不带上级展开节点的，此处如果上级菜单组件未选择，而子菜单有值，则手动加入上级id到数组
         for (int i = 0; i < menuIds.size(); i++) {
-            if (menuDao.findParentMenuId(menuIds.get(i)) != null) {
+            if (menuDao.findParentMenuId(menuIds.get(i)) != 0) {
                 Integer parentMenuId = menuDao.findParentMenuId(menuIds.get(i));
                 if (!parentMenuId.equals(menuIds.get(i))) {
                     menuIds.add(parentMenuId);
@@ -126,7 +131,7 @@ public class MenuServiceImpl implements MenuService {
                         newIntegerSecond.removeAll(integerSecond);
                         for (Integer integer : newIntegerSecond) {
                             for (int j = menuListSecond.size() - 1; j >= 0; j--) {
-                                if (menuListSecond.get(j).getId().equals(integer)) {
+                                if (menuListSecond.get(j).getId()==(integer).intValue()) {
                                     menuListSecond.remove(menuListSecond.get(j));
                                 }
                             }
@@ -139,9 +144,42 @@ public class MenuServiceImpl implements MenuService {
         return menuListFirst;
     }
 
+    //方法2
+    @Override
+    public List<Menu> getMenuList2(String username) {
+        Map<String, Object> data  = new HashMap<String, Object>();
+        try {//查询所有菜单
+            List<Menu> allMenu = menuDao.findMenuListByUsername(username);
+            //根节点
+            List<Menu> rootMenu = new ArrayList<Menu>();
+            for (Menu nav : allMenu) {
+                if (nav.getParentmenuid() == null || nav.getParentmenuid().toString().equals("")) {//首节点是NULL的，为根节点
+                    rootMenu.add(nav);
+                }
+                if (nav.getParentmenuid() == 0 ) {//父节点是0的，为根节点
+                    rootMenu.add(nav);
+                }
+            }
+            /* 根据Menu类的order排序 */
+            Collections.sort(rootMenu, order());
+            //为根菜单设置子菜单，getClild是递归调用的
+            for (Menu nav : rootMenu) {
+                /* 获取根节点下的所有子节点 使用getChild方法*/
+                List<Menu> childList = getChild(nav.getId(), allMenu);
+                nav.setChildren(childList);//给根节点设置子节点
+            }
+            /**
+             * 输出构建好的菜单数据。
+             */
+            return rootMenu;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     //构建前端需要结构
     @Override
-    public List<TreeSelect> buildDeptTreeSelect(List<Menu> menus) {
+    public List<TreeSelect> buildMenuTreeSelect(List<Menu> menus) {
         return menus.stream().map(TreeSelect::new).collect(Collectors.toList());
     }
 
