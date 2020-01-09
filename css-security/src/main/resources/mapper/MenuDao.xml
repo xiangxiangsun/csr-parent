@@ -63,13 +63,21 @@
         where id = #{id}
     </update>
 
+    <select id="checkMenuExistRole" resultType="Integer">
+        select count(1) from t_role_menu where menu_id = #{id}
+    </select>
+
+    <select id="hasChildByMenuId" resultType="Integer">
+        select count(1) from t_menu where parentmenuid = #{id}
+    </select>
+
     <select id="checkDeptNameUnique" parameterType="css.security.entity.Menu" resultType="css.security.entity.Menu">
         <include refid="selectMenuVo"/>
         where name = #{name} and parentmenuid = #{parentmenuid}
     </select>
 
     <delete id="deleteMenuById" parameterType="integer">
-        delete from t_menu where id = #{id}
+        delete from t_menu  where id = #{id}
     </delete>
 
     <!--查询一级菜单-->
@@ -97,7 +105,7 @@
         SELECT distinct menu_id from t_role_menu
         WHERE role_id in (SELECT role_id from t_user_role
         WHERE user_id = (SELECT id from t_user
-        WHERE username = #{username}))
+        WHERE visible = '0' and username = #{username}))
     </select>
 
     <!--通过menu_id获取一级菜单-->
@@ -110,7 +118,8 @@
     </select>
 
     <select id="findTree" resultType="css.security.entity.Menu">
-        select id,name,linkUrl,path,priority,icon,parentmenuid,visible,perms,create_By,create_Time,update_By,update_Time,menu_type from t_menu
+        <include refid="selectMenuVo"/>
+        where visible ='0'
     </select>
 
     <!--通过菜单id查询对应父级id-->
@@ -123,7 +132,22 @@
         where id in (SELECT distinct menu_id from t_role_menu
         WHERE role_id in (SELECT role_id from t_user_role
         WHERE user_id = (SELECT id from t_user
-        WHERE username = #{username})))
+        WHERE visible = '0' and username = #{username})))
+    </select>
+    <select id="selectMenuList" parameterType="css.security.entity.Menu" resultType="css.security.entity.Menu">
+        <include refid="selectMenuVo"/>
+        where  1=1
+        <if test="name != null and name != ''">
+            AND name like concat('%', #{name}, '%')
+        </if>
+        <if test="visible != null and visible != ''">
+            AND visible = #{visible}
+        </if>
+        order by priority
+    </select>
+
+    <select id="findAll" resultType="css.security.entity.Menu">
+        <include refid="selectMenuVo"/>
     </select>
 
 

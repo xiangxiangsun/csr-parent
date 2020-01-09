@@ -8,13 +8,15 @@ import java.util.List;
 
 @Mapper
 public interface MenuDao {
+    //查询所有
+    List<Menu> findAll();
+
     // 添加子菜单
     int insertMenu(Menu menu);
 
     List<Menu> findFirstMenu();
 
     List<Menu> findSecondMenu(@Param("id") Integer id);
-//    Menu findSecondMenu(@Param("id") Integer id);
 
     Menu findMenuById(@Param("id") long id);
 
@@ -28,6 +30,7 @@ public interface MenuDao {
 
     List<Menu> getMenuListFirst(@Param("menuIds")List<Integer> menuIds);
 
+    //查询显示visible
     List<Menu> findTree();
 
     Integer findParentMenuId(@Param("menuId")Integer menuId);
@@ -35,4 +38,10 @@ public interface MenuDao {
     Menu checkDeptNameUnique(@Param("name") String name,@Param("parentmenuid") Long parentmenuid);
 
     List<Menu> findMenuListByUsername(@Param("username") String username);
+
+    List<Menu> selectMenuList(Menu menu);
+
+    int hasChildByMenuId(Integer id);
+
+    int checkMenuExistRole(Integer id);
 }

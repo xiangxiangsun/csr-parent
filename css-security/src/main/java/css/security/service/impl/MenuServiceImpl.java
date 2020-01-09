@@ -177,6 +177,48 @@ public class MenuServiceImpl implements MenuService {
         }
     }
 
+    @Override
+    public List<Menu> selectMenuList(Menu menu) {
+        return menuDao.selectMenuList(menu);
+    }
+
+    @Override
+    public List<Menu> buildMenuTree(List<Menu> menus) {
+        List<Menu> returnList = new ArrayList<>();
+        for (Iterator<Menu> iterator = menus.iterator(); iterator.hasNext();)
+        {
+            Menu t = (Menu) iterator.next();
+            // 根据传入的某个父节点ID,遍历该父节点的所有子节点
+            if (t.getParentmenuid() == 0)
+            {
+                recursionFn(menus, t);
+                returnList.add(t);
+            }
+        }
+        if (returnList.isEmpty())
+        {
+            returnList = menus;
+        }
+        return returnList;
+    }
+
+    @Override
+    public List<Menu> findAll() {
+        return menuDao.findAll();
+    }
+
+    @Override
+    public boolean hasChildByMenuId(Integer id) {
+        int result = menuDao.hasChildByMenuId(id);
+        return result > 0 ? true : false;
+    }
+
+    @Override
+    public boolean checkMenuExistRole(Integer id) {
+        int result = menuDao.checkMenuExistRole(id);
+        return result > 0 ? true : false;
+    }
+
     //构建前端需要结构
     @Override
     public List<TreeSelect> buildMenuTreeSelect(List<Menu> menus) {
@@ -230,5 +272,52 @@ public class MenuServiceImpl implements MenuService {
             }
         };
         return comparator;
+    }
+
+    //递归
+    private void recursionFn(List<Menu> list, Menu t)
+    {
+        // 得到子节点列表
+        List<Menu> childList = getChildList(list, t);
+        t.setChildren(childList);
+        for (Menu tChild : childList)
+        {
+            if (hasChild(list, tChild))
+            {
+                // 判断是否有子节点
+                Iterator<Menu> it = childList.iterator();
+                while (it.hasNext())
+                {
+                    Menu n = (Menu) it.next();
+                    recursionFn(list, n);
+                }
+            }
+        }
+    }
+
+    /**
+     * 得到子节点列表
+     */
+    private List<Menu> getChildList(List<Menu> list, Menu t)
+    {
+        List<Menu> tlist = new ArrayList<>();
+        Iterator<Menu> it = list.iterator();
+        while (it.hasNext())
+        {
+            Menu n = (Menu) it.next();
+            if (n.getParentmenuid().longValue() == t.getId().longValue())
+            {
+                tlist.add(n);
+            }
+        }
+        return tlist;
+    }
+
+    /**
+     * 判断是否有子节点
+     */
+    private boolean hasChild(List<Menu> list, Menu t)
+    {
+        return getChildList(list, t).size() > 0 ? true : false;
     }
 }

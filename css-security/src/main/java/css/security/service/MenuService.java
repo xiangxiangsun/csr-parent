@@ -6,7 +6,7 @@ import css.security.entity.TreeSelect;
 import java.util.List;
 
 public interface MenuService {
-    // 查询所有菜单
+    // 查询所有菜单 visble="0"
     List<Menu> findTree();
 
     // 添加子菜单
@@ -30,4 +30,15 @@ public interface MenuService {
     String checkMenuNameUnique(Menu menu);
 
     List<Menu> getMenuList2(String username);
+
+    List<Menu> selectMenuList(Menu menu);
+
+    List<Menu> buildMenuTree(List<Menu> menus);
+
+    //查询所有
+    List<Menu> findAll();
+
+    boolean hasChildByMenuId(Integer id);
+
+    boolean checkMenuExistRole(Integer id);
 }

@@ -26,13 +26,7 @@
 <body class="hold-transition">
 <div id="app">
     <div class="content-header">
-        <h1>系统设置<small>菜单管理</small>
-            <el-button
-                type="text"
-                size="mini"
-                @click="addFirst()">
-            添加
-        </el-button></h1>
+        <h1>系统设置<small>菜单管理</small></h1>
         <el-breadcrumb separator-class="el-icon-arrow-right" class="breadcrumb">
             <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
             <el-breadcrumb-item>系统设置</el-breadcrumb-item>
@@ -272,7 +266,7 @@
         el: "#app",
         data: {
             // 遮罩层
-            loading: false,
+            loading: true,
             // 菜单表格树数据
             menuList: [],
             // 菜单树选项
@@ -311,7 +305,7 @@
             /** 查询菜单列表 */
             getList() {
                 this.loading = true;
-                axios.get("/menu/getAll",this.queryParams).then(response => {
+                axios.get("/menu/getAll").then(response => {
                     this.menuList = response.data.data;
                     this.loading = false;
                 });
@@ -419,13 +413,13 @@
                 this.menuOptions.push(menu);
             });
         },
-        // 菜单显示状态字典翻译
+/*        // 菜单显示状态字典翻译
         visibleFormat(row, column) {
             if (row.menuType == "F") {
                 return "";
             }
             return this.selectDictLabel(this.visibleOptions, row.visible);
-        },
+        },*/
         // 取消按钮
         cancel() {
             this.open = false;
@@ -447,7 +441,11 @@
         },
         /** 搜索按钮操作 */
         handleQuery() {
-            this.getList();
+            // this.getList();
+            axios.post("/menu/queryList",this.queryParams).then(response => {
+                this.menuList = response.data.data;
+                this.loading = false;
+            });
         },
         /** 新增按钮操作 */
         handleAdd(row) {
@@ -511,12 +509,16 @@
                 type: "warning"
             }).then(function() {
                 return axios.post("/menu/remove?id="+row.id);
-            }).then(() => {
+            }).then((response) => {
                 this.getList();
-                this.$message({
-                    message:response.data.message,
-                    type:'success'
-                });
+                if (response.data.flag){
+                    this.$message({
+                        message: response.data.message,
+                        type:'success'
+                    });
+                }else {
+                    this.$message.error(response.data.message);
+                }
             }).catch(function() {});
         }
         }

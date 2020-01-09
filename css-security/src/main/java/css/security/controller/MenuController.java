@@ -43,7 +43,7 @@ public class MenuController {
         return new Result(true,MessageConstant.UPDATE_MENU_SUCCESS,menuService.updateMenu(menu));
     }
 
-    //构建菜单页以外的树结构
+    //构建菜单页以外的树结构 "id"和"lable"
     @RequestMapping("/treeSelect")
     public Result treeSelect(){
         List<Menu> menus = menuService.findTree();
@@ -53,8 +53,8 @@ public class MenuController {
     // 获取所有菜单
     @RequestMapping("/getAll")
     public Result getAll(){
-        List<Menu> menus = menuService.findTree();
-        return Result.success(MessageConstant.GET_MENU_SUCCESS,menus);
+        List<Menu> menus = menuService.findAll();
+        return Result.success(MessageConstant.GET_MENU_SUCCESS,menuService.buildMenuTree(menus));
     }
 
     // 通过用户名获取对应菜单
@@ -81,12 +81,27 @@ public class MenuController {
     @RequestMapping("/remove")
     public Result deleteMenuById(Integer id){
         try {
+            if (menuService.hasChildByMenuId(id))
+            {
+                return Result.error("存在子菜单,不允许删除");
+            }
+            if (menuService.checkMenuExistRole(id))
+            {
+                return Result.error("菜单已分配,不允许删除");
+            }
             menuService.deleteMenuById(id);
             return Result.success(MessageConstant.DELETE_MENU_SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
             return Result.error(MessageConstant.DELETE_MENU_ERROR);
         }
+    }
+
+    @RequestMapping("/queryList")
+    public Result list(@RequestBody Menu menu)
+    {
+        List<Menu> menus = menuService.selectMenuList(menu);
+        return new Result(true,MessageConstant.GET_MENU_SUCCESS,menuService.buildMenuTree(menus));
     }
 
 

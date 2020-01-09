@@ -280,9 +280,7 @@
             //编辑
             handleEdit() {
 
-                this.formData.menuIds = this.$refs.tree.getCheckedKeys()/*.map(function(item) {
-                    return item.id;
-                });*/
+                this.formData.menuIds = this.$refs.tree.getCheckedKeys();
                 this.formData.permissionIds = this.multipleSelection.map(function(item) {
                     return item.id;
                 });
@@ -308,15 +306,10 @@
             //添加
             handleAdd () {
                  // 发送ajax请求将表单数据提交到后台
-
-                // console.log(this.$refs.tree.getCheckedKeys());
                 this.formData.menuIds = this.$refs.tree.getCheckedKeys();
-                // console.log(this.formData.menuIds);
-                // this.formData.permissionIds = this.permissionIds;
                 this.formData.permissionIds = this.multipleSelection.map(function(item) {
                     return item.id;
                 });
-                // console.log(permissionIds);
                  axios.post("/role/add",this.formData).then((response) => {
                      // 隐藏新增窗口
                      this.dialogFormVisible = false;
@@ -428,14 +421,10 @@
                                     resultTableData.forEach(
                                         item => this.$refs.multipleTable.toggleRowSelection(item,true)
                                     );
-
-                                    // this.permissionIds = res.data;
-                                    // this.formData.id = row.id;
                                 })
                             }else {
                                 this.$message.error(res.data.message);
                             }
-                            // this.permissionIds = res.data.data.permissionIds;
                         })
                     } else {
                         this.$message.error("获取数据失败，请刷新当前页面");
@@ -451,7 +440,6 @@
             },
             // 删除
             handleDelete(row) {
-                // alert(row.id);
                 this.$confirm("确认删除吗？","提示",{type: "warning"}).then(()=>{
                     // 点击确定按钮时只需此处代码
                     // alert('用户点击的是确定按钮');
