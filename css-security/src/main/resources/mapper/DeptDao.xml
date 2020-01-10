@@ -151,5 +151,9 @@
         select * from t_dept where  cast(#{deptId}as VARCHAR) = ANY(STRING_TO_ARRAY(ancestors, ','))
     </select>
 
+    <select id="checkDeptExistUser" resultType="java.lang.Integer">
+        select count(1) from t_user_dept where dept_id = #{deptId}
+    </select>
+
 
 </mapper>

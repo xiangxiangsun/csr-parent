@@ -220,6 +220,12 @@ public class DeptServiceImpl implements DeptService {
         return returnList;
     }
 
+    @Override
+    public boolean checkDeptExistUser(Long deptId) {
+        int result = deptDao.checkDeptExistUser(deptId);
+        return result > 0 ? true : false;
+    }
+
     /**
      * 递归列表
      */

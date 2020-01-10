@@ -50,4 +50,6 @@ public interface DeptDao {
      * @return 部门信息集合
      */
     List<Dept> selectDeptList(Dept dept);
+
+    int checkDeptExistUser(Long deptId);
 }

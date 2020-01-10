@@ -79,9 +79,9 @@ public class DeptController {
         if (deptService.hasChildByDeptId(deptId)){
             return new Result(false,"存在下级部门，不允许删除");
         }
-//        if (deptService.checkDeptExistUser(deptId)){
-//            return new Result(false,"部门存在用户，不允许删除");
-//        }
+        if (deptService.checkDeptExistUser(deptId)){
+            return new Result(false,"部门存在用户，不允许删除");
+        }
         return new Result(true,MessageConstant.DELETE_DEPT_SUCCESS,deptService.deleteDept(deptId));
     }
 

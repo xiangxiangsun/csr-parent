@@ -58,4 +58,5 @@ public interface DeptService {
      */
     public List<Dept> buildDeptTree(List<Dept> depts);
 
+    boolean checkDeptExistUser(Long deptId);
 }
