@@ -16,7 +16,7 @@
     <select id="findPage" resultType="css.security.entity.Permission" parameterType="string">
         select * from t_permission
         <if test="queryString != null and queryString.length > 0">
-            where name = #{queryString} or keyword = #{queryString}
+            where name like concat('%', #{queryString}, '%') or keyword like concat('%', #{queryString}, '%')
         </if>
     </select>
 
