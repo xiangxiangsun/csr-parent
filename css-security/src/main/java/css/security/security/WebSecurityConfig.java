@@ -70,7 +70,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .and()
                 .logout()  //添加 /logout访问点，能退出
-                .logoutSuccessUrl("/login");  //退出后访问
+                .logoutSuccessUrl("/login")  //退出后访问
+                .and().rememberMe();    //自动登录
 
         //开启跨域访问
         http.cors().disable();

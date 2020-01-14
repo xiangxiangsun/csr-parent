@@ -23,13 +23,14 @@
 		<h2> </h2>
 		<form method="post" action="/login">
 			<input type="text" name="username" value="admin" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'USERNAME';}">
-			<input type="password" name="password" value="123456" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'PASSWORD';}">
-<!--			<input type="CAPTCHA" name="yzm" value="CAPTCHA" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'CAPTCHA';}">-->
+			<input type="password" name="password" value="123456" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'PASSWORD';}"><br>
+			<label><input type="checkbox" name="remember-me"/><font color="#f0f8ff">自动登录</font></label>
 			<div class="button-row">
 				<input type="submit" class="sign-in" value="Sign In">
 				<input type="reset" class="reset" value="Reset">
 				<div class="clear"></div>
 			</div>
+
 		</form>
 	</div>
 <!--	<div class="content2">-->
