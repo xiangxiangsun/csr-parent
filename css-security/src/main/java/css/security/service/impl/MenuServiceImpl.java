@@ -144,15 +144,15 @@ public class MenuServiceImpl implements MenuService {
         return menuListFirst;
     }
 
-    //方法2
+    //方法2(子节点未全选时，前端不展示父节点)
     @Override
     public List<Menu> getMenuList2(String username) {
         Map<String, Object> data  = new HashMap<String, Object>();
         try {//查询所有菜单
             List<Menu> allMenu = menuDao.findMenuListByUsername(username);
-            //根节点
-            List<Menu> rootMenu = new ArrayList<Menu>();
-            for (Menu nav : allMenu) {
+                //根节点
+                List<Menu> rootMenu = new ArrayList<Menu>();
+                for (Menu nav : allMenu) {
                 if (nav.getParentmenuid() == null || nav.getParentmenuid().toString().equals("")) {//首节点是NULL的，为根节点
                     rootMenu.add(nav);
                 }

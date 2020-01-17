@@ -113,7 +113,7 @@
                 <el-form ref="form" :model="form" :rules="rules" label-width="80px">
                     <el-row>
                         <el-col :span="24">
-                            <el-form-item label="上级菜单">
+                            <el-form-item label="上级菜单" prop="parentmenuid">
                                 <treeselect
                                         v-model="form.parentmenuid"
                                         :options="menuOptions"
@@ -209,6 +209,9 @@
             form: {},
             // 表单校验
             rules: {
+                parentmenuid: [
+                    { required: true, message: "上级菜单不能为空", trigger: "blur" }
+                ],
                 name: [
                     { required: true, message: "菜单名称不能为空", trigger: "blur" }
                 ],

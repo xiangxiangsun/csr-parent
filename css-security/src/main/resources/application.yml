@@ -8,6 +8,22 @@ spring:
 #    url: jdbc:postgresql://127.0.0.1:5432/CSR
     username: postgres
     password: 123456
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      #初始化连接大小
+      initial-size: 8
+      #最小空闲连接数
+      min-idle: 5
+      #最大连接数
+      max-active: 10
+      #查询超时时间
+      query-timeout: 30000
+      #事务查询超时时间
+      transaction-query-timeout: 30000
+      #关闭空闲连接超时时间
+      remove-abandoned-timeout: 1800
+      filters: stat,config
+
 
   application:
     name: css-security
@@ -50,4 +66,15 @@ mybatis-plus:
     map-underscore-to-camel-case: true
   mapper-locations: mapper/*.xml
 
-
+# JWT配置
+jwt:
+  # 密匙KEY
+  secret: JWTSecret
+  # HeaderKEY
+  tokenHeader: Authorization
+  # Token前缀字符
+  tokenPrefix: Sans-
+  # 过期时间 单位秒 1天后过期=86400 7天后过期=604800
+  expiration: 86400
+  # 配置不需要认证的接口
+  antMatchers: /index,/login/**,/favicon.ico

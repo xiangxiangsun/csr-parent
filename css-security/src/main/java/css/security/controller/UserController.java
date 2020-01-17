@@ -9,6 +9,7 @@ import css.security.entity.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,6 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/user")
+
 public class UserController {
 
     @Resource
@@ -34,7 +36,7 @@ public class UserController {
     }
 
     //分页查询
-//    @PreAuthorize("hasAuthority('USER_QUERY')")
+//    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @RequestMapping("/findPage")
     public ResponseEntity findPage(@RequestBody SysUserDTO userDTO){
         PageResult pageResult = userService.findPage(userDTO);{
@@ -61,7 +63,6 @@ public class UserController {
             e.printStackTrace();
             return new Result(false, "用户信息查询失败");
         }
-
     }
 
     @RequestMapping("/findRoleIdsByUserId")

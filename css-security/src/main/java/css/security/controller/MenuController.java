@@ -60,7 +60,7 @@ public class MenuController {
     // 通过用户名获取对应菜单
     @RequestMapping("/getMenuList")
     public Result getMenuList(String username){
-        List<Menu> menus = menuService.getMenuList2(username);
+        List<Menu> menus = menuService.getMenuList(username);
         return Result.success(MessageConstant.GET_MENU_SUCCESS,menus);
     }
 
