@@ -252,7 +252,7 @@ public class MenuServiceImpl implements MenuService {
         for (Menu nav : childList) {
             nav.setChildren(getChild((nav.getId()), allMenu));
         }
-        Collections.sort(childList, order());//排序
+        Collections.sort(childList, order());//正向排序
         //如果节点下没有子节点，返回一个空List（递归退出）
         if (childList.size() == 0) {
             return new ArrayList<Menu>();
@@ -260,21 +260,7 @@ public class MenuServiceImpl implements MenuService {
         return childList;
     }
 
-   /* public Comparator<Menu> order() {
-        Comparator<Menu> comparator = new Comparator<Menu>() {
-            @Override
-            public int compare(Menu o1, Menu o2) {
-                if (o1.getId().equals(o2.getId())) {
-                    Integer id1 = (o1.getId()).intValue();
-                    Integer id2 = (o2.getId()).intValue();
-                    return id1 - id2;
-                }
-                return 0;
-            }
-        };
-        return comparator;
-    }*/
-
+    //升序排序
     public Comparator<Menu> order() {
         Comparator<Menu> comparator = new Comparator<Menu>() {
             @Override
