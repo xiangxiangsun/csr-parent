@@ -3,6 +3,7 @@ package css.security.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -70,6 +71,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 //任何请求链接的访问均需验证权限
                 .anyRequest().authenticated()
 
+                //对请求进行权限鉴定，满足则执行   .antMatchers(HttpMethod.GET,"/findPage") 仅GET请求 /  .antMatchers("/findPage") 任何请求
+                .antMatchers(HttpMethod.GET,"/findPage").hasRole("ADMIN")
+
                 .and()
                 // 设置登陆页
                 .formLogin() //form提交登陆
@@ -81,6 +85,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 自定义登陆用户名和密码参数，默认为username和password
 //                .usernameParameter("username")
 //                .passwordParameter("password")
+
 
                 .and()
                 .logout()  //添加 /logout访问点，能退出

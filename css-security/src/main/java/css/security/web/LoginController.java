@@ -37,7 +37,7 @@ public class LoginController {
         return "login.html";
     }
 
-    @RequestMapping("/admin")
+/*    @RequestMapping("/admin")
     @ResponseBody
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String printAdmin(){
@@ -49,6 +49,40 @@ public class LoginController {
     @PreAuthorize("hasRole('ROLE_USER')")
     public String printUser(){
         return "如果你看见这句话，说明你有ROLE_USER角色";
+    }*/
+
+    @RequestMapping("/user")
+    public String user(){
+        return "user.html";
     }
 
+    @RequestMapping("/role")
+    public String role(){
+        return "role.html";
+    }
+
+    @RequestMapping("/permission")
+    public String permission(){
+        return "permission.html";
+    }
+
+    @RequestMapping("/updatePSW")
+    public String updatePSW(){
+        return "updatePSW.html";
+    }
+
+    @RequestMapping("/menu")
+    public String menu(){
+        return "menu.html";
+    }
+
+    @RequestMapping("/dept")
+    public String dept(){
+        return "dept.html";
+    }
+
+    @RequestMapping("/workOrder")
+    public String workOrder(){
+        return "workOrder.html";
+    }
 }
