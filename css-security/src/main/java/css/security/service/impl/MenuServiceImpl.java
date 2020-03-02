@@ -199,6 +199,7 @@ public class MenuServiceImpl implements MenuService {
         {
             returnList = menus;
         }
+        Collections.sort(returnList, order());
         return returnList;
     }
 
@@ -259,13 +260,28 @@ public class MenuServiceImpl implements MenuService {
         return childList;
     }
 
-    public Comparator<Menu> order() {
+   /* public Comparator<Menu> order() {
         Comparator<Menu> comparator = new Comparator<Menu>() {
             @Override
             public int compare(Menu o1, Menu o2) {
                 if (o1.getId().equals(o2.getId())) {
                     Integer id1 = (o1.getId()).intValue();
                     Integer id2 = (o2.getId()).intValue();
+                    return id1 - id2;
+                }
+                return 0;
+            }
+        };
+        return comparator;
+    }*/
+
+    public Comparator<Menu> order() {
+        Comparator<Menu> comparator = new Comparator<Menu>() {
+            @Override
+            public int compare(Menu o1, Menu o2) {
+                if (!o1.getPriority().equals(o2.getPriority())) {
+                    Integer id1 = Integer.valueOf(o1.getPriority());
+                    Integer id2 = Integer.valueOf(o2.getPriority());
                     return id1 - id2;
                 }
                 return 0;

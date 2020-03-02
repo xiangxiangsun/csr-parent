@@ -54,7 +54,8 @@ public class MenuController {
     @RequestMapping("/getAll")
     public Result getAll(){
         List<Menu> menus = menuService.findAll();
-        return Result.success(MessageConstant.GET_MENU_SUCCESS,menuService.buildMenuTree(menus));
+        List<Menu> menus1 = menuService.buildMenuTree(menus);
+        return Result.success(MessageConstant.GET_MENU_SUCCESS,menus1);
     }
 
     // 通过用户名获取对应菜单
