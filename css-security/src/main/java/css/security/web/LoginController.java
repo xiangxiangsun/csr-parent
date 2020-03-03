@@ -19,12 +19,6 @@ public class LoginController {
     public String showHome(){
 //        String name = SecurityContextHolder.getContext().getAuthentication().getName();
 //        logger.info("当前登陆用户："+name);
-        if (SecurityUtils.getUsername().equals("liyue")){
-            return "dist/helloLy.html";
-        }
-        if (SecurityUtils.getUsername().equals("dzz")){
-            return "dist/helloDzz.html";
-        }
         if (SecurityUtils.getUsername().equals("wuhuan")){
             return "dist/helloWh.html";
         }else {

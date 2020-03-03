@@ -2,559 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="12fd0e1e-0681-438e-9bc0-5181f5f0220d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/META-INF/spring-configuration-metadata.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/application.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/SecurityApplication.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/common/MessageConstant.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/common/config/JWTConfig.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/common/enums/ExceptionEnum.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/common/exception/CssException.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/common/exception/ExceptionResult.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/controller/DeptController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/controller/MenuController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/controller/PasswordController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/controller/PermissionController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/controller/RoleController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/controller/UserController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/dao/DeptDao.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/dao/MenuDao.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/dao/PermissionDao.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/dao/RoleDao.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/dao/UpdatePwdDao.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/dao/UserDao.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/dto/SysUserDTO.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/entity/Dept.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/entity/Menu.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/entity/PageResult.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/entity/Permission.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/entity/QueryPageBean.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/entity/Result.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/entity/SysRole.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/entity/SysUser.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/entity/SysUserRole.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/entity/TreeSelect.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/entity/UserTable.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/mapper/RoleMapper.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/mapper/UserMapper.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/mapper/UserRoleMapper.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/security/CustomUserDetailsService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/security/LoginUser.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/security/WebSecurityConfig$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/security/WebSecurityConfig.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/service/DeptService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/service/MenuService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/service/PermissionService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/service/RoleSecurityService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/service/RoleService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/service/UpdatePwdService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/service/UserRoleService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/service/UserSecurityService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/service/UserService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/service/impl/DeptServiceImpl$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/service/impl/DeptServiceImpl.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/service/impl/MenuServiceImpl$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/service/impl/MenuServiceImpl.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/service/impl/PermissionServiceImpl.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/service/impl/RoleServiceImpl.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/service/impl/UpdatePwdServiceImpl.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/service/impl/UserServiceImpl.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/utils/BeanHelper.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/utils/JWTTokenUtil.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/utils/SecurityUtils.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/utils/StringUtils.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/web/DruidConfiguration.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/css/security/web/LoginController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/favicon.ico" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/mapper/DeptDao.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/mapper/MenuDao.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/mapper/Permission.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/mapper/RoleDao.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/mapper/UpdatePwdDao.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/mapper/UserDao.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/mapper/UserMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/MP3/IU.mp3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/badge.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/badge.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/booking-system.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/booking-system.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/button.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/button.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/calendar.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/calendar.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/card.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/card.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/carousel.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/carousel.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/chart.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/chart.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/chat.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/chat.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/compose-email.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/compose-email.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/data-table.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/data-table.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/datamap.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/datamap.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/favourite_menu.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/favourite_menu.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/flot-chart.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/flot-chart.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/fonts.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/fonts.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/form.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/forms.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/forms.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/global.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/global.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/gmap.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/gmap.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/header.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/header.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/home.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/invoice-edit.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/invoice-edit.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/invoice.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/invoice.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/lib/barRating/barRating.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/lib/bootstrap.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/lib/calendar/fullcalendar.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/lib/calendar2/pignose.calendar.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/lib/calendar2/semantic.ui.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/lib/data-table/buttons.bootstrap.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/lib/data-table/buttons.dataTables.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/lib/data-table/dataTables.bootstrap.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/lib/font-awesome.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/lib/jquery-ui.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/lib/jsgrid/jsgrid-theme.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/lib/jsgrid/jsgrid.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/lib/lobi-panel/lobipanel.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/lib/mmc-chat.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/lib/nestable/nestable.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/lib/owl.carousel.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/lib/owl.theme.default.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/lib/rangSlider/ion.rangeSlider.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/lib/rangSlider/ion.rangeSlider.skinFlat.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/lib/rangSlider/ion.rangeSlider.skinHTML5.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/lib/rangSlider/ion.rangeSlider.skinModern.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/lib/rangSlider/ion.rangeSlider.skinNice.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/lib/rangSlider/ion.rangeSlider.skinSimple.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/lib/rangSlider/normalize.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/lib/scrollable/scrollable.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/lib/sidebar.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/lib/simdahs.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/lib/sweetalert/sweetalert.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/lib/themify-icons.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/lib/toastr/toastr.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/lib/vector-map/jqvmap.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/lib/weather-icons.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/login.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/login.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/menu-upload.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/menu-upload.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/modal.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/modal.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/morris-chart.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/morris-chart.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/nestable.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/nestable.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/order-list.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/order-list.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/order-progress.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/order-progress.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/panel.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/panel.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/products_1.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/products_1.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/products_2.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/products_2.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/products_3.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/products_3.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/profile.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/profile.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/progress-bar.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/progress-bar.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/recent-comments.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/recent-comments.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/recent-message.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/recent-message.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/scrollable.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/scrollable.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/style.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/style.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/tab.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/tab.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/table.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/table.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/timeline.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/timeline.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/todo-list.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/todo-list.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/ui-element-basic.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/ui-element-basic.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/variable.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/variable.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/vector-map.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/vector-map.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/weather.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/weather.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/widget-stat.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/css/widget-stat.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/fonts/FontAwesome.otf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/fonts/MontserratLight.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/fonts/MontserratLight.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/fonts/MontserratLight.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/fonts/MontserratLight.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/fonts/MontserratLight.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/fonts/fontawesome-webfont.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/fonts/fontawesome-webfont.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/fonts/fontawesome-webfont.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/fonts/fontawesome-webfont.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/fonts/fontawesome-webfont.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/fonts/fontawesome-webfont_files/viewsource.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/fonts/glyphicons-halflings-regular.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/fonts/glyphicons-halflings-regular.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/fonts/glyphicons-halflings-regular.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/fonts/glyphicons-halflings-regular.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/fonts/glyphicons-halflings-regular.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/fonts/themify.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/fonts/themify.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/fonts/themify.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/fonts/themify.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/fonts/weathericons-regular-webfont.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/fonts/weathericons-regular-webfont.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/fonts/weathericons-regular-webfont.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/fonts/weathericons-regular-webfont.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/fonts/weathericons-regular-webfont.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/avatar.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/avatar/1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/avatar/2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/avatar/3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/avatar/usa-flag.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/bookingSystem/1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/bookingSystem/2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/bookingSystem/3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/bookingSystem/4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/bookingSystem/5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/bookingSystem/6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/bookingSystem/7.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/bookingSystem/8.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/chat-person-add.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/close.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/fjords.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/hand.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/lights.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/logo-big.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/logo-small.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/maximize.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/minimize.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/nature.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/newyork.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/paris.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/paypal.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/picture.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/preview1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/product_1/1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/product_1/2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/product_1/3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/product_1/burger.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/product_1/download.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/product_1/image-10.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/product_1/image-8-226x223 - Copy.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/product_1/image-8-226x223.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/product_1/image-9.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/product_1/images.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/product_1/pizza2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/rangeSliderimg/sprite-skin-flat.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/rangeSliderimg/sprite-skin-modern.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/rangeSliderimg/sprite-skin-nice.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/rangeSliderimg/sprite-skin-simple.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/sanfran.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/scrollable/view-1-1200x800.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/smile.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/user-1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/user-profile.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/user.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/images/video-cam.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/barRating/barRating.init.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/barRating/jquery.barrating.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/bootstrap.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/calendar-2/moment.latest.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/calendar-2/pignose.calendar.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/calendar-2/pignose.init.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/calendar-2/prism.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/calendar-2/semantic.ui.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/calendar/fullcalendar-init.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/calendar/fullcalendar.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/chart-js/Chart.bundle.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/chart-js/chartjs-init.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/chat-widget/chat-widget-init.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/data-table/buttons.colVis.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/data-table/buttons.flash.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/data-table/buttons.html5.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/data-table/buttons.print.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/data-table/dataTables.buttons.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/data-table/datatables-init.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/data-table/datatables.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/data-table/jquery-1.12.4.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/data-table/jquery.dataTables.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/data-table/jszip.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/data-table/pdfmake.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/data-table/vfs_fonts.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/datamap/d3.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/datamap/datamap-init.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/datamap/datamaps.world.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/datamap/topojson.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/flot-chart/curvedLines.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/flot-chart/excanvas.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/flot-chart/flot-chart-init.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/flot-chart/flot-tooltip/jquery.flot.tooltip.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/flot-chart/jquery.flot.categories.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/flot-chart/jquery.flot.crosshair.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/flot-chart/jquery.flot.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/flot-chart/jquery.flot.pie.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/flot-chart/jquery.flot.resize.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/flot-chart/jquery.flot.stack.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/flot-chart/jquery.flot.threshold.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/flot-chart/jquery.flot.time.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/flowtype.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/gmap/gmap.init.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/gmap/gmapApi.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/gmap/gmaps.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/invoice-edit.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/jquery-ui/jquery-ui.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/jquery-ui/jquery.ui.touch-punch.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/jquery.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/jquery.nanoscroller.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/jsgrid/db.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/jsgrid/fields/jsgrid.field.checkbox.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/jsgrid/fields/jsgrid.field.control.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/jsgrid/fields/jsgrid.field.number.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/jsgrid/fields/jsgrid.field.select.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/jsgrid/fields/jsgrid.field.text.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/jsgrid/fields/jsgrid.field.textarea.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/jsgrid/jsgrid-init.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/jsgrid/jsgrid.core.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/jsgrid/jsgrid.field.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/jsgrid/jsgrid.load-indicator.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/jsgrid/jsgrid.load-strategies.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/jsgrid/jsgrid.sort-strategies.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/jsgrid/jsgrid.validation.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/knob/jquery.knob.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/knob/knob.init.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/lobi-panel/lobipanel.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/mmc-chat.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/mmc-common.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/moment/moment.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/morris-chart/morris-init.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/morris-chart/morris.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/nestable/jquery.nestable.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/nestable/nestable.init.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/owl-carousel/owl.carousel-init.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/owl-carousel/owl.carousel.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/peitychart/jquery.peity.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/peitychart/peitychart.init.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/rangeSlider/ion.rangeSlider.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/rangeSlider/moment-with-locales.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/rangeSlider/moment.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/rangeSlider/rangeslider.init.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/rating1/jRate.init.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/rating1/jRate.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/scrollable/holder.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/scrollable/jquery-asScrollable.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/scrollable/jquery-asScrollbar.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/scrollable/scrollable.init.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/sidebar.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/sparklinechart/jquery.sparkline.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/sparklinechart/sparkline.init.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/sweetalert/sweetalert.init.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/sweetalert/sweetalert.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/toastr/toastr.init.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/toastr/toastr.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/vector-map/country/jquery.vmap.algeria.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/vector-map/country/jquery.vmap.argentina.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/vector-map/country/jquery.vmap.brazil.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/vector-map/country/jquery.vmap.europe.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/vector-map/country/jquery.vmap.france.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/vector-map/country/jquery.vmap.germany.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/vector-map/country/jquery.vmap.greece.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/vector-map/country/jquery.vmap.iran.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/vector-map/country/jquery.vmap.iraq.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/vector-map/country/jquery.vmap.russia.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/vector-map/country/jquery.vmap.tunisia.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/vector-map/country/jquery.vmap.turkey.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/vector-map/country/jquery.vmap.usa.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/vector-map/country/jquery.vmap.world.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/vector-map/jquery.vmap.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/vector-map/jquery.vmap.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/vector-map/jquery.vmap.sampledata.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/vector-map/vector.init.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/weather/jquery.simpleWeather.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/lib/weather/weather-init.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/js/scripts.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/less/badge.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/less/booking-system.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/less/button.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/less/calendar.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/less/card.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/less/carousel.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/less/chart.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/less/chat.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/less/compose-email.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/less/data-table.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/less/datamap.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/less/favourite_menu.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/less/flot-chart.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/less/fonts.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/less/forms.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/less/global.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/less/gmap.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/less/header.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/less/invoice-edit.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/less/invoice.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/less/login.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/less/menu-upload.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/less/modal.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/less/morris-chart.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/less/nestable.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/less/order-list.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/less/order-progress.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/less/panel.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/less/products_1.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/less/products_2.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/less/products_3.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/less/profile.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/less/progress-bar.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/less/recent-comments.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/less/recent-message.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/less/scrollable.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/less/style.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/less/tab.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/less/table.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/less/timeline.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/less/todo-list.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/less/ui-element-basic.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/less/variable.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/less/vector-map.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/less/weather.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/less/widget-stat.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/sass/badge.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/sass/booking-system.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/sass/button.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/sass/calendar.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/sass/card.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/sass/carousel.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/sass/chart.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/sass/chat.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/sass/compose-email.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/sass/data-table.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/sass/datamap.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/sass/favourite_menu.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/sass/flot-chart.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/sass/fonts.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/sass/forms.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/sass/global.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/sass/gmap.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/sass/header.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/sass/invoice-edit.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/sass/invoice.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/sass/login.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/sass/menu-upload.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/sass/modal.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/sass/morris-chart.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/sass/nestable.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/sass/order-list.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/sass/order-progress.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/sass/panel.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/sass/products_1.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/sass/products_2.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/sass/products_3.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/sass/profile.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/sass/progress-bar.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/sass/recent-comments.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/sass/recent-message.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/sass/scrollable.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/sass/style.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/sass/tab.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/sass/table.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/sass/timeline.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/sass/todo-list.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/sass/ui-element-basic.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/sass/variable.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/sass/vector-map.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/sass/weather.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/assets/sass/widget-stat.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/css/login.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/css/orderset.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/css/style.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/css/stylelogin.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/dept.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/dist/font/Gloss_And_Bloom.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/dist/font/Snowballs.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/dist/font/hw.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/dist/font/magnolia_sky.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/dist/font/marguerite.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/dist/hello.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/dist/helloDzz.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/dist/helloLy.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/dist/helloWh.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/dist/script.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/dist/style.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/home.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/images/banner.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/images/cd-l.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/images/cd-r.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/images/cd.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/images/lock.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/images/mail.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/images/person.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/images/phone.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/images/yzm.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/img/avatar.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/img/boxed-bg.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/img/boxed-bg.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/img/icons.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/img/logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/img/minilogo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/img/pwd.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/img/user-160x160.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/img/user.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/img/user1-128x128.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/img/user2-160x160.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/js/axios-0.18.0.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/js/jquery.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/js/vue.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/login.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/main.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/menu.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/permission.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/plugins/echarts/echarts.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/plugins/elementui/fonts/element-icons.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/plugins/elementui/fonts/element-icons.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/plugins/elementui/index.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/plugins/elementui/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/plugins/font-awesome/css/font-awesome.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/plugins/font-awesome/css/font-awesome.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/plugins/font-awesome/fonts/FontAwesome.otf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/plugins/font-awesome/fonts/fontawesome-webfont.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/plugins/font-awesome/fonts/fontawesome-webfont.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/plugins/font-awesome/fonts/fontawesome-webfont.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/plugins/font-awesome/fonts/fontawesome-webfont.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/plugins/font-awesome/fonts/fontawesome-webfont.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/plugins/font-awesome/fonts/fontawesome-webfont999.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/plugins/vue/Vue-Treeselect/vue-treeselect.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/plugins/vue/Vue-Treeselect/vue-treeselect.umd.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/register.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/role.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/template/ordersetting_template.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/updatePSW.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/user.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/vue.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css-security/target/classes/static/workOrder.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css-security/src/main/java/css/security/security/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/css-security/src/main/java/css/security/security/WebSecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css-security/src/main/java/css/security/service/impl/MenuServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/css-security/src/main/java/css/security/service/impl/MenuServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/css-security/src/main/java/css/security/web/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/css-security/src/main/java/css/security/web/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css-security/src/main/resources/mapper/MenuDao.xml" beforeDir="false" afterPath="$PROJECT_DIR$/css-security/src/main/resources/mapper/MenuDao.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css-security/src/main/resources/static/dist/helloDzz.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/css-security/src/main/resources/static/dist/helloLy.html" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -875,7 +328,8 @@
       <workItem from="1579942701020" duration="2349000" />
       <workItem from="1581412241379" duration="2408000" />
       <workItem from="1582630697661" duration="600000" />
-      <workItem from="1583114587655" duration="14764000" />
+      <workItem from="1583114587655" duration="18935000" />
+      <workItem from="1583200934498" duration="8706000" />
     </task>
     <task id="LOCAL-00001" summary="1.前端页面调通，菜单栏伸缩，右侧显示页面正常显示用户管理等；&#10;2.静态资源拦截配置修改，security允许两个静态资源通过，以便于login登录。">
       <created>1573551740126</created>
@@ -1185,7 +639,14 @@
       <option name="project" value="LOCAL" />
       <updated>1583132213314</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="地址栏html访问改为调用请求访问，以便权限管理。">
+      <created>1583140762063</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1583140762063</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1206,7 +667,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="完善打包，完成在华为云jar运行测试，修改登陆页。" />
     <MESSAGE value="主界面调整，全屏和菜单按ID排序" />
     <MESSAGE value="主界面首次刷新时，检查里会有warning，已修复。" />
     <MESSAGE value="无改动，测试上传" />
@@ -1231,7 +691,8 @@
     <MESSAGE value="修复菜单根据用户名显示不完整BUG，&#10;添加SQL监控" />
     <MESSAGE value="优化菜单管理页面的排序，按照priority自定义排序。" />
     <MESSAGE value="测试上传，commit有很多不可上传且已屏蔽出现，复工第一天上传检查。" />
-    <option name="LAST_COMMIT_MESSAGE" value="测试上传，commit有很多不可上传且已屏蔽出现，复工第一天上传检查。" />
+    <MESSAGE value="地址栏html访问改为调用请求访问，以便权限管理。" />
+    <option name="LAST_COMMIT_MESSAGE" value="地址栏html访问改为调用请求访问，以便权限管理。" />
   </component>
   <component name="WindowStateProjectService">
     <state x="552" y="178" key="#Notifications" timestamp="1583114686313">
@@ -1261,10 +722,10 @@
     </state>
     <state x="1359" y="332" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1577771221757" />
     <state x="1359" y="332" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1576760047512" />
-    <state x="560" y="113" key="CommitChangelistDialog2" timestamp="1583140683279">
+    <state x="781" y="68" key="CommitChangelistDialog2" timestamp="1583140760720">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="560" y="113" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1583140683279" />
+    <state x="781" y="68" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1583140760720" />
     <state x="560" y="113" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1576763402111" />
     <state x="184" y="86" key="DiffContextDialog" timestamp="1583121312883">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -1278,76 +739,76 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="827" y="410" width="273" height="219" key="Github.ShareDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1575969516262" />
-    <state width="1877" height="332" key="GridCell.Tab.0.bottom" timestamp="1583140685632">
+    <state width="1877" height="176" key="GridCell.Tab.0.bottom" timestamp="1583218291487">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="332" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1583140685632" />
+    <state width="1877" height="176" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1583218291487" />
     <state width="1877" height="332" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1583138694331" />
     <state width="1877" height="265" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1580401441601" />
-    <state width="1877" height="332" key="GridCell.Tab.0.center" timestamp="1583140685632">
+    <state width="1877" height="176" key="GridCell.Tab.0.center" timestamp="1583218291487">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="332" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1583140685632" />
+    <state width="1877" height="176" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1583218291487" />
     <state width="1877" height="332" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1583138694331" />
     <state width="1877" height="265" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1580401441601" />
-    <state width="1877" height="332" key="GridCell.Tab.0.left" timestamp="1583140685632">
+    <state width="1877" height="176" key="GridCell.Tab.0.left" timestamp="1583218291487">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="332" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1583140685632" />
+    <state width="1877" height="176" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1583218291487" />
     <state width="1877" height="332" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1583138694331" />
     <state width="1877" height="265" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1580401441601" />
-    <state width="1877" height="332" key="GridCell.Tab.0.right" timestamp="1583140685632">
+    <state width="1877" height="176" key="GridCell.Tab.0.right" timestamp="1583218291487">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="332" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1583140685632" />
+    <state width="1877" height="176" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1583218291487" />
     <state width="1877" height="332" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1583138694331" />
     <state width="1877" height="265" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1580401441601" />
-    <state width="1877" height="332" key="GridCell.Tab.1.bottom" timestamp="1583140685632">
+    <state width="1877" height="331" key="GridCell.Tab.1.bottom" timestamp="1583217878078">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="332" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1583140685632" />
+    <state width="1877" height="331" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1583217878078" />
     <state width="1877" height="332" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1583138694203" />
     <state width="1877" height="265" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1580401441602" />
-    <state width="1877" height="332" key="GridCell.Tab.1.center" timestamp="1583140685632">
+    <state width="1877" height="331" key="GridCell.Tab.1.center" timestamp="1583217878078">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="332" key="GridCell.Tab.1.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1583140685632" />
+    <state width="1877" height="331" key="GridCell.Tab.1.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1583217878078" />
     <state width="1877" height="332" key="GridCell.Tab.1.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1583138694203" />
     <state width="1877" height="265" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1580401441602" />
-    <state width="1877" height="332" key="GridCell.Tab.1.left" timestamp="1583140685632">
+    <state width="1877" height="331" key="GridCell.Tab.1.left" timestamp="1583217878078">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="332" key="GridCell.Tab.1.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1583140685632" />
+    <state width="1877" height="331" key="GridCell.Tab.1.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1583217878078" />
     <state width="1877" height="332" key="GridCell.Tab.1.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1583138694203" />
     <state width="1877" height="265" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1580401441601" />
-    <state width="1877" height="332" key="GridCell.Tab.1.right" timestamp="1583140685632">
+    <state width="1877" height="331" key="GridCell.Tab.1.right" timestamp="1583217878078">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="332" key="GridCell.Tab.1.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1583140685632" />
+    <state width="1877" height="331" key="GridCell.Tab.1.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1583217878078" />
     <state width="1877" height="332" key="GridCell.Tab.1.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1583138694203" />
     <state width="1877" height="265" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1580401441602" />
-    <state width="1877" height="332" key="GridCell.Tab.2.bottom" timestamp="1583140685632">
+    <state width="1877" height="331" key="GridCell.Tab.2.bottom" timestamp="1583217878078">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="332" key="GridCell.Tab.2.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1583140685632" />
+    <state width="1877" height="331" key="GridCell.Tab.2.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1583217878078" />
     <state width="1877" height="332" key="GridCell.Tab.2.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1583138694203" />
     <state width="1877" height="265" key="GridCell.Tab.2.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1580401441602" />
-    <state width="1877" height="332" key="GridCell.Tab.2.center" timestamp="1583140685632">
+    <state width="1877" height="331" key="GridCell.Tab.2.center" timestamp="1583217878078">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="332" key="GridCell.Tab.2.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1583140685632" />
+    <state width="1877" height="331" key="GridCell.Tab.2.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1583217878078" />
     <state width="1877" height="332" key="GridCell.Tab.2.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1583138694203" />
     <state width="1877" height="265" key="GridCell.Tab.2.center/0.0.1920.1040@0.0.1920.1040" timestamp="1580401441602" />
-    <state width="1877" height="332" key="GridCell.Tab.2.left" timestamp="1583140685632">
+    <state width="1877" height="331" key="GridCell.Tab.2.left" timestamp="1583217878078">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="332" key="GridCell.Tab.2.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1583140685632" />
+    <state width="1877" height="331" key="GridCell.Tab.2.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1583217878078" />
     <state width="1877" height="332" key="GridCell.Tab.2.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1583138694203" />
     <state width="1877" height="265" key="GridCell.Tab.2.left/0.0.1920.1040@0.0.1920.1040" timestamp="1580401441602" />
-    <state width="1877" height="332" key="GridCell.Tab.2.right" timestamp="1583140685632">
+    <state width="1877" height="331" key="GridCell.Tab.2.right" timestamp="1583217878078">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="332" key="GridCell.Tab.2.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1583140685632" />
+    <state width="1877" height="331" key="GridCell.Tab.2.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1583217878078" />
     <state width="1877" height="332" key="GridCell.Tab.2.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1583138694203" />
     <state width="1877" height="265" key="GridCell.Tab.2.right/0.0.1920.1040@0.0.1920.1040" timestamp="1580401441602" />
     <state x="184" y="86" key="MergeDialog" timestamp="1575969256644">
@@ -1362,19 +823,19 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="658" y="143" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1576459474422" />
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1583132234561">
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1583140771216">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1583132234561" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1583140771216" />
     <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1576763489169" />
     <state x="752" y="437" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1577339051038">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="752" y="437" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1577339051038" />
-    <state x="914" y="173" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1583120974642">
+    <state x="914" y="173" width="897" height="605" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1583217468709">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="914" y="173" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1583120974642" />
+    <state x="914" y="173" width="897" height="605" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1583217468709" />
     <state x="0" y="382" width="1489" height="745" key="dock-window-1" timestamp="1577433029268">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

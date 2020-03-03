@@ -87,7 +87,7 @@
 
     <!--查询二级菜单-->
     <select id="findSecondMenu" resultType="css.security.entity.Menu">
-        select * from t_menu where parentmenuid = #{id} ORDER BY id
+        select * from t_menu where parentmenuid = #{id} ORDER BY priority
     </select>
 
     <!--通过id查询菜单-->
