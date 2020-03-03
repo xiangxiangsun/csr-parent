@@ -25,7 +25,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public List<Menu> findTree() {
-        Map<String, Object> data = new HashMap<String, Object>();
+//        Map<String, Object> data = new HashMap<String, Object>();
         try {//查询所有菜单
             List<Menu> allMenu = menuDao.findTree();
             //根节点
@@ -94,63 +94,65 @@ public class MenuServiceImpl implements MenuService {
         // 通过用户名查询对应的menu_id
         List<Integer> menuIds = menuDao.findMenuIdByUsername(username);
         //针对Tree结构，默认只有部分子节点是不带上级展开节点的，此处如果上级菜单组件未选择，而子菜单有值，则手动加入上级id到数组(针对控件补齐节点)
-        for (int i = 0; i < menuIds.size(); i++) {
-            if (menuDao.findParentMenuId(menuIds.get(i)) != 0) {
-                Integer parentMenuId = menuDao.findParentMenuId(menuIds.get(i));
-                if (!parentMenuId.equals(menuIds.get(i))) {
-                    menuIds.add(parentMenuId);
-                }
-            }
-        }
-        Set<Integer> set = new HashSet<>(menuIds);
-        menuIds.clear();
-        menuIds.addAll(set);
-        // 通过menu_id查询对应菜单数据
-        List<Menu> menuListFirst = new ArrayList<>();
-        if (menuIds != null && menuIds.size() > 0) {
-            // 获取一级菜单 menuListFirst    查询父节点为0
-            menuListFirst = menuDao.getMenuListFirst(menuIds);
-            if (CollectionUtil.isNotEmpty(menuListFirst)) {
-                //用户个人菜单总数里去除一级菜单，匹配剩下二级菜单
-                for (Menu menu : menuListFirst) {
-                    menuIds.remove(menu.getId());
-                }
-                for (int i = menuListFirst.size() - 1; i >= 0; i--) {
-                    // 获取一级菜单对应的所有二级菜单（不包括一级）  本处方法是查询所有，剔除不包含
-                    Menu menu = menuListFirst.get(i);
-                    Long fristMenu = menu.getId();
-                    if (fristMenu != null) {
-                        Integer SecondMenu = (fristMenu).intValue();
-                        List<Menu> menuListSecond = menuDao.findSecondMenu(SecondMenu);
-                        //integerSecond为对应二级菜单的int集合
-                        List<Integer> integerSecond = new ArrayList<>();
-                        for (Menu menuSecond : menuListSecond) {
-                            integerSecond.add(menuSecond.getId().intValue());
-                        }
-                        List<Integer> newIntegerSecond = new ArrayList<>(integerSecond);
-                        //retainAll：取交集(用来剔除不在集合里面的元素）
-                        integerSecond.retainAll(menuIds);
-                        //removeAll：用来剔除指定集合里面的元素，剩下则为对应用户的实际二级菜单
-                        newIntegerSecond.removeAll(integerSecond);
-                        for (Integer integer : newIntegerSecond) {
-                            for (int j = menuListSecond.size() - 1; j >= 0; j--) {
-                                if (menuListSecond.get(j).getId()==(integer).intValue()) {
-                                    menuListSecond.remove(menuListSecond.get(j));
-                                }
-                            }
-                        }
-                        menu.setChildren(menuListSecond);
+        if (menuIds != null && menuIds.size()>0) {
+            for (int i = 0; i < menuIds.size(); i++) {
+                if (menuDao.findParentMenuId(menuIds.get(i)) != 0) {
+                    Integer parentMenuId = menuDao.findParentMenuId(menuIds.get(i));
+                    if (!parentMenuId.equals(menuIds.get(i))) {
+                        menuIds.add(parentMenuId);
                     }
                 }
             }
+            Set<Integer> set = new HashSet<>(menuIds);
+            menuIds.clear();
+            menuIds.addAll(set);
+            // 通过menu_id查询对应菜单数据
+//            List<Menu> menuListFirst = new ArrayList<>();
+                // 获取一级菜单 menuListFirst    查询父节点为0
+            List<Menu> menuListFirst = menuDao.getMenuListFirst(menuIds);
+                if (CollectionUtil.isNotEmpty(menuListFirst)) {
+                    //用户个人菜单总数里去除一级菜单，匹配剩下二级菜单
+                    for (Menu menu : menuListFirst) {
+                        menuIds.remove(menu.getId());
+                    }
+                    for (int i = menuListFirst.size() - 1; i >= 0; i--) {
+                        // 获取一级菜单对应的所有二级菜单（不包括一级）  本处方法是查询所有，剔除不包含
+                        Menu menu = menuListFirst.get(i);
+                        Long fristMenu = menu.getId();
+                        if (fristMenu != null) {
+                            Integer SecondMenu = (fristMenu).intValue();
+                            List<Menu> menuListSecond = menuDao.findSecondMenu(SecondMenu);
+                            //integerSecond为对应二级菜单的int集合
+                            List<Integer> integerSecond = new ArrayList<>();
+                            for (Menu menuSecond : menuListSecond) {
+                                integerSecond.add(menuSecond.getId().intValue());
+                            }
+                            List<Integer> newIntegerSecond = new ArrayList<>(integerSecond);
+                            //retainAll：取交集(用来剔除不在集合里面的元素）
+                            integerSecond.retainAll(menuIds);
+                            //removeAll：用来剔除指定集合里面的元素，剩下则为对应用户的实际二级菜单
+                            newIntegerSecond.removeAll(integerSecond);
+                            for (Integer integer : newIntegerSecond) {
+                                for (int j = menuListSecond.size() - 1; j >= 0; j--) {
+                                    if (menuListSecond.get(j).getId() == (integer).intValue()) {
+                                        menuListSecond.remove(menuListSecond.get(j));
+                                    }
+                                }
+                            }
+                            menu.setChildren(menuListSecond);
+                        }
+                    }
+                }
+            return menuListFirst;
+        }else{
+            return null;
         }
-        return menuListFirst;
     }
 
     //方法2(子节点未全选时，前端不展示父节点)   --已停用
     @Override
     public List<Menu> getMenuList2(String username) {
-        Map<String, Object> data  = new HashMap<String, Object>();
+//        Map<String, Object> data  = new HashMap<String, Object>();
         try {//查询所有菜单
             List<Menu> allMenu = menuDao.findMenuListByUsername(username);
                 //根节点
@@ -234,11 +236,12 @@ public class MenuServiceImpl implements MenuService {
         return menus.stream().map(TreeSelect::new).collect(Collectors.toList());
     }
 
+
     @Override
     public String checkMenuNameUnique(Menu menu) {
-        Long menuId = StringUtils.isNull(menu.getId()) ? -1L : menu.getId();
+        Long menuId= Objects.nonNull(menu.getId()) ? menu.getId() : -1L;
         Menu info = menuDao.checkDeptNameUnique(menu.getName(), menu.getParentmenuid());
-        if (info != null && info.getId() != menuId)
+        if (info != null && info.getId().longValue() != menuId.longValue())
         {
             return MessageConstant.NOT_UNIQUE;
         }

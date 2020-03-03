@@ -9,6 +9,7 @@ import css.security.entity.TreeSelect;
 import css.security.service.DeptService;
 import css.security.utils.SecurityUtils;
 import css.security.utils.StringUtils;
+import jdk.nashorn.internal.ir.CallNode;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -25,7 +26,7 @@ public class DeptServiceImpl implements DeptService {
 
     @Override
     public List<Dept> findTree() {
-        Map<String, Object> data = new HashMap<String, Object>();
+//        Map<String, Object> data = new HashMap<String, Object>();
         try {//查询所有菜单
             List<Dept> allDept = deptDao.findTree();
             //根节点
@@ -73,7 +74,8 @@ public class DeptServiceImpl implements DeptService {
 
     @Override
     public String checkDeptNameUnique(Dept dept){
-        Long deptId = StringUtils.isNull(dept.getDeptId()) ? -1L : dept.getDeptId();
+        Long deptId = Objects.nonNull(dept.getDeptId()) ? dept.getDeptId() : -1L;
+
         Dept info = deptDao.checkDeptNameUnique(dept.getDeptName(), dept.getParentId());
         if (StringUtils.isNotNull(info) && info.getDeptId().longValue() != deptId.longValue())
         {
@@ -187,7 +189,7 @@ public class DeptServiceImpl implements DeptService {
             public int compare(Dept o1, Dept o2) {
                 Integer id1 = Integer.parseInt(o1.getOrderNum());
                 Integer id2 = Integer.parseInt(o2.getOrderNum());
-                return (id1 > id2) ? 1 : ((id1 == id2) ? 0 : -1);
+                return (id1 > id2) ? 1 : ( (id1.equals(id2)) ? 0 : -1);
             }
         };
         return comparator;
