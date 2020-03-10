@@ -35,7 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 如果有允许匿名的url，填在下面
                 .antMatchers(new String[]{"/assets/**","/css/**","/dist/**","/images/**","/img/**","/js/**","/MP3/**","/plugins/**","/template/**","/**/favicon.ico"}).permitAll()//
 //                .antMatchers("/css/*.css").permitAll() //登陆所需资源
-                .antMatchers(new String[]{"/dept/**","/menu/**","/pwd/**","/permission/**","/role/**","/user/**","/index"}).permitAll()
+                .antMatchers(new String[]{"/dept/**","/menu/**","/pwd/**","/permission/**","/role/**","/user/**"}).permitAll()
 
 
                 //下面三行设置后   访问都需要登录，除放行外请求都将被拦截
@@ -45,9 +45,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 设置登陆页
                 .formLogin() //form提交登陆
                 .loginPage("/login")  //登陆页
-                // 设置登陆成功页
-                //.defaultSuccessUrl("/index")
-                //.successForwardUrl("/index")
                 //登录成功默认页面
                 .successHandler(myAuthenticationSuccessHandler)
                 //登录失败提示页
@@ -57,15 +54,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 //对请求进行授权
                 .authorizeRequests()
+
                 //任何请求链接的访问均需验证权限
 //                .anyRequest().authenticated()
-
                 //必须经过验证才能访问
                 .anyRequest().access("@rbacService.hasPermission(request,authentication)")
-                // 自定义登陆用户名和密码参数，默认为username和password
-//                .usernameParameter("username")
-//                .passwordParameter("password")
-
 
                 .and()
                 .logout()  //添加 /logout访问点，能退出
@@ -83,7 +76,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         // 设置拦截忽略文件夹，可以对静态资源放行
-        web.ignoring().antMatchers("/static/assets/**","/static/css/**","/static/images/**","/static/img/**","/static/js/**","/static/plugins/**","/static/template/**","**.ico");
+//        web.ignoring().antMatchers("/static/assets/**","/static/css/**","/static/images/**","/static/img/**","/static/js/**","/static/plugins/**","/static/template/**","**.ico");
 //        web.ignoring().antMatchers("/static/**");
     }
 
