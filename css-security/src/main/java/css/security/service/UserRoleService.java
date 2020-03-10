@@ -15,4 +15,8 @@ public class UserRoleService {
     public List<SysUserRole> listByUserId(Integer userId){
         return userRoleMapper.listByUserId(userId);
     }
+
+    public String selectByUserId(Integer userId) {
+        return userRoleMapper.selectByUserId(userId);
+    }
 }

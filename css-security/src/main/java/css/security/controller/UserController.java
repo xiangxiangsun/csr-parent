@@ -3,6 +3,7 @@ package css.security.controller;
 import css.security.common.MessageConstant;
 import css.security.dto.SysUserDTO;
 import css.security.entity.*;
+import css.security.security.LoginUser;
 import css.security.service.UserService;
 import css.security.entity.PageResult;
 import css.security.entity.Result;
@@ -31,7 +32,8 @@ public class UserController {
 
     @RequestMapping("/getUserName")
     public Result getUsername(){
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        LoginUser user = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return new Result(true, MessageConstant.GET_USERNAME_SUCCESS,user.getUsername());
     }
 

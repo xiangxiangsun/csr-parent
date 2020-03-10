@@ -2,14 +2,17 @@ package css.security.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import css.security.entity.SysUser;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Set;
 
-
-
+@Setter
+@Getter
 public class LoginUser implements UserDetails {
     private static final long serialVersionUID = 1L;
 
@@ -58,37 +61,45 @@ public class LoginUser implements UserDetails {
      */
     private SysUser user;
 
-    public String getToken()
-    {
-        return token;
-    }
+    /**
+     * 登陆验证相关
+     */
+    private String username;
+    private String password;
+    private String role;
+    //账户是否过期
+    private boolean accountNonExpired;
+    //账户是否锁定
+    private boolean accountNonLocked;
+    //凭证是否过期
+    private boolean credentialsNonExpired;
+    //账户是否启用
+    private boolean enabled;
 
-    public void setToken(String token)
-    {
-        this.token = token;
+    public LoginUser(String username, String password, String role, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired, boolean enabled) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+        this.accountNonExpired = accountNonExpired;
+        this.accountNonLocked = accountNonLocked;
+        this.credentialsNonExpired = credentialsNonExpired;
+        this.enabled = enabled;
     }
 
     public LoginUser()
     {
     }
 
-    public LoginUser(SysUser user, Set<String> permissions)
-    {
-        this.user = user;
-        this.permissions = permissions;
-    }
-
-    @JsonIgnore
     @Override
     public String getPassword()
     {
-        return user.getPassword();
+        return password;
     }
 
     @Override
     public String getUsername()
     {
-        return user.getUsername();
+        return username;
     }
 
     /**
@@ -137,89 +148,9 @@ public class LoginUser implements UserDetails {
         return true;
     }
 
-    public Long getLoginTime()
-    {
-        return loginTime;
-    }
-
-    public void setLoginTime(Long loginTime)
-    {
-        this.loginTime = loginTime;
-    }
-
-    public String getIpaddr()
-    {
-        return ipaddr;
-    }
-
-    public void setIpaddr(String ipaddr)
-    {
-        this.ipaddr = ipaddr;
-    }
-
-    public String getLoginLocation()
-    {
-        return loginLocation;
-    }
-
-    public void setLoginLocation(String loginLocation)
-    {
-        this.loginLocation = loginLocation;
-    }
-
-    public String getBrowser()
-    {
-        return browser;
-    }
-
-    public void setBrowser(String browser)
-    {
-        this.browser = browser;
-    }
-
-    public String getOs()
-    {
-        return os;
-    }
-
-    public void setOs(String os)
-    {
-        this.os = os;
-    }
-
-    public Long getExpireTime()
-    {
-        return expireTime;
-    }
-
-    public void setExpireTime(Long expireTime)
-    {
-        this.expireTime = expireTime;
-    }
-
-    public Set<String> getPermissions()
-    {
-        return permissions;
-    }
-
-    public void setPermissions(Set<String> permissions)
-    {
-        this.permissions = permissions;
-    }
-
-    public SysUser getUser()
-    {
-        return user;
-    }
-
-    public void setUser(SysUser user)
-    {
-        this.user = user;
-    }
-
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities()
-    {
-        return null;
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        // TODO Auto-generated method stub
+        return AuthorityUtils.commaSeparatedStringToAuthorityList(role);
     }
 }

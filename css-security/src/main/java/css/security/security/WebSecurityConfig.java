@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -21,67 +22,46 @@ import javax.annotation.Resource;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Resource
-    private CustomUserDetailsService userDetailsService;
+    //自定义JSON格式返回
+    @Autowired
+    private MyAuthenticationSuccessHandler myAuthenticationSuccessHandler;
 
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
-
-    /**
-     * 添加权限实现
-     * @return
-     * @throws Exception
-     */
-    @Bean
-    @Override
-    protected AuthenticationManager authenticationManager() throws Exception {
-        return super.authenticationManager();
-    }
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(new PasswordEncoder() {
-
-            @Override
-            public String encode(CharSequence charSequence) {
-                return charSequence.toString();
-            }
-
-            @Override
-            public boolean matches(CharSequence charSequence, String s) {
-                return s.equals(charSequence.toString());
-            }
-
-        });
-    }
+    @Autowired
+    private MyAuthenticationFailHander myAuthenticationFailHander;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 // 如果有允许匿名的url，填在下面
-                .antMatchers("/css/*.css").permitAll() //登陆所需资源
-                .antMatchers("/dist/*/*.ttf").permitAll() //登陆所需资源
-                .antMatchers("/images/*.jpg","/images/*.png").permitAll() //登陆所需资源
+                .antMatchers(new String[]{"/assets/**","/css/**","/dist/**","/images/**","/img/**","/js/**","/MP3/**","/plugins/**","/template/**","/**/favicon.ico"}).permitAll()//
+//                .antMatchers("/css/*.css").permitAll() //登陆所需资源
+                .antMatchers(new String[]{"/dept/**","/menu/**","/pwd/**","/permission/**","/role/**","/user/**","/index"}).permitAll()
 
-                .and()
-                //对请求进行授权
-                .authorizeRequests()
-                //任何请求链接的访问均需验证权限
-                .anyRequest().authenticated()
 
-                //对请求进行权限鉴定，满足则执行   .antMatchers(HttpMethod.GET,"/findPage") 仅GET请求 /  .antMatchers("/findPage") 任何请求
-                .antMatchers(HttpMethod.GET,"/findPage").hasRole("ADMIN")
+                //下面三行设置后   访问都需要登录，除放行外请求都将被拦截
+
 
                 .and()
                 // 设置登陆页
                 .formLogin() //form提交登陆
                 .loginPage("/login")  //登陆页
                 // 设置登陆成功页
-                .defaultSuccessUrl("/",true)
+                //.defaultSuccessUrl("/index")
+                //.successForwardUrl("/index")
+                //登录成功默认页面
+                .successHandler(myAuthenticationSuccessHandler)
+                //登录失败提示页
+                .failureHandler(myAuthenticationFailHander)
                 .failureUrl("/login?error")
                 .permitAll()
+                .and()
+                //对请求进行授权
+                .authorizeRequests()
+                //任何请求链接的访问均需验证权限
+//                .anyRequest().authenticated()
+
+                //必须经过验证才能访问
+                .anyRequest().access("@rbacService.hasPermission(request,authentication)")
                 // 自定义登陆用户名和密码参数，默认为username和password
 //                .usernameParameter("username")
 //                .passwordParameter("password")
@@ -103,7 +83,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         // 设置拦截忽略文件夹，可以对静态资源放行
-        web.ignoring().antMatchers("/static/assets/**","/static/css/**","/static/images/**","/static/img/**","/static/js/**","/static/plugins/**","/static/template/**");
+        web.ignoring().antMatchers("/static/assets/**","/static/css/**","/static/images/**","/static/img/**","/static/js/**","/static/plugins/**","/static/template/**","**.ico");
+//        web.ignoring().antMatchers("/static/**");
+    }
+
+    @Autowired
+    private AuthenticationProvider provider;
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(provider);
     }
 
 }

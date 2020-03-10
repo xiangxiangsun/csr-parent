@@ -44,22 +44,18 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("用户名不存在");
         }
 
-        // 添加权限
+/*        // 添加权限(一个用户多个角色)
         List<SysUserRole> userRoles = userRoleService.listByUserId(user.getId());
-
-//        System.out.println("------------");
-//        System.out.println(userService.selectByName(username));
-//        System.out.println(user.getId());
-//        System.out.println(userRoles);
-//        System.out.println(userRoleService.listByUserId(1));
-//        System.out.println("------------");
-
-        for (SysUserRole sysUserRole : userRoles) {
+                for (SysUserRole sysUserRole : userRoles) {
             SysRole role = roleService.selectById(sysUserRole.getRoleId());
             authorities.add(new SimpleGrantedAuthority(role.getName()));
-        }
+        }*/
+
+        //添加权限，一个用户仅一个角色
+        String role = userRoleService.selectByUserId(user.getId());
+
 
         // 返回UserDetails实现类
-        return new User(user.getUsername(),user.getPassword(),authorities);
+        return new LoginUser(user.getUsername(),user.getPassword(),role,true,true,true,true);
     }
 }

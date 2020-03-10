@@ -11,4 +11,5 @@ public interface UserRoleMapper extends BaseMapper<SysUserRole> {
 
     List<SysUserRole> listByUserId(Integer userId);
 
+    String selectByUserId(Integer userId);
 }

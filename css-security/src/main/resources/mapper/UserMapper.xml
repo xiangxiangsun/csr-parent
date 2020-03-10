@@ -6,4 +6,8 @@
     <select id="listByUserId" resultType="css.security.entity.SysUserRole" parameterType="map">
         select * from t_user_role where user_id = #{userId}
     </select>
+
+    <select id="selectByUserId" resultType="java.lang.String" parameterType="Integer">
+        select name from t_role where id  = (select role_id from t_user_role where user_id = #{userId})
+    </select>
 </mapper>

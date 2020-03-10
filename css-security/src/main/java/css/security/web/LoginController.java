@@ -1,6 +1,5 @@
 package css.security.web;
 
-import css.security.security.LoginUser;
 import css.security.utils.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,37 +44,42 @@ public class LoginController {
         return "如果你看见这句话，说明你有ROLE_USER角色";
     }*/
 
-    @RequestMapping("/user")
+    @RequestMapping("/index")
+    public String index(){
+        return "index.html";
+    }
+
+    @RequestMapping("/userPage")
     public String user(){
         return "user.html";
     }
 
-    @RequestMapping("/role")
+    @RequestMapping("/rolePage")
     public String role(){
         return "role.html";
     }
 
-    @RequestMapping("/permission")
+    @RequestMapping("/permissionPage")
     public String permission(){
         return "permission.html";
     }
 
-    @RequestMapping("/updatePSW")
+    @RequestMapping("/updatePSWPage")
     public String updatePSW(){
         return "updatePSW.html";
     }
 
-    @RequestMapping("/menu")
+    @RequestMapping("/menuPage")
     public String menu(){
         return "menu.html";
     }
 
-    @RequestMapping("/dept")
+    @RequestMapping("/deptPage")
     public String dept(){
         return "dept.html";
     }
 
-    @RequestMapping("/workOrder")
+    @RequestMapping("/workOrderPage")
     public String workOrder(){
         return "workOrder.html";
     }
