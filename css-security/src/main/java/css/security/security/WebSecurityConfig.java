@@ -37,10 +37,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/css/*.css").permitAll() //登陆所需资源
                 .antMatchers(new String[]{"/dept/**","/menu/**","/pwd/**","/permission/**","/role/**","/user/**"}).permitAll()
 
-
-                //下面三行设置后   访问都需要登录，除放行外请求都将被拦截
-
-
                 .and()
                 // 设置登陆页
                 .formLogin() //form提交登陆
