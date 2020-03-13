@@ -1,25 +1,19 @@
 package css.security.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.annotation.Resource;
 
+
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     //自定义JSON格式返回
@@ -29,6 +23,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private MyAuthenticationFailHander myAuthenticationFailHander;
 
+    @Autowired
+    private MyAccessDeniedHandler myAccessDeniedHandler;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
@@ -37,34 +34,49 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/css/*.css").permitAll() //登陆所需资源
                 .antMatchers(new String[]{"/dept/**","/menu/**","/pwd/**","/permission/**","/role/**","/user/**"}).permitAll()
 
-                .and()
-                // 设置登陆页
-                .formLogin() //form提交登陆
-                .loginPage("/login")  //登陆页
-                //登录成功默认页面
-                .successHandler(myAuthenticationSuccessHandler)
-                //登录失败提示页
-                .failureHandler(myAuthenticationFailHander)
-                .failureUrl("/login?error")
-                .permitAll()
+                //任何请求链接的访问均需验证权限
+//                .anyRequest().authenticated()
                 .and()
                 //对请求进行授权
                 .authorizeRequests()
-
-                //任何请求链接的访问均需验证权限
-//                .anyRequest().authenticated()
                 //必须经过验证才能访问
                 .anyRequest().access("@rbacService.hasPermission(request,authentication)")
 
                 .and()
-                .logout()  //添加 /logout访问点，能退出
-                .logoutSuccessUrl("/login")  //退出后访问
-                .and().rememberMe();    //自动登录
+                // 设置登陆页
+                .formLogin().loginPage("/login")
+                //提交表单后执行，对应login的action
+                .loginProcessingUrl("/login")
+                //登录成功默认页面
+                .successHandler(myAuthenticationSuccessHandler)
+                //登录失败提示页
+                .failureHandler(myAuthenticationFailHander)
+//                .failureUrl("/login?error")
+                .permitAll()
+
+                .and()
+                // 配置被拦截时的处理  这个位置很关键
+                .exceptionHandling()
+                //添加无权限时的处理
+                .accessDeniedHandler(myAccessDeniedHandler)
+
+
+                .and()
+                //添加 /logout访问点，能退出
+                .logout()
+                //退出后访问
+                .logoutSuccessUrl("/login")
+
+//                .and()
+//                //自动登录
+//                .rememberMe()
+
+                .and()
+                //开启模拟请求，比如API POST测试工具的测试，不开启时，API POST为报403错误
+                .csrf().disable();
 
         //开启跨域访问
         http.cors().disable();
-        //开启模拟请求，比如API POST测试工具的测试，不开启时，API POST为报403错误
-        http.csrf().disable();
         // 设置可以iframe访问，内部刷新用到的
         http.headers().frameOptions().sameOrigin();
     }

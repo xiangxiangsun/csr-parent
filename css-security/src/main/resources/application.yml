@@ -37,10 +37,10 @@ spring:
 
     open-in-view: false
 
-  security:
-    user:
-      name: admin
-      password: admin
+#  security:
+#    user:
+#      name: admin
+#      password: admin
 
 #  mail:
 #    host: smtp.163.com
