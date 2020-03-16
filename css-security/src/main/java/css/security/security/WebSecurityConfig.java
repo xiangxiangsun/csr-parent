@@ -9,9 +9,6 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
-import javax.annotation.Resource;
-
-
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -31,15 +28,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 // 如果有允许匿名的url，填在下面
                 .antMatchers(new String[]{"/assets/**","/css/**","/dist/**","/images/**","/img/**","/js/**","/MP3/**","/plugins/**","/template/**","/**/favicon.ico"}).permitAll()//
-//                .antMatchers("/css/*.css").permitAll() //登陆所需资源
+                //前端页面所需axios请求
                 .antMatchers(new String[]{"/dept/**","/menu/**","/pwd/**","/permission/**","/role/**","/user/**"}).permitAll()
 
                 //任何请求链接的访问均需验证权限
 //                .anyRequest().authenticated()
+
                 .and()
                 //对请求进行授权
                 .authorizeRequests()
-                //必须经过验证才能访问
+                //必须经过权限验证才能访问
                 .anyRequest().access("@rbacService.hasPermission(request,authentication)")
 
                 .and()
@@ -51,7 +49,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(myAuthenticationSuccessHandler)
                 //登录失败提示页
                 .failureHandler(myAuthenticationFailHander)
-//                .failureUrl("/login?error")
+                .failureUrl("/login?error")
                 .permitAll()
 
                 .and()
@@ -59,7 +57,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling()
                 //添加无权限时的处理
                 .accessDeniedHandler(myAccessDeniedHandler)
-
 
                 .and()
                 //添加 /logout访问点，能退出
