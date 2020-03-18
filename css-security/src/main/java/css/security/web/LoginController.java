@@ -9,6 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
 
 @Controller
 public class LoginController {
@@ -55,7 +59,7 @@ public class LoginController {
     }
 
     @RequestMapping("/rolePage")
-    public String role(){
+    public String rolePage(){
         return "role.html";
     }
 

@@ -21,6 +21,7 @@ public class RoleController {
 
     // 分页查询
     @RequestMapping("/findPage")
+
     public PageResult findPage(@RequestBody QueryPageBean queryPageBean){
         PageResult pageResult = roleService.findPage(
                     queryPageBean.getCurrentPage(),

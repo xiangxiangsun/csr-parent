@@ -94,31 +94,33 @@
                             </el-tab-pane>
                             <el-tab-pane label="权限信息" name="third">
                                 <div class="checkScrol">
-                                    <table class="datatable">
-                                        <thead>
-                                        <tr>
-                                            <th>选择</th>
-                                            <th>项目编码</th>
-                                            <th>项目名称</th>
-                                            <th>项目说明</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr v-for="c in tableData">
-                                            <td>
-                                                <el-checkbox-group
-                                                        v-model="permissionIds"
-                                                        :min="0"
-                                                        :max="100">
-                                                    <el-checkbox :label="c.id" :key="c.id">{{c.id}}</el-checkbox>
-                                                </el-checkbox-group>
-                                            </td>
-                                            <td><label :for="c.id">{{c.name}}</label></td>
-                                            <td><label :for="c.id">{{c.keyword}}</label></td>
-                                            <td><label :for="c.id">{{c.description}}</label></td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
+                                    <el-table
+                                            :data="tableData"
+                                            ref="multipleTable"
+                                            tooltip-effect="dark"
+                                            style="width: 100%"
+                                            @selection-change="handleSelectionChange">
+                                        <el-table-column
+                                                type="selection"
+                                                label="选择"
+                                                width="55">
+                                        </el-table-column>
+                                        <el-table-column
+                                                prop="keyword"
+                                                label="项目编码"
+                                                width="120">
+                                        </el-table-column>
+                                        <el-table-column
+                                                prop="name"
+                                                label="项目名称"
+                                                width="120">
+                                        </el-table-column>
+                                        <el-table-column
+                                                prop="description"
+                                                label="项目说明"
+                                                show-overflow-tooltip>
+                                        </el-table-column>
+                                    </el-table>
 
                                 </div>
                             </el-tab-pane>
@@ -176,31 +178,35 @@
                             </el-tab-pane>
                             <el-tab-pane label="权限信息" name="third">
                                 <div class="checkScrol">
-                                    <table class="datatable">
-                                        <thead>
-                                        <tr>
-                                            <th>选择</th>
-                                            <th>项目编码</th>
-                                            <th>项目名称</th>
-                                            <th>项目说明</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr v-for="c in tableData">
-                                            <td>
-                                                <el-checkbox-group
-                                                        v-model="permissionIds"
-                                                        :min="0"
-                                                        :max="100">
-                                                    <el-checkbox :label="c.id" :key="c.id">{{c.id}}</el-checkbox>
-                                                </el-checkbox-group>
-                                            </td>
-                                            <td><label :for="c.id">{{c.name}}</label></td>
-                                            <td><label :for="c.id">{{c.keyword}}</label></td>
-                                            <td><label :for="c.id">{{c.description}}</label></td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
+                                    <el-table
+                                            :data="tableData"
+                                            :row-key="getRowKeys"
+                                            ref="multipleTable"
+                                            tooltip-effect="dark"
+                                            style="width: 100%"
+                                            tooltip-effect="dark"
+                                            @selection-change="handleSelectionChange">
+                                        <el-table-column
+                                                type="selection"
+                                                label="选择"
+                                                width="55">
+                                        </el-table-column>
+                                        <el-table-column
+                                                prop="keyword"
+                                                label="项目编码"
+                                                width="120">
+                                        </el-table-column>
+                                        <el-table-column
+                                                prop="name"
+                                                label="项目名称"
+                                                width="120">
+                                        </el-table-column>
+                                        <el-table-column
+                                                prop="description"
+                                                label="项目说明"
+                                                show-overflow-tooltip>
+                                        </el-table-column>
+                                    </el-table>
 
                                 </div>
                             </el-tab-pane>
@@ -241,6 +247,7 @@
             permissionIds:[],//新增和编辑表单中权限项对应的复选框，基于双向绑定可以进行回显和数据提交
             dialogFormVisible: false,//控制添加窗口显示/隐藏
             dialogFormVisible4Edit:false,//控制编辑窗口显示/隐藏
+            multipleSelection: [],
             getRowKeys(row) {
                 return row.id;
             },
@@ -250,9 +257,9 @@
             this.findPage();
         },
         methods: {
-            // handleSelectionChange(val) {
-            //     this.multipleSelection = val;
-            // },
+            handleSelectionChange(val) {
+                this.multipleSelection = val;
+            },
             // 权限不足提示
             showMessage(error){
                 if (error.response.status == 403){
@@ -274,7 +281,9 @@
             handleEdit() {
 
                 this.formData.menuIds = this.$refs.tree.getCheckedKeys();
-                this.formData.permissionIds = this.permissionIds;
+                this.formData.permissionIds = this.multipleSelection.map(function(item) {
+                    return item.id;
+                });
 
                  axios.post("/role/edit",this.formData).then((response)=>{
                      // 隐藏编辑窗口
@@ -298,8 +307,9 @@
             handleAdd () {
                  // 发送ajax请求将表单数据提交到后台
                 this.formData.menuIds = this.$refs.tree.getCheckedKeys();
-                this.formData.permissionIds = this.permissionIds;
-
+                this.formData.permissionIds = this.multipleSelection.map(function(item) {
+                    return item.id;
+                });
                  axios.post("/role/add",this.formData).then((response) => {
                      // 隐藏新增窗口
                      this.dialogFormVisible = false;
@@ -312,22 +322,10 @@
                      } else {
                          this.$message.error(response.data.message);
                      }
+                 }).finally(()=> {
+                     this.findPage();
                  });
-
-                axios.post("/permission/add",this.formData).then((response) => {
-                    this.dialogFormVisible = false;
-                    if (response.data.flag) {
-                        this.$message({
-                            message:response.data.message,
-                            type:'success'
-                        });
-                    } else {
-                        this.$message.error(response.data.message);
-                    }
-                });
-
             },
-
             //分页查询
             findPage() {
                 // 分页参数
@@ -365,11 +363,9 @@
             handleUpdate(row) {
                 this.resetForm();
                 // alert(row);
-                this.permissionIds = [];
-                this.menuIds = [];
                 // 发送ajax请求根据id查询角色信息，用于基本信息回显
-                axios.get("/role/findById?id=" + row.id).then((res)=> {
-                    if (res.data.flag) {
+                axios.get("/role/findById?id=" + row.id).then((res)=>{
+                    if (res.data.flag){
                         // 弹出编辑窗口
                         this.dialogFormVisible4Edit = true;
                         // 默认选中第一个标签页
@@ -377,33 +373,64 @@
                         // 为模型数据赋值，通过VUE数据双向绑定进行信息的回显
                         this.formData = res.data.data;
 
+
                         // 发送ajax请求查询所有的菜单项信息，用于展示
-                        axios.get("/menu/treeSelect").then((res) => {
+                        axios.get("/menu/treeSelect").then((res)=>{
                             if (res.data.flag) {
                                 // 为模型数据赋值,通过vue数据双向绑定进行数据回显
                                 this.menudata = res.data.data;
                                 //查询当前组包含的所有项id, 用于页面回显
-                                axios.get("/role/findMenuIdsByRoleId?id=" + row.id).then((res) => {
+                                axios.get("/role/findMenuIdsByRoleId?id="+row.id).then((res)=>{
                                     //为模型数据进行赋值,通过vue数据双向绑定进行信息的回显
                                     this.$refs.tree.setCheckedKeys(res.data);
                                 })
-                            } else {
+                            }else {
                                 this.$message.error(res.data.message);
                             }
                         });
 
-                        axios.get("/permission/findAll").then((res) => {
+
+                        // 发送ajax请求查询所有的权限项信息，用于展示
+                        axios.get("/permission/findAll").then((res)=>{
+
+                            let resultTableData = [];
                             if (res.data.flag) {
+                                // 为模型数据赋值,通过vue数据双向绑定进行数据回显
                                 this.tableData = res.data.data;
-                                axios.get("/role/findPermissionIdsByRoleId?id=" + row.id).then((res) => {
-                                    this.permissionIds = res.data;
+
+                                //查询当前组包含的所有项id, 用于页面回显
+                                axios.get("/role/findPermissionIdsByRoleId?id="+row.id).then((res)=>{
+                                    //为模型数据进行赋值,通过vue数据双向绑定进行信息的回显
+                                    //筛选
+                                    resultTableData = this.tableData.filter(
+                                        (item) => {
+                                            let flag = false;
+                                            if (res.data.length !== 0) {
+                                                for (let i = 0,len = res.data.length; i < len; i++) {
+                                                    flag = res.data[i] === item.id;
+                                                    if (flag) {
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                            if(flag) {
+                                                return item;
+                                            }
+                                        }
+                                    );
+                                    resultTableData.forEach(
+                                        item => this.$refs.multipleTable.toggleRowSelection(item,true)
+                                    );
                                 })
-                            } else {
-                                this.$message.error("获取数据失败，请刷新当前页面");
+                            }else {
+                                this.$message.error(res.data.message);
                             }
-                        });
+                        })
+                    } else {
+                        this.$message.error("获取数据失败，请刷新当前页面");
                     }
-                })
+                });
+
             },
             //切换页码
             handleCurrentChange(currentPage) {

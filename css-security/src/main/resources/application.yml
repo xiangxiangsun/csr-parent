@@ -37,6 +37,20 @@ spring:
 
     open-in-view: false
 
+
+#  thymeleaf:
+#    prefix: classpath:/static/
+#    suffix: .html
+#    servlet:
+#      content-type: text/html
+#    cache: false
+#    encoding: UTF-8
+
+#模板不严格配置
+#    mode: LEGACYHTML5
+
+
+
 #  security:
 #    user:
 #      name: admin

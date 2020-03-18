@@ -216,7 +216,7 @@
 									</div>
                                     </el-tab-pane>
 
-                                    <!--第三个框，角色框-->
+                                    <!--第三个框，部门框-->
                                     <el-tab-pane label="部门信息" name="Three">
                                         <el-tree
                                                 ref="tree"
@@ -407,7 +407,7 @@
                 //编辑
                 handleEdit() {
                     //发送ajax请求将模型数据提交到后台进行处理
-                    alert(this.$refs.tree.getCheckedKeys());
+                    // alert(this.$refs.tree.getCheckedKeys());
                     // console.log(this.roleIds, this.formData ,this.deptIds, this.tableDept.id);
                     var editParam = {
                         sysUser: this.formData,
@@ -489,7 +489,6 @@
                     this.roleIds = [];
                     this.deptIds = [];
                     //发送axios请求查询所有检查项信息
-                    // alert("11111");
                     axios.get("/role/findAll").then((res) => {
                         if (res.data.flag) {
                             //成功就将检查项列表数据赋值给模型数据用于页面表格展示
