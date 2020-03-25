@@ -412,7 +412,7 @@
                     var editParam = {
                         sysUser: this.formData,
                         roleIds: this.roleIds,
-                        deptIds: this.$refs.tree.getCheckedKeys(),
+                        deptIds: this.$refs.tree.getCheckedKeys()
                     };
                     axios.post("/user/edit",editParam).then((res) => {
                             //隐藏编辑窗口
@@ -437,7 +437,7 @@
                     var addParam = {
                         sysUser: this.formData,
                         roleIds: this.roleIds,
-                        deptIds: this.$refs.tree.getCheckedKeys(),
+                        deptIds: this.$refs.tree.getCheckedKeys()
                     };
                     axios.post("/user/add",addParam).then((res) => {
                             //关闭新增窗口

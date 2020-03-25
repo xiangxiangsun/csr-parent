@@ -39,6 +39,7 @@ public class RbacServiceImpl implements RbacService {
             HashSet<String> urls = new HashSet<>();
             //查询用户拥有的所有url
             Integer roleId = roleMapper.selectIdByName(username);
+            //通过角色查询对应拥有权限的url
             HashSet<String> menuIds = roleMapper.selectAllMenuByRoleId(roleId);
             for (String menuId : menuIds) {
                 String url = menuMapper.selectUrlById(menuId);
