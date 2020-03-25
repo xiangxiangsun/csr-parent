@@ -5,6 +5,7 @@ import com.github.pagehelper.PageHelper;
 import css.security.dao.PermissionDao;
 import css.security.entity.PageResult;
 import css.security.entity.Permission;
+import css.security.entity.SysUser;
 import css.security.service.PermissionService;
 import org.springframework.stereotype.Component;
 
@@ -28,6 +29,7 @@ public class PermissionServiceImpl implements PermissionService {
     public PageResult findPage(Integer currentPage, Integer pageSize, String queryString) {
         PageHelper.startPage(currentPage,pageSize);
         Page<Permission> page = permissionDao.findPage(queryString);
+//        page.setTotal(page.size());
         return new PageResult(page.getTotal(),page.getResult());
     }
 

@@ -10,15 +10,16 @@
 
     <!--将数据插入到t_role表中-->
     <insert id="add" parameterType="css.security.entity.SysRole" useGeneratedKeys="true" keyProperty="id">
-        insert into public.t_role (name, keyword)
+        insert into t_role (name,keyword,description)
         values (
         #{name},
-        #{keyword}
+        #{keyword},
+        #{description}
         )
     </insert>
     <!--插入数据到中间表t_role_menu中-->
     <insert id="addRoleAndMenu" parameterType="arraylist">
-        insert into public.t_role_menu (role_id,menu_id) values
+        insert into t_role_menu (role_id,menu_id) values
         <foreach collection="maps" item="item" index="index" separator=",">
             (#{item.mainId},
             #{item.id})
@@ -26,7 +27,7 @@
     </insert>
     <!--插入数据到中间表t_role_permission中-->
     <insert id="addRoleAndPermission">
-        insert into public.t_role_permission (role_id,permission_id) values
+        insert into t_role_permission (role_id,permission_id) values
         <foreach collection="mapList" item="item" index="index" separator=",">
             (#{item.mainId},
             #{item.id})
@@ -35,43 +36,43 @@
 
     <!--删除关系表t_role_menu表中对应数据-->
     <delete id="deleteRoleAndMenu">
-        delete from public.t_role_menu where role_id = #{id}
+        delete from t_role_menu where role_id = #{id}
     </delete>
 
     <!--删除关系表t_role_permission表中对应数据-->
     <delete id="deleteRoleAndPermission">
-        delete from public.t_role_permission where role_id = #{id}
+        delete from t_role_permission where role_id = #{id}
     </delete>
     <!--删除t_role表中对应数据-->
     <delete id="delete">
-        delete from public.t_role where id = #{id}
+        delete from t_role where id = #{id}
     </delete>
     <!--分页查询-->
     <select id="findPage" resultType="css.security.entity.SysRole">
-        select * from public.t_role
+        select * from t_role
         <if test="queryString != null and queryString.length > 0">
-            where name = #{queryString} or keyword = #{queryString}
+            where name like concat('%', #{queryString}, '%') or keyword like concat('%', #{queryString}, '%')
         </if>
     </select>
 
     <select id="findAll" resultType="css.security.entity.SysRole">
-        select * from public.t_role;
+        select * from t_role order by id;
     </select>
 
     <insert id="setMenuIdByRoleId" parameterType="hashmap">
-        insert into public.t_role_menu (role_id,menu_id)
+        insert into t_role_menu (role_id,menu_id)
             values
             (#{role_id},#{menu_id})
     </insert>
 
     <insert id="setPermissionIdByRoleId" parameterType="hashmap">
-        insert into public.t_role_permission (role_id,permission_id)
+        insert into t_role_permission (role_id,permission_id)
             values
             (#{role_id},#{permission_id})
     </insert>
 
     <update id="edit" parameterType="css.security.entity.SysRole">
-        update public.t_role
+        update t_role
         <set>
             <if test="role.name != null">
                 name = #{role.name},
@@ -87,19 +88,15 @@
     </update>
 
     <select id="findById" resultType="css.security.entity.SysRole">
-        select * from public.t_role where id = #{id};
+        select * from t_role where id = #{id};
     </select>
 
     <select id="findMenuIdsByRoleId" resultType="java.lang.Integer">
-        select menu_id from public.t_role_menu where role_id = #{id};
+        select menu_id from t_role_menu where role_id = #{id};
     </select>
 
     <select id="findPermissionIdsByRoleId" resultType="java.lang.Integer">
-        select permission_id from public.t_role_permission where role_id = #{id};
+        select permission_id from t_role_permission where role_id = #{id};
     </select>
-
-<!--    <select id="getRoleId" resultType="java.lang.Integer">-->
-<!--        select role_id from public.t_role where role_name = #{name};-->
-<!--    </select>-->
 
 </mapper>

@@ -1,13 +1,16 @@
 package css.security.controller;
 
 import css.security.common.MessageConstant;
+import css.security.dto.SysUserDTO;
 import css.security.entity.*;
+import css.security.security.LoginUser;
 import css.security.service.UserService;
 import css.security.entity.PageResult;
-import css.security.entity.QueryPageBean;
 import css.security.entity.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +22,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/user")
+
 public class UserController {
 
     @Resource
@@ -28,26 +32,23 @@ public class UserController {
 
     @RequestMapping("/getUserName")
     public Result getUsername(){
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        logger.info("logger---用户名："+user.getUsername(),"密码："+user.getPassword());
+//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        LoginUser user = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return new Result(true, MessageConstant.GET_USERNAME_SUCCESS,user.getUsername());
     }
 
     //分页查询
-//    @PreAuthorize("hasAuthority('USER_QUERY')")
+//    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @RequestMapping("/findPage")
-    public PageResult findPage(@RequestBody QueryPageBean queryPageBean){
-        PageResult pageResult = userService.findPage(
-                queryPageBean.getCurrentPage(),
-                queryPageBean.getPageSize(),
-                queryPageBean.getQueryString());
-        return pageResult;
-    }
+    public ResponseEntity findPage(@RequestBody SysUserDTO userDTO){
+        PageResult pageResult = userService.findPage(userDTO);{
+        return ResponseEntity.ok(pageResult);
+    }}
 
     @RequestMapping("/add")
-    public Result add(@RequestBody SysUser user, Integer[] roleIds){
+    public Result add(@RequestBody UserTable user){
         try {
-            userService.add(user,roleIds);
+            userService.add(user);
             return new Result(true, "用户新建成功");
         } catch (Exception e) {
             e.printStackTrace();
@@ -64,7 +65,6 @@ public class UserController {
             e.printStackTrace();
             return new Result(false, "用户信息查询失败");
         }
-
     }
 
     @RequestMapping("/findRoleIdsByUserId")
@@ -72,10 +72,15 @@ public class UserController {
         return userService.findRoleIdsByUserId(id);
     }
 
+    @RequestMapping("/findDeptIdsByUserId")
+    public List<Integer> findDeptIdsByUserId(Integer id){
+        return userService.findDeptIdsByUserId(id);
+    }
+
     @RequestMapping("/edit")
-    public Result edit(@RequestBody SysUser user , Integer[] roleIds){
+    public Result edit(@RequestBody UserTable user){
         try {
-            userService.edit(user,roleIds);
+            userService.edit(user);
             return new Result(true,"用户信息修改成功");
         } catch (Exception e) {
             e.printStackTrace();

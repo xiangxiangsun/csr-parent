@@ -1,25 +1,44 @@
 package css.security.service;
 
 import css.security.entity.Menu;
+import css.security.entity.TreeSelect;
 
 import java.util.List;
 
 public interface MenuService {
-    // 查询所有菜单
+    // 查询所有菜单 visble="0"
     List<Menu> findTree();
 
     // 添加子菜单
-    void add(Menu menu);
+    int insertMenu(Menu menu);
 
     // 通过id查找菜单
-    Menu findMenuById(Integer id);
+    Menu findMenuById(Long id);
 
     // 编辑菜单
-    void update(Menu menu);
+    int updateMenu(Menu menu);
 
     // 删除
-    void remove(Integer id);
+    int deleteMenuById(Integer id);
 
     // 通过用户名获取对应菜单
     List<Menu> getMenuList(String username);
+
+    //构建前端所需要下拉树结构
+    public List<TreeSelect> buildMenuTreeSelect(List<Menu> menus);
+
+    String checkMenuNameUnique(Menu menu);
+
+    List<Menu> getMenuList2(String username);
+
+    List<Menu> selectMenuList(Menu menu);
+
+    List<Menu> buildMenuTree(List<Menu> menus);
+
+    //查询所有
+    List<Menu> findAll();
+
+    boolean hasChildByMenuId(Integer id);
+
+    boolean checkMenuExistRole(Integer id);
 }

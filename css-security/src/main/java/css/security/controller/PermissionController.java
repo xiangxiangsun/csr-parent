@@ -5,6 +5,8 @@ import css.security.entity.Permission;
 import css.security.entity.QueryPageBean;
 import css.security.entity.Result;
 import css.security.service.PermissionService;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,8 +23,6 @@ public class PermissionController {
 
     @RequestMapping("/add")
     public Result add(@RequestBody Permission permission){
-
-
         try {
             permissionService.add(permission);
         } catch (Exception e) {

@@ -1,29 +1,36 @@
 <!doctype html>
 <html>
 <head>
-<title>Login</title>
+<title>seamew</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 
 <link href="css/stylelogin.css" rel='stylesheet' type='text/css' media="all" />
-
+	<style>
+		@font-face {
+			font-family:Snowballs;
+			src: url('./dist/font/Gloss_And_Bloom.ttf');
+		}
+	</style>
 </head>
 <body>
-<h1>中国平安</h1>
+<h1> </h1>
+<h1 style="font-family:'Snowballs'">W e l c o m e</h1>
 <div class="log">
 	<div class="content1">
-		<h2>客服管理系统</h2>
+		<h2> </h2>
 		<form method="post" action="/login">
-			<input type="text" name="username" value="USERNAME" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'USERNAME';}">
-			<input type="password" name="password" value="PASSWORD" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'PASSWORD';}">
-<!--			<input type="CAPTCHA" name="yzm" value="CAPTCHA" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'CAPTCHA';}">-->
+			<input type="text" name="username" value="admin" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'USERNAME';}">
+			<input type="password" name="password" value="123456" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'PASSWORD';}"><br>
+<!--			<label><input type="checkbox" name="remember-me"/><font color="#f0f8ff">自动登录</font></label>-->
 			<div class="button-row">
 				<input type="submit" class="sign-in" value="Sign In">
 				<input type="reset" class="reset" value="Reset">
 				<div class="clear"></div>
 			</div>
+
 		</form>
 	</div>
 <!--	<div class="content2">-->

@@ -9,35 +9,75 @@
 
 <mapper namespace="css.security.dao.MenuDao">
 
+    <sql id="selectMenuVo">
+        select id,name,linkUrl,path,priority,icon,parentmenuid,visible,perms,create_By,create_Time,update_By,update_Time,menu_type from t_menu
+    </sql>
+
     <!--添加子菜单-->
-    <insert id="add" parameterType="css.security.entity.Menu" useGeneratedKeys="true" keyProperty="id">
-        insert into t_menu (name,linkUrl,parentmenuid)
-        values (
-        #{name},
-        #{linkUrl},
-        #{parentmenuid}
+    <insert id="insertMenu" parameterType="css.security.entity.Menu" useGeneratedKeys="true" keyProperty="id">
+        insert into t_menu(
+        <if test="id != null and id != 0">id,</if>
+        <if test="name != null and name != ''">name,</if>
+        <if test="parentmenuid != null and parentmenuid != ' '">parentmenuid,</if>
+        <if test="priority != null and priority != ''">priority,</if>
+        <if test="path != null and path != ''">path,</if>
+        <if test="linkUrl != null and linkUrl != ''">linkurl,</if>
+        <if test="menuType != null and menuType != ''">menu_type,</if>
+        <if test="visible != null">visible,</if>
+        <if test="perms !=null">perms,</if>
+        <if test="icon !=null and icon != ''">icon,</if>
+        <if test="createBy != null and createBy != ''">create_by,</if>
+        create_time
+        )values(
+        <if test="id != null and id != 0">#{id},</if>
+        <if test="name != null and name != ''">#{name},</if>
+        <if test="parentmenuid != null and parentmenuid != ' '">#{parentmenuid},</if>
+        <if test="priority != null and priority != ''">CAST(#{priority} AS bigint),</if>
+        <if test="path != null and path != ''">#{path},</if>
+        <if test="linkUrl != null and linkUrl != ''">#{linkUrl},</if>
+        <if test="menuType != null and menuType != ''">#{menuType},</if>
+        <if test="visible != null">#{visible},</if>
+        <if test="perms !=null">#{perms},</if>
+        <if test="icon !=null and icon != ''">#{icon},</if>
+        <if test="createBy != null and createBy != ''">#{createBy},</if>
+        now()::timestamp(0)without time zone
         )
     </insert>
 
     <!--编辑菜单-->
-    <update id="update" parameterType="css.security.entity.Menu">
+    <update id="updateMenu" parameterType="css.security.entity.Menu">
         update t_menu
         <set>
-            <if test="name != null">
-                name = #{name},
-            </if>
-            <if test="linkUrl != null">
-                linkUrl = #{linkUrl},
-            </if>
-            <if test="parentmenuid != null">
-                parentmenuid = #{parentmenuid},
-            </if>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="parentmenuid != null and parentmenuid != ''">parentmenuid = #{parentmenuid},</if>
+            <if test="priority != null and priority != ''">priority = CAST(#{priority} AS bigint),</if>
+            <if test="path != null and path != ''">path = #{path},</if>
+            <if test="linkUrl != null and linkUrl != ''">linkurl = #{linkUrl},</if>
+            <if test="menuType != null and menuType != ''">menu_type = #{menuType},</if>
+            <if test="visible != null">visible = #{visible},</if>
+            <if test="perms !=null">perms = #{perms},</if>
+            <if test="icon !=null and icon != ''">icon = #{icon},</if>
+            <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+            update_time = now()::timestamp(0)without time zone
         </set>
         where id = #{id}
     </update>
 
-    <delete id="remove" parameterType="integer">
-        delete from t_menu where id = #{id}
+    <select id="checkMenuExistRole" resultType="Integer">
+        select count(1) from t_role_menu where menu_id = #{id}
+    </select>
+
+    <select id="hasChildByMenuId" resultType="Integer">
+        select count(1) from t_menu where parentmenuid = #{id}
+    </select>
+
+    <select id="checkDeptNameUnique" parameterType="css.security.entity.Menu" resultType="css.security.entity.Menu">
+        <include refid="selectMenuVo"/>
+        where name = #{name} and parentmenuid = #{parentmenuid}
+    </select>
+
+    <delete id="deleteMenuById" parameterType="integer">
+        delete from t_menu  where id = #{id}
     </delete>
 
     <!--查询一级菜单-->
@@ -47,13 +87,8 @@
 
     <!--查询二级菜单-->
     <select id="findSecondMenu" resultType="css.security.entity.Menu">
-        select * from t_menu where parentmenuid = #{id}
+        select * from t_menu where parentmenuid = #{id} ORDER BY priority
     </select>
-
-<!--    &lt;!&ndash;查询二级菜单&ndash;&gt;-->
-<!--    <select id="findSecondMenu" resultType="css.security.entity.Menu">-->
-<!--        select * from t_menu where id = #{id}-->
-<!--    </select>-->
 
     <!--通过id查询菜单-->
     <select id="findMenuById" resultType="css.security.entity.Menu">
@@ -75,19 +110,45 @@
 
     <!--通过menu_id获取一级菜单-->
     <select id="getMenuListFirst" resultType="css.security.entity.Menu">
-        select * from t_menu where parentmenuid is NULL and id in
+        select * from t_menu where parentmenuid = 0 and id in
         <foreach collection="menuIds" item="item" open="(" close=")" separator=",">
             #{item}
         </foreach>
+        ORDER BY priority
     </select>
 
     <select id="findTree" resultType="css.security.entity.Menu">
-        select * from t_menu
+        <include refid="selectMenuVo"/>
+        where visible ='0'
     </select>
 
     <!--通过菜单id查询对应父级id-->
     <select id="findParentMenuId"  resultType="java.lang.Integer">
         select parentmenuid from t_menu where id = #{menuId};
+    </select>
+
+    <select id="findMenuListByUsername" parameterType="string" resultType="css.security.entity.Menu">
+        <include refid="selectMenuVo"/>
+        where id in (SELECT distinct menu_id from t_role_menu
+        WHERE role_id in (SELECT role_id from t_user_role
+        WHERE user_id = (SELECT id from t_user
+        WHERE visible = '0' and username = #{username})))
+    </select>
+
+    <select id="selectMenuList" parameterType="css.security.entity.Menu" resultType="css.security.entity.Menu">
+        <include refid="selectMenuVo"/>
+        where  1=1
+        <if test="name != null and name != ''">
+            AND name like concat('%', #{name}, '%')
+        </if>
+        <if test="visible != null and visible != ''">
+            AND visible = #{visible}
+        </if>
+        order by priority
+    </select>
+
+    <select id="findAll" resultType="css.security.entity.Menu">
+        <include refid="selectMenuVo"/>
     </select>
 
 

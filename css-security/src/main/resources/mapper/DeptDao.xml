@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+   mapper标签:配置各类声明
+   namespace：名称空间，由于映射文件可能有多个，为了防止crud语句的唯一标识被重复，需要设置空间名称。
+ -->
+
+<mapper namespace="css.security.dao.DeptDao">
+
+    <sql id="selectDeptVo">
+        select d.dept_id, d.parent_id, d.ancestors, d.dept_name, d.order_num, d.leader, d.phone, d.email, d.status, d.del_flag, d.create_by, d.create_time
+        from t_dept d
+    </sql>
+
+    <insert id="insertDept" parameterType="css.security.entity.Dept">
+        insert into t_dept(
+        <if test="deptId != null and deptId != 0">dept_id,</if>
+        <if test="parentId != null and parentId != 0">parent_id,</if>
+        <if test="deptName != null and deptName != ''">dept_name,</if>
+        <if test="ancestors != null and ancestors != ''">ancestors,</if>
+        <if test="orderNum != null and orderNum != ''">order_num,</if>
+        <if test="leader != null and leader != ''">leader,</if>
+        <if test="phone != null and phone != ''">phone,</if>
+        <if test="email != null and email != ''">email,</if>
+        <if test="status != null">status,</if>
+        <if test="delFlag != null">del_Flag,</if>
+        <if test="createBy != null and createBy != ''">create_by,</if>
+        create_time
+        )values(
+        <if test="deptId != null and deptId != 0">#{deptId},</if>
+        <if test="parentId != null and parentId != 0">#{parentId},</if>
+        <if test="deptName != null and deptName != ''">#{deptName},</if>
+        <if test="ancestors != null and ancestors != ''">#{ancestors},</if>
+        <if test="orderNum != null and orderNum != ''">CAST(#{orderNum} AS bigint),</if>
+        <if test="leader != null and leader != ''">#{leader},</if>
+        <if test="phone != null and phone != ''">#{phone},</if>
+        <if test="email != null and email != ''">#{email},</if>
+        <if test="status != null">#{status},</if>
+        <if test="delFlag != null">#{delFlag},</if>
+        <if test="createBy != null and createBy != ''">#{createBy},</if>
+        now()::timestamp(0)without time zone
+        )
+    </insert>
+
+    <update id="updateDept" parameterType="css.security.entity.Dept">
+        update t_dept
+        <set>
+            <if test="parentId != null and parentId != 0">parent_id = #{parentId},</if>
+            <if test="deptName != null and deptName != ''">dept_name = #{deptName},</if>
+            <if test="ancestors != null and ancestors != ''">ancestors = #{ancestors},</if>
+            <if test="orderNum != null and orderNum != ''">order_num = CAST(#{orderNum} AS bigint),</if>
+            <if test="leader != null">leader = #{leader},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="status != null and status != ''">status = #{status},</if>
+            <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+            update_time = (now()::timestamp(0)without time zone)
+        </set>
+        where dept_id = #{deptId}
+    </update>
+
+
+
+    <update id="updateDeptStatus" parameterType="css.security.entity.Dept">
+        update t_dept
+        <set>
+            <if test="status != null and status != ''">status = #{status},</if>
+            <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+            update_time = now()::timestamp(0)without time zone
+        </set>
+        where cast(dept_id as VARCHAR) = ANY(STRING_TO_ARRAY(#{ancestors}, ','))
+    </update>
+
+    <update id="updateDeptChildren" parameterType="java.util.List">
+        update t_dept set ancestors =
+        <foreach collection="depts" item="item" index="index"
+                 separator=" " open="case dept_id" close="end">
+            when #{item.deptId} then #{item.ancestors}
+        </foreach>
+        where dept_id in
+        <foreach collection="depts" item="item" index="index"
+                 separator="," open="(" close=")">
+            #{item.deptId}
+        </foreach>
+    </update>
+    <select id="checkDeptNameUnique" resultType="css.security.entity.Dept">
+        <include refid="selectDeptVo"/>
+        where dept_name=#{deptName} and parent_id = #{parentId}
+    </select>
+
+    <select id="hasChildByDeptId" parameterType="Long" resultType="int">
+        select count(1) from t_dept where del_flag = '0' and parent_id = #{deptId}
+    </select>
+
+<!--    <select id="checkDeptExistUser" parameterType="Long" resultType="int">-->
+<!--		select count(1) from t_user where dept_id = #{deptId} and del_flag = '0'-->
+<!--	</select>-->
+
+    <delete id="deleteDeptById" parameterType="Long">
+        update t_dept set del_flag = '2' where dept_id = #{deptId}
+    </delete>
+
+    <select id="findTree" resultType="css.security.entity.Dept" parameterType="css.security.entity.Dept">
+        <include refid="selectDeptVo"/>
+        where d.del_flag = '0'
+        <if test="parentId != null and parentId != 0">
+            AND parent_id = #{parentId}
+        </if>
+        <if test="deptName != null and deptName != ''">
+            AND dept_name like concat('%', #{deptName}, '%')
+        </if>
+        <if test="status != null and status != ''">
+            AND status = #{status}
+        </if>
+
+    </select>
+
+    <select id="selectDeptListByRoleId" parameterType="Long" resultType="Integer">
+		select d.dept_id, d.parent_id
+		from t_dept d
+            left join t_role_dept rd on d.dept_id = rd.dept_id
+        where rd.role_id = #{roleId}
+        	and d.dept_id not in (select d.parent_id from t_dept d inner join t_role_dept rd on d.dept_id = rd.dept_id and rd.role_id = #{roleId})
+		order by d.parent_id, d.order_num
+	</select>
+
+    <select id="selectDeptList" parameterType="css.security.entity.Dept" resultType="css.security.entity.Dept">
+        <include refid="selectDeptVo"/>
+        where d.del_flag = '0'
+        <if test="parentId != null and parentId != 0">
+            AND parent_id = #{parentId}
+        </if>
+        <if test="deptName != null and deptName != ''">
+            AND dept_name like concat('%', #{deptName}, '%')
+        </if>
+        <if test="status != null and status != ''">
+            AND status = #{status}
+        </if>
+
+        order by d.parent_id, d.order_num
+    </select>
+
+    <select id="selectDeptById" resultType="css.security.entity.Dept">
+        <include refid="selectDeptVo"/>
+        where dept_id = #{deptId}
+    </select>
+
+    <select id="selectChildrenDeptById" parameterType="Long" resultType="css.security.entity.Dept">
+        select * from t_dept where  cast(#{deptId}as VARCHAR) = ANY(STRING_TO_ARRAY(ancestors, ','))
+    </select>
+
+    <select id="checkDeptExistUser" resultType="java.lang.Integer">
+        select count(1) from t_user_dept where dept_id = #{deptId}
+    </select>
+
+
+</mapper>

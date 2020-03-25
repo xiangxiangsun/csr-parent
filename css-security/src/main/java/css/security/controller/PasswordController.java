@@ -38,7 +38,7 @@ public class PasswordController {
     public Result Confirm(@RequestBody SysUser user) {
         try {
             //确认密码
-            SysUser sysUser = updatePwdService.ConfirmPassword(user.getUsername(),user.getPassword());
+            SysUser sysUser = updatePwdService.confirmPassword(user.getUsername(),user.getPassword());
             if (sysUser != null && sysUser.getUsername().length()>0){
             return new Result(true, "");
             }else {

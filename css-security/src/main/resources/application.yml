@@ -4,9 +4,26 @@ server:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/CSR
+    url: jdbc:postgresql://121.36.33.251:5432/postgres
+#    url: jdbc:postgresql://127.0.0.1:5432/CSR
     username: postgres
     password: 123456
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      #初始化连接大小
+      initial-size: 8
+      #最小空闲连接数
+      min-idle: 5
+      #最大连接数
+      max-active: 10
+      #查询超时时间
+      query-timeout: 30000
+      #事务查询超时时间
+      transaction-query-timeout: 30000
+      #关闭空闲连接超时时间
+      remove-abandoned-timeout: 1800
+      filters: stat,config
+
 
   application:
     name: css-security
@@ -18,27 +35,62 @@ spring:
         temp:
           use_jdbc_metadata_defaults: false
 
-  security:
-    user:
-      name: admin
-      password: admin
+    open-in-view: false
 
 
-eureka:
-  client:
-    service-url:
-      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@${eureka.instance.hostname}:10086/eureka
-#    register-with-eureka: true
-#    fetch-registry: true
+#  thymeleaf:
+#    prefix: classpath:/static/
+#    suffix: .html
+#    servlet:
+#      content-type: text/html
+#    cache: false
+#    encoding: UTF-8
 
-  instance:
-    hostname: localhost
-    prefer-ip-address: true
-    ip-address: 127.0.0.1
-    lease-renewal-interval-in-seconds: 5
+#模板不严格配置
+#    mode: LEGACYHTML5
+
+
+
+#  security:
+#    user:
+#      name: admin
+#      password: admin
+
+#  mail:
+#    host: smtp.163.com
+#    username: sunxiangxiang@163.com
+#    password:
+#    default-encoding: UTF-8
+#    port: 25
+
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@${eureka.instance.hostname}:10086/eureka
+##    register-with-eureka: true
+##    fetch-registry: true
+#
+#  instance:
+#    hostname: localhost
+#    prefer-ip-address: true
+#    ip-address: 127.0.0.1
+#    lease-renewal-interval-in-seconds: 5
 
 mybatis-plus:
   type-aliases-package: css.security.eneity
   configuration:
     map-underscore-to-camel-case: true
   mapper-locations: mapper/*.xml
+
+# JWT配置
+jwt:
+  # 密匙KEY
+  secret: JWTSecret
+  # HeaderKEY
+  tokenHeader: Authorization
+  # Token前缀字符
+  tokenPrefix: Sans-
+  # 过期时间 单位秒 1天后过期=86400 7天后过期=604800
+  expiration: 86400
+  # 配置不需要认证的接口
+  antMatchers: /index,/login/**,/favicon.ico

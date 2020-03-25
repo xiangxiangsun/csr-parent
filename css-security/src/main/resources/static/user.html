@@ -17,6 +17,9 @@
         <script src="js/vue.js"></script>
         <script src="plugins/elementui/index.js"></script>
 
+        <script src="plugins/vue/Vue-Treeselect/vue-treeselect.umd.min.js"></script>
+        <link rel="stylesheet" href="plugins/vue/Vue-Treeselect/vue-treeselect.min.css">
+
         <script src="js/axios-0.18.0.js"></script>
         <style>
             .datatable {
@@ -54,17 +57,46 @@
             </div>
             <div class="app-container">
                 <div class="box">
-                    <div class="filter-container">
-                        <el-input placeholder="用户名" v-model="pagination.queryString" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter"></el-input>
-                        <el-button @click="findPage()" class="dalfBut">查询</el-button>
-                        <el-button type="primary" class="butT" @click="handleCreate()">新建</el-button>
-                    </div>
+
+                    <el-row :gutter="20">
+                        <!--部门数据-->
+                        <el-col :span="4" :xs="24">
+                            <div class="head-container">
+                                <el-input
+                                        v-model="deptName"
+                                        placeholder="请输入部门名称"
+                                        clearable
+                                        size="small"
+                                        prefix-icon="el-icon-search"
+                                        style="margin-bottom: 20px"
+                                />
+                            </div>
+                            <div class="head-container">
+                                <el-tree
+                                        :data="deptOptions"
+                                        :props="defaultProps"
+                                        :expand-on-click-node="false"
+                                        :filter-node-method="filterNode"
+                                        ref="treeLeft"
+                                        default-expand-all
+                                        @node-click="handleNodeClick"
+                                />
+                            </div>
+                        </el-col>
+
+                        <el-col :span="20" :xs="24">
+
+                        <el-input placeholder="用户名" v-model="queryParams.username" style="width: 200px;" class="filter-item" @keyup.enter.native="userSelect"></el-input>
+
+                        <el-button type="primary" icon="el-icon-search"  @click="userSelect()">搜索 </el-button>
+                        <el-button type="primary" icon="el-icon-plus" @click="handleCreate()">新增</el-button>
+
                     <el-table size="small" current-row-key="id" :data="dataList" stripe highlight-current-row>
                         <el-table-column type="index" align="center" label="序号"></el-table-column>
                         <el-table-column prop="username" label="用户名" align="center"></el-table-column>
                         <el-table-column label="性别" align="center">
                             <template slot-scope="scope">
-                                <span>{{ scope.row.sex == '0' ? '不限' : scope.row.sex == '1' ? '男' : '女'}}</span>
+                                <span>{{ scope.row.gender == '0' ? '不限' : scope.row.gender == '1' ? '男' : '女'}}</span>
                             </template>
                         </el-table-column>
                         <el-table-column prop="birthday" label="生日" align="center"></el-table-column>
@@ -88,6 +120,10 @@
                             :total="pagination.total">
                         </el-pagination>
                     </div>
+                        </el-col>
+                    </el-row>
+                </div>
+
                     <!-- 新增标签弹层 -->
                     <div class="add-form">
                         <el-dialog title="新增用户" :visible.sync="dialogFormVisible">
@@ -114,21 +150,17 @@
                                             </el-row>
                                             <el-row>
 
-                                                <!--<template>-->
-                                                    <!--<div class="block">-->
-                                                        <!--<span class="demonstration">默认</span>-->
-                                                        <!--<el-date-picker-->
-                                                                <!--v-model="value1"-->
-                                                                <!--type="date"-->
-                                                                <!--placeholder="选择日期">-->
-                                                        <!--</el-date-picker>-->
-                                                    <!--</div>-->
-
-                                                <el-col :span="12">
+                                                <el-col :span="18">
                                                     <el-form-item label="生日">
-                                                        <el-input v-model="formData.birthday"/>
+                                                        <el-date-picker type="date" placeholder="选择日期" v-model="formData.birthday" style="width: 100%;" value-format="yyyy-MM-dd"></el-date-picker>
                                                     </el-form-item>
                                                 </el-col>
+
+<!--                                                <el-col :span="12">-->
+<!--                                                    <el-form-item label="归属部门" prop="deptid">-->
+<!--                                                        <treeselect v-model="formData.deptid" :options="deptOptions" placeholder="请选择归属部门" />-->
+<!--                                                    </el-form-item>-->
+<!--                                                </el-col>-->
 
                                             </el-row>
                                             <el-row>
@@ -169,9 +201,13 @@
                                             <tbody>
                                             <tr v-for="c in tableData">
                                                 <td>
-                                                    <input :id="c.id" v-model="roleIds" type="checkbox" :value="c.id">
+                                                    <el-checkbox-group
+                                                            v-model="roleIds"
+                                                            :min="0"
+                                                            :max="1">
+                                                        <el-checkbox :label="c.id" :key="c.id">{{c.id}}</el-checkbox>
+                                                    </el-checkbox-group>
                                                 </td>
-                                                <td><label :for="c.id">{{c.id}}</label></td>
                                                 <td><label :for="c.id">{{c.name}}</label></td>
                                                 <td><label :for="c.id">{{c.keyword}}</label></td>
                                             </tr>
@@ -179,18 +215,32 @@
                                         </table>
 									</div>
                                     </el-tab-pane>
+
+                                    <!--第三个框，部门框-->
+                                    <el-tab-pane label="部门信息" name="Three">
+                                        <el-tree
+                                                ref="tree"
+                                                :data="tableDept"
+                                                show-checkbox
+                                                node-key="id"
+                                                :default-checked-keys="deptIds"
+                                                default-expand-all
+                                                >
+                                        </el-tree>
+                                    </el-tab-pane>
+
                                 </el-tabs>
                             </template>
                             <div slot="footer" class="dialog-footer">
                                 <el-button @click="dialogFormVisible = false">取消</el-button>
-                                <el-button type="primary" @click="handleAdd()">确定1</el-button>
+                                <el-button type="primary" @click="handleAdd()">确定</el-button>
                             </div>
                         </el-dialog>
                     </div>
 
                     <!-- 编辑标签弹层 -->
                     <div class="add-form">
-                        <el-dialog title="编辑检查组" :visible.sync="dialogFormVisible4Edit">
+                        <el-dialog title="编辑用户组" :visible.sync="dialogFormVisible4Edit">
                             <template>
                                 <el-tabs v-model="activeName" type="card">
                                     <el-tab-pane label="基本信息" name="first">
@@ -213,21 +263,17 @@
                                             </el-row>
                                             <el-row>
 
-<!--                                                <template>
-                                                <div class="block">
-                                                <span class="demonstration">默认</span>
-                                                <el-date-picker
-                                                v-model="value1"
-                                                type="date"
-                                                placeholder="选择日期">
-                                                </el-date-picker>
-                                                </div>-->
-
-                                                <el-col :span="12">
+                                                <el-col :span="18">
                                                     <el-form-item label="生日">
-                                                        <el-input v-model="formData.birthday"/>
+                                                        <el-date-picker type="date" placeholder="选择日期" v-model="formData.birthday" style="width: 100%;" value-format="yyyy-MM-dd"></el-date-picker>
                                                     </el-form-item>
                                                 </el-col>
+
+<!--                                                <el-col :span="12">-->
+<!--                                                    <el-form-item label="归属部门" prop="deptId">-->
+<!--                                                        <treeselect v-model="formData.deptid" :options="deptOptions" placeholder="请选择归属部门" />-->
+<!--                                                    </el-form-item>-->
+<!--                                                </el-col>-->
 
                                             </el-row>
                                             <el-row>
@@ -240,7 +286,7 @@
                                             <el-row>
                                                 <el-col :span="24">
                                                     <el-form-item label="状态">
-                                                        <el-input v-model="formData.status" type="textarea"></el-input>
+                                                        <el-input v-model="formData.station" type="textarea"></el-input>
                                                     </el-form-item>
                                                 </el-col>
                                             </el-row>
@@ -268,9 +314,13 @@
                                                 <tbody>
                                                 <tr v-for="c in tableData">
                                                     <td>
-                                                        <input :id="c.id" v-model="roleIds" type="checkbox" :value="c.id">
+                                                        <el-checkbox-group
+                                                                v-model="roleIds"
+                                                                :min="0"
+                                                                :max="1">
+                                                            <el-checkbox :label="c.id" :key="c.id">{{c.id}}</el-checkbox>
+                                                        </el-checkbox-group>
                                                     </td>
-                                                    <td><label :for="c.id">{{c.id}}</label></td>
                                                     <td><label :for="c.id">{{c.name}}</label></td>
                                                     <td><label :for="c.id">{{c.keyword}}</label></td>
                                                 </tr>
@@ -278,96 +328,151 @@
                                             </table>
                                         </div>
                                 </el-tab-pane>
+
+                                    <!--第三个框，部门框-->
+                                    <el-tab-pane label="部门信息" name="Three">
+                                        <el-tree
+                                                ref="tree"
+                                                :data="tableDept"
+                                                show-checkbox
+                                                node-key="id"
+                                                :default-checked-keys="deptIds"
+                                                default-expand-all
+                                                >
+                                        </el-tree>
+                                    </el-tab-pane>
+
                             </el-tabs>
                             </template>
                             <div slot="footer" class="dialog-footer">
                                 <el-button @click="dialogFormVisible4Edit = false">取消</el-button>
-                                <el-button type="primary" @click="handleEdit()">确定2</el-button>
+                                <el-button type="primary" @click="handleEdit()">确定</el-button>
                             </div>
                         </el-dialog>
                     </div>
-                </div>
+<!--                </div>-->
+<!--                    </el-row>-->
             </div>
         </div>
     </body>
 
     <script>
+        Vue.component('treeselect', VueTreeselect.Treeselect)
+
         var vue = new Vue({
             el: '#app',
-            data:{
-                activeName:'first',//添加/编辑窗口Tab标签名称
+            data: {
+                activeName: 'first',//添加/编辑窗口Tab标签名称
                 pagination: {//分页相关属性
                     currentPage: 1,
-                    pageSize:10,
-                    total:0,
-                    queryString:null,
+                    pageSize: 10,
+                    total: 0,
+                    queryString: null
+                },
+                // 部门树选项
+                deptOptions: undefined,
+                // 部门名称
+                deptName: undefined,
+                // 表单参数
+                form: {},
+                defaultProps: {
+                    children: "children",
+                    label: "label"
                 },
                 dataList: [],//列表数据
                 formData: {},//表单数据
-                tableData:[],//新增和编辑表单中对应的角色列表数据
-                roleIds:[],//新增和编辑表单中检查项对应的复选框，基于双向绑定可以进行回显和数据提交
+                tableData: [],//新增和编辑表单中对应的角色列表数据
+                tableDept: [],//新增和编辑表单中对应的部门数据
+                roleIds: [],//新增和编辑表单中权限信息对应的复选框，基于双向绑定可以进行回显和数据提交
+                deptIds: [],//新增和编辑表单中部门信息对应的复选框
                 dialogFormVisible: false,//控制添加窗口显示/隐藏
-                dialogFormVisible4Edit:false//控制编辑窗口显示/隐藏
+                dialogFormVisible4Edit: false,//控制编辑窗口显示/隐藏
+                // 查询参数
+                queryParams: {
+                    username: undefined,
+                    deptid: undefined
+                },
+            },
+            watch: {
+                // 根据名称筛选部门树
+                deptName(val) {
+                    this.$refs.treeLeft.filter(val);
+                }
             },
             created() {
                 this.findPage();
+                this.getTreeselect();
             },
             methods: {
                 //编辑
                 handleEdit() {
-                    // console.log(this.roleIds,this.formData);
-                    //发送ajax请求,提交模型数据
-                    axios.post("/user/edit?roleIds=" + this.roleIds,this.formData)
-                        .then((res)=>{
+                    //发送ajax请求将模型数据提交到后台进行处理
+                    // alert(this.$refs.tree.getCheckedKeys());
+                    // console.log(this.roleIds, this.formData ,this.deptIds, this.tableDept.id);
+                    var editParam = {
+                        sysUser: this.formData,
+                        roleIds: this.roleIds,
+                        deptIds: this.$refs.tree.getCheckedKeys()
+                    };
+                    axios.post("/user/edit",editParam).then((res) => {
                             //隐藏编辑窗口
                             this.dialogFormVisible4Edit = false;
-                            if (res.data.flag){
+                            if (res.data.flag) {
                                 this.$message({
-                                    message:res.data.message,
-                                    type:'success'
+                                    message: res.data.message,
+                                    type: 'success'
                                 });
                             } else {
                                 this.$message.error(res.data.message);
                             }
-                        }).finally(()=>{
-                            this.findPage();
+                        }).finally(() => {
+                        this.findPage();
                     })
                 },
                 //添加
-                handleAdd () {
+                handleAdd() {
                     //发送ajax请求将模型数据提交到后台进行处理
-                    console.log(this.roleIds,this.formData);
-                    axios.post("/user/add?roleIds=" + this.roleIds,this.formData)
-                        .then((res)=>{
+                    // alert(this.$refs.tree.getCheckedKeys());
+                    // console.log(this.roleIds, this.formData ,this.deptIds, this.tableDept.id);
+                    var addParam = {
+                        sysUser: this.formData,
+                        roleIds: this.roleIds,
+                        deptIds: this.$refs.tree.getCheckedKeys()
+                    };
+                    axios.post("/user/add",addParam).then((res) => {
                             //关闭新增窗口
                             this.dialogFormVisible = false;
-                            if (res.data.flag){
+                            if (res.data.flag) {
                                 //新增成功，弹出成功提示
                                 this.$message({
-                                    message:res.data.message,
-                                    type:'success'
+                                    message: res.data.message,
+                                    type: 'success'
                                 });
                             } else {
                                 //新增失败，弹出错误提示
                                 this.$message.error(res.data.message);
                             }
-                        }).finally(()=>{
-                            this.findPage();
+                        }).finally(() => {
+                        this.findPage();
                     });
                 },
                 //分页查询
                 findPage() {
                     //分页参数
-                    var param = {
-                        currentPage : this.pagination.currentPage,//页码
+                    var Params = {
+                        currentPage: this.pagination.currentPage,//页码
                         pageSize: this.pagination.pageSize,//每页显示的记录数
-                        queryString : this.pagination.queryString//查询条件
+                        queryString: this.pagination.queryString,//查询条件(姓名)
+                        username: this.queryParams.username,
+                        deptid: this.queryParams.deptid,
                     };
                     //请求后台
-                    axios.post("/user/findPage",param).then((res) => {
+                    axios.post("/user/findPage",Params).then((res) => {
                         //为模型数据赋值,基于Vue的v-model双向绑定展示到页面中
                         this.dataList = res.data.rows;
                         this.pagination.total = res.data.total;
+                    }).catch(() => {
+                        this.$message.warning("当前查询无用户信息");
                     });
                 },
                 // 重置表单
@@ -382,39 +487,60 @@
                     this.activeName = 'first';
                     //重置
                     this.roleIds = [];
+                    this.deptIds = [];
                     //发送axios请求查询所有检查项信息
-                    // alert("11111");
                     axios.get("/role/findAll").then((res) => {
-                        if (res.data.flag){
+                        if (res.data.flag) {
                             //成功就将检查项列表数据赋值给模型数据用于页面表格展示
                             this.tableData = res.data.data;
                         } else {
                             this.$message.error(res.data.message);
                         }
-                    })
-
+                    });
+                    //发送ajax请求查询所有的部门信息,用于查询项表格展示
+                    axios.get("dept/treeSelect").then((res) => {
+                        if (res.data.flag) {
+                            this.tableDept = res.data.data;
+                        } else {
+                            this.$message.error(res.data.message);
+                        }
+                    });
                 },
                 // 弹出编辑窗口
                 handleUpdate(row) {
+                    //重置
+                    this.resetForm();
+                    this.roleIds = [];
+                    this.deptIds = [];
                     // alert(row);
                     axios.get("/user/findById?id=" + row.id).then((res) => {
-                        if (res.data.flag){
+                        if (res.data.flag) {
                             //弹出编辑窗口
                             this.dialogFormVisible4Edit = true;
                             //默认选中第一个标签页
                             this.activeName = "first";
                             //为模型数据赋值,通过vue数据双向绑定进行信息的回显
                             this.formData = res.data.data;
-                            //发送ajax请求查询所有的检查项信息,用于查询项表格展示
+                            //发送ajax请求查询所有的权限信息,用于查询项表格展示
                             axios.get("/role/findAll").then((res) => {
-                                if (res.data.flag){
+                                if (res.data.flag) {
                                     //为模型数据赋值,通过vue数据双向绑定进行数据回显
                                     this.tableData = res.data.data;
                                     //查询当前检查组包含的所有检查项id, 用于页面回显
-
-                                    axios.get("/user/findRoleIdsByUserId?id="+row.id).then((res)=>{
+                                    axios.get("/user/findRoleIdsByUserId?id=" + row.id).then((res) => {
                                         //为模型数据进行赋值,通过vue数据双向绑定进行信息的回显
                                         this.roleIds = res.data;
+                                    });
+                                } else {
+                                    this.$message.error(res.data.message);
+                                }
+                            });
+                            //发送ajax请求查询所有的部门信息,用于查询项表格展示
+                            axios.get("dept/treeSelect").then((res) => {
+                                if (res.data.flag) {
+                                    this.tableDept = res.data.data;
+                                    axios.get("/user/findDeptIdsByUserId?id=" + row.id).then((res) => {
+                                        this.deptIds = res.data;
                                     });
                                 } else {
                                     this.$message.error(res.data.message);
@@ -425,6 +551,12 @@
                         }
                     })
                 },
+                userSelect() {
+                    //currentPage先切换到第一页再查询
+                    this.pagination.currentPage = 1;
+                    this.findPage();
+                }
+                ,
                 //切换页码
                 handleCurrentChange(currentPage) {
                     //currentPage为切换后的页码
@@ -434,17 +566,39 @@
                 // 删除
                 handleDelete(row) {
                     axios.get("/user/deleteById?id=" + row.id).then((res) => {
-                        if (res.data.flag){
+                        if (res.data.flag) {
                             this.$message.success("用户信息删除成功")
                         } else {
                             this.$message.error("用户信息删除失败")
                         }
-                    }).finally(()=>{
+                    }).finally(() => {
                         this.findPage();
                     })
+                },
+                // 筛选节点
+                filterNode(value, data) {
+                    if (!value) return true;
+                    return data.label.indexOf(value) !== -1;
+                },
+                // 节点单击事件
+                handleNodeClick(data) {
+                    if (data.id == 100){
+                        this.queryParams.deptid = undefined ;
+                        this.findPage();
+                    }else {
+                    this.queryParams.deptid = data.id;
+                    this.findPage();
+                    }
+                },
+                /** 查询部门下拉树结构 */
+                getTreeselect() {
+                    axios.get("dept/treeSelect").then(response => {
+                        this.deptOptions = response.data.data;
+                    });
                 }
             }
-        })
+        });
+
     </script>
 
 </html>

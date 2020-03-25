@@ -16,8 +16,8 @@ public class UpdatePwdServiceImpl implements UpdatePwdService{
     UpdatePwdDao updatePwdDao;
 
     @Override
-    public SysUser ConfirmPassword(String username,String password) {
-        return updatePwdDao.ConfirmPassword(username,password);
+    public SysUser confirmPassword(String username,String password) {
+        return updatePwdDao.confirmPassword(username,password);
     }
 
     @Override

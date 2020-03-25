@@ -28,10 +28,9 @@
     <div class="app-container">
         <div class="box">
             <div class="filter-container">
-                <el-input placeholder="权限名称/权限关键字" v-model="pagination.queryString" style="width: 200px;"
-                          class="filter-item"></el-input>
-                <el-button @click="findPage()" class="dalfBut">查询</el-button>
-                <el-button type="primary" class="butT" @click="handleCreate()">新建</el-button>
+                <el-input placeholder="权限名称/权限关键字" v-model="pagination.queryString" style="width: 200px;" class="filter-item" @keyup.enter.native="findPage"></el-input>
+                <el-button type="primary" icon="el-icon-search" size="mini" @click="findPage()">搜索</el-button>
+                <el-button type="primary" icon="el-icon-plus" size="mini" @click="handleCreate()">新增</el-button>
             </div>
             <el-table size="small" current-row-key="id" :data="dataList" stripe highlight-current-row>
                 <el-table-column type="index" align="center" label="序号"></el-table-column>
@@ -199,7 +198,7 @@
                 var param = {
                     currentPage: this.pagination.currentPage,
                     pageSize: this.pagination.pageSize,
-                    queryString: this.pagination.queryString4
+                    queryString: this.pagination.queryString
                 };
                 axios.post("/permission/findPage",param).then((res)=>{
 
