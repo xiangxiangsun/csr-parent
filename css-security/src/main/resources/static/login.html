@@ -22,14 +22,21 @@
 	<div class="content1">
 		<h2> </h2>
 		<form method="post" action="/login">
-			<input type="text" name="username" value="admin" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'USERNAME';}">
-			<input type="password" name="password" value="123456" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'PASSWORD';}"><br>
-<!--			<label><input type="checkbox" name="remember-me"/><font color="#f0f8ff">自动登录</font></label>-->
+			<div>
+				<input type="text" name="username" value="用户名" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'USERNAME';}">
+			</div>
+			<div>
+				<input type="password" name="password" value="123456" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'PASSWORD';}"><br>
+			</div>
 			<div class="button-row">
 				<input type="submit" class="sign-in" value="Sign In">
 				<input type="reset" class="reset" value="Reset">
 				<div class="clear"></div>
 			</div>
+
+<!--			<div>-->
+<!--				<label><input type="checkbox" name="remember-me"/><font color="#f0f8ff">保持登录状态</font></label>-->
+<!--			</div>-->
 
 		</form>
 	</div>

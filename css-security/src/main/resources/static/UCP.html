@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>UCP</title>
+    <meta name="description" content="客服系统">
+    <meta name="keywords" content="客服系统">
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+
+
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="plugins/elementui/index.css">
+    <link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- 引入组件库 -->
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script src="js/vue.js"></script>
+    <script src="plugins/elementui/index.js"></script>
+    <script src="js/axios-0.18.0.js"></script>
+
+
+    <style type="text/css">
+        html *{
+            margin: 0px;
+            padding: 0;
+        }
+
+        .top{
+            text-align:center;
+            margin: 100px auto 0;
+
+            width: 100%;
+            height: 50px;
+            background-color: #FB5A04;
+        }
+
+        .left{
+            width: 250px;
+            height: 800px;
+            background-color: #cf7190;
+            text-align: center;
+            font-size: 20px;
+            color: #fdf6e3;
+        }
+        .center{
+            width: 100%;
+            height: 800px;
+            background-color: #f09955;
+        }
+        .right{
+            width: 492px;
+            height: 800px;
+            background-color: #faf8ff;
+            text-align: center;
+            font-size: 20px;
+            color: #111111;
+            position: relative;
+        }
+        .flexbox .left-center-right{
+
+            display: flex;
+
+        }
+        .flexbox .left-center-right .left{
+
+        }
+        .flexbox .left-center-right .center{
+            flex:1;
+        }
+
+        .flexbox .left-center-right .right{
+
+        }
+        .custom-tree-node {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 14px;
+            padding-right: 8px;
+        }
+        .cycStyle{
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 200px;
+        }
+
+    </style>
+</head>
+<!--flex布局-->
+<body class="layout flexbox">
+
+<div id="app">
+
+    <div style="margin: 60px" >
+        <div class="top" style="margin-top: 60px;">
+        是顶端栏
+        </div>
+
+        <div class="left-center-right" >
+
+            <div class="left">
+                最大可接待数：25<br>
+                当前已接待数：12<br>
+            </div>
+
+            <div class="center">
+
+                <div class="filter-container" style="padding-left: 150px">
+                    <i class="fa fa-envelope" ></i>
+                    <span  @click="handleSend()">发送短信</span>
+                </div>
+
+                <!-- 新增标签弹层 -->
+
+                    <el-dialog title="发送短信" :visible.sync="dialogFormVisible" width="600px">
+                        <template>
+
+                                    <el-form label-position="right" label-width="100px">
+                                        <el-row>
+                                            <el-col :span="24">
+                                                <el-form-item label="手机号码">
+                                                    <el-input style="width: 200px" v-model="messageData.num"/>
+                                                </el-form-item>
+                                            </el-col>
+                                            <el-col :span="24">
+                                                <el-form-item label="短信模板">
+                                                    <el-input style="width: 200px" v-model="messageData.name"/>
+                                                </el-form-item>
+                                            </el-col>
+                                            <el-col :span="24">
+                                                <el-form-item label="短信内容">
+<!--                                                    <el-input v-model="messageData.description"/>-->
+                                                    <el-input
+                                                            type="textarea"
+                                                            :rows="2"
+                                                            placeholder="请输入内容"
+                                                            style="width: 400px"
+                                                            v-model="messageData.description">
+                                                    </el-input>
+                                                </el-form-item>
+                                            </el-col>
+                                        </el-row>
+                                    </el-form>
+
+                        </template>
+                        <div slot="footer" class="dialog-footer">
+                            <el-button @click="dialogFormVisible = false">取消</el-button>
+                            <el-button type="primary" @click="handleSend()">发送</el-button>
+                        </div>
+                    </el-dialog>
+
+                <br><br><br>
+
+            </div>
+
+            <div class="right">
+
+                    <el-tabs v-model="activeName" type="card" @tab-click="handleClick" style="margin-bottom:0px">
+                        <el-tab-pane label="客户信息" name="first">
+                           <div style="height: 750px">
+                               <h5 style="text-align:left;padding-left: 20px;margin-bottom:0px">个人信息</h5><br>
+
+                               <div>
+                                   <el-table
+                                           :data="customerInfoTableData"
+                                           border
+                                           :height="350+'px'"
+                                           style="width: 100%"
+                                           size="mini">
+                                       <el-table-column
+                                               fixed
+                                               prop="num"
+                                               sortable
+                                               label="合同号"
+                                               width="140">
+                                       </el-table-column>
+                                       <el-table-column
+                                               prop="name"
+                                               label="客户姓名"
+                                               width="80">
+                                       </el-table-column>
+                                       <el-table-column
+                                               prop="sex"
+                                               label="性别"
+                                               width="50">
+                                       </el-table-column>
+                                       <el-table-column
+                                               prop="age"
+                                               sortable
+                                               label="年龄"
+                                               width="70">
+                                       </el-table-column>
+                                       <el-table-column
+                                               prop="birthday"
+                                               label="生日"
+                                               width="100">
+                                       </el-table-column>
+                                       <el-table-column
+                                               prop="type"
+                                               label="业务类型"
+                                               width="80">
+                                       </el-table-column>
+                                       <el-table-column
+                                               prop="phone"
+                                               label="手机号码"
+                                               width="100">
+                                       </el-table-column>
+                                       <el-table-column
+                                               prop="address"
+                                               label="居住地址"
+                                               width="200">
+                                       </el-table-column>
+                                       <el-table-column
+                                               prop="mate"
+                                               label="配偶姓名"
+                                               width="80">
+                                       </el-table-column>
+                                       <el-table-column
+                                               prop="matePhone"
+                                               label="配偶手机号码"
+                                               width="100">
+                                       </el-table-column>
+                                       <el-table-column
+                                               prop="ecp"
+                                               label="紧急联系人姓名"
+                                               width="120">
+                                       </el-table-column>
+                                       <el-table-column
+                                               prop="ecpPhone"
+                                               label="紧急联系人手机号码"
+                                               width="130">
+                                       </el-table-column>
+
+                                           <el-table-column
+                                                   prop="brand"
+                                                   label="品牌"
+                                                   width="100">
+                                           </el-table-column>
+                                           <el-table-column
+                                                   prop="vehicleType"
+                                                   label="车型"
+                                                   width="100">
+                                           </el-table-column>
+                                           <el-table-column
+                                                   prop="color"
+                                                   sortable
+                                                   label="颜色"
+                                                   width="80">
+                                           </el-table-column>
+                                           <el-table-column
+                                                   prop="LicensePlate"
+                                                   sortable
+                                                   label="车牌号"
+                                                   width="100">
+                                           </el-table-column>
+                                           <el-table-column
+                                                   prop="financingAmount"
+                                                   sortable
+                                                   label="融资金额"
+                                                   width="130">
+                                           </el-table-column>
+                                           <el-table-column
+                                                   prop="financingPeriod"
+                                                   sortable
+                                                   label="融资期数"
+                                                   width="130">
+                                           </el-table-column>
+
+                                       <el-table-column
+                                               fixed="right"
+                                               label="操作"
+                                               width="100">
+                                           <template slot-scope="scope">
+                                               <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
+                                               <el-button type="text" size="small">编辑</el-button>
+                                           </template>
+                                       </el-table-column>
+
+                                   </el-table>
+                               </div>
+
+                               <div class="cycStyle">
+                                   <el-tabs  v-model="Words" type="card" @tab-click="handleClick">
+                                       <el-tab-pane label="常用语" name="Common">
+                                           <div class="custom-tree-container">
+                                               <div class="block">
+
+                                                   <el-tree
+                                                           :data="cycData"
+                                                           show-checkbox
+                                                           node-key="id"
+                                                           default-expand-all
+                                                           :expand-on-click-node="false">
+                                              <span class="custom-tree-node" slot-scope="{ node, data }">
+                                                <span>{{ node.label }}</span>
+                                                <span>
+                                                  <el-button
+                                                          type="text"
+                                                          size="mini"
+                                                          @click="() => append(data)">
+                                                    添加
+                                                  </el-button>
+                                                  <el-button
+                                                          type="text"
+                                                          size="mini"
+                                                          @click="() => remove(node, data)">
+                                                    删除
+                                                  </el-button>
+                                                </span>
+                                              </span>
+                                                   </el-tree>
+                                               </div>
+                                           </div>
+                                       </el-tab-pane>
+                                       <el-tab-pane label="知识库(暂未开放)" name="knowledge">公用词汇</el-tab-pane>
+                                   </el-tabs>
+                               </div>
+
+                           </div>
+
+
+                        </el-tab-pane>
+                        <el-tab-pane label="历史查询" name="second">
+
+                            <div style="height: 750px">
+
+                            <h5 style="text-align:left;padding-left: 20px;margin-bottom:0px">咨询信息</h5><br>
+
+                            <div>
+                            <el-table
+                                    ref="singleTable"
+                                    :data="historyTableData"
+                                    highlight-current-row
+                                    @current-change="handleCurrentChange"
+                                    :height="190+'px'"
+                                    style="width: 100%;"
+                                    size="mini">
+                                <el-table-column
+                                        type="index"
+                                        label=" "
+                                        width="50">
+                                </el-table-column>
+                                <el-table-column
+                                        prop="advisoryChannel"
+                                        label="咨询渠道"
+                                        width="80">
+                                </el-table-column>
+                                <el-table-column
+                                        prop="consultationTime"
+                                        sortable
+                                        label="咨询时间"
+                                        width="120">
+                                </el-table-column>
+                                <el-table-column
+                                        prop="dealingWithPeople"
+                                        label="处理人"
+                                        width="80">
+                                </el-table-column>
+                                <el-table-column
+                                        prop="telephone"
+                                        sortable
+                                        label="来电号码"
+                                        width="120">
+                                </el-table-column>
+                                <el-table-column
+                                        prop="orCirculation"
+                                        label="是否流转"
+                                        width="100">
+                                </el-table-column>
+                                <el-table-column
+                                        prop="customerContact"
+                                        label="客户触点"
+                                        width="80">
+                                </el-table-column>
+                                <el-table-column
+                                        prop="type"
+                                        label="问题分类"
+                                        width="80">
+                                </el-table-column>
+                                <el-table-column
+                                        prop="result"
+                                        label="处理情况"
+                                        width="80">
+                                </el-table-column>
+                            </el-table>
+                        </div>
+
+                            <br><h5 style="text-align:left;padding-left: 20px;">历史工单</h5><br>
+
+                            <div>
+                                <el-table
+                                        ref="singleTable"
+                                        :data="historyTableData"
+                                        highlight-current-row
+                                        @current-change="handleCurrentChange"
+                                        :height="190+'px'"
+                                        style="width: 100%;"
+                                        size="mini">
+                                    <el-table-column
+                                            type="index"
+                                            label=" "
+                                            width="50">
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="advisoryChannel"
+                                            label="咨询渠道"
+                                            width="80">
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="consultationTime"
+                                            sortable
+                                            label="咨询时间"
+                                            width="120">
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="dealingWithPeople"
+                                            label="处理人"
+                                            width="80">
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="telephone"
+                                            sortable
+                                            label="来电号码"
+                                            width="120">
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="orCirculation"
+                                            label="是否流转"
+                                            width="100">
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="customerContact"
+                                            label="客户触点"
+                                            width="80">
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="type"
+                                            label="问题分类"
+                                            width="80">
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="result"
+                                            label="处理情况"
+                                            width="80">
+                                    </el-table-column>
+                                </el-table>
+                            </div>
+
+                                <div class="cycStyle">
+                                    <el-tabs  v-model="Words" type="card" @tab-click="handleClick">
+                                        <el-tab-pane label="常用语" name="Common">
+                                            <div class="custom-tree-container">
+                                                <div class="block">
+
+                                                    <el-tree
+                                                            :data="cycData"
+                                                            show-checkbox
+                                                            node-key="id"
+                                                            default-expand-all
+                                                            :expand-on-click-node="false">
+                                              <span class="custom-tree-node" slot-scope="{ node, data }">
+                                                <span>{{ node.label }}</span>
+                                                <span>
+                                                  <el-button
+                                                          type="text"
+                                                          size="mini"
+                                                          @click="() => append(data)">
+                                                    添加
+                                                  </el-button>
+                                                  <el-button
+                                                          type="text"
+                                                          size="mini"
+                                                          @click="() => remove(node, data)">
+                                                    删除
+                                                  </el-button>
+                                                </span>
+                                              </span>
+                                                    </el-tree>
+                                                </div>
+                                            </div>
+                                        </el-tab-pane>
+                                        <el-tab-pane label="知识库(暂未开放)" name="knowledge">公用词汇</el-tab-pane>
+                                    </el-tabs>
+                                </div>
+
+                            </div>
+
+                        </el-tab-pane>
+                        <el-tab-pane label="核实身份" name="third">
+
+                            <el-form :inline="true">
+                                <el-form-item label="合同号:">
+                                    <el-input v-model="input" style="width: 250px" placeholder="请输入内容" size="mini"></el-input>
+                                    <el-button size="mini">搜索</el-button>
+                                </el-form-item>
+                            </el-form>
+
+                            <template>
+                                <el-radio v-model="radio" label="1">明细类核身</el-radio>
+                                <el-radio v-model="radio" label="2">非明细类核身</el-radio>
+                            </template>
+
+                            <table style="margin: 20px auto auto;border: 1px solid #000;">
+                                <tbody>
+                                <tr v-for="c in sureData">
+                                    <td>
+                                    <el-checkbox-group
+                                            v-model="checkedIds"
+                                            :min="1"
+                                            :max="10">
+                                        <el-checkbox :label="c.id" style="font-size: 12px;margin-left: 5px" :key="c.id">{{c.id}}</el-checkbox>
+                                    </el-checkbox-group>
+                                    </td>
+                                    <td><label :for="c.id" style="font-size: 12px">{{c.name}}</label></td>
+                                    <td><label :for="c.id" style="font-size: 12px">{{c.result}}</label></td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <el-button style="margin-top: 20px">提交</el-button>
+
+                        </el-tab-pane>
+                        <el-tab-pane label="业务申请" name="fourth" style="margin-bottom:0px">
+
+                            <h5 style="text-align:left;padding-left: 20px;">提前结清</h5>
+                            <div>
+                                <el-table
+                                        :data="earlySettlementTableData"
+                                        border
+                                        :height="110+'px'"
+                                        style="width: 100%"
+                                        size="mini"
+                                        :row-style="{height:'20px'}"
+                                        :cell-style="{padding:'0px'}"
+                                        style="font-size: 10px">
+                                    <el-table-column
+                                            prop="num"
+                                            label="合同号"
+                                            width="80">
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="applicationDate"
+                                            sortable
+                                            label="申请日期"
+                                            width="120">
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="clearingType"
+                                            label="结清类型"
+                                            width="80">
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="applicationStatus"
+                                            sortable
+                                            label="申请状态"
+                                            width="120">
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="approvalOpinion"
+                                            label="审批意见"
+                                            width="100">
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="courierNumber"
+                                            label="快递单号"
+                                            width="80">
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="postTime"
+                                            label="邮寄时间"
+                                            width="130">
+                                    </el-table-column>
+
+                                </el-table>
+
+                                <el-form :inline="true">
+                                    <el-form-item label="试算合同号">
+                                        <el-input v-model="input" style="width: 250px" placeholder="请输入内容" size="mini"></el-input>
+                                        <el-button size="mini">试算</el-button>
+                                    </el-form-item>
+                                </el-form>
+                                <el-button size="mini" style="width: 60px;float: right">下载</el-button><br>
+
+
+                            </div>
+
+                            <h5 style="text-align:left;padding-left: 20px;">处置车信息查询</h5>
+
+                            <div>
+                                <el-table
+                                        :data="disposalVehicleTableData"
+                                        border
+                                        :height="110+'px'"
+                                        style="width: 100%"
+                                        size="mini"
+                                        :row-style="{height:'20px'}"
+                                        :cell-style="{padding:'0px'}"
+                                        style="font-size: 10px">
+                                    <el-table-column
+                                            prop="num"
+                                            label="合同号"
+                                            width="80">
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="applicationDate"
+                                            label="申请日期"
+                                            width="120">
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="status"
+                                            sortable
+                                            label="状态"
+                                            width="70">
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="orActiveInterchange"
+                                            label="是否主动交车"
+                                            width="120">
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="completionTime"
+                                            sortable
+                                            label="收完完成时间"
+                                            width="120">
+                                    </el-table-column>
+
+                                </el-table>
+                            </div>
+
+                            <h5 style="text-align:left;padding-left: 20px;">理赔函查询</h5>
+
+                            <div>
+                                <el-table
+                                        :data="selectClaimLetterTableData"
+                                        border
+                                        :height="110+'px'"
+                                        style="width: 100%;"
+                                        size="mini"
+                                        :row-style="{height:'20px'}"
+                                        :cell-style="{padding:'0px'}"
+                                        style="font-size: 10px">
+                                    <el-table-column
+                                            prop="num"
+                                            label="合同号"
+                                            width="80">
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="applicationDate"
+                                            label="申请日期"
+                                            width="130">
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="settlementAmount"
+                                            sortable
+                                            label="理赔金额"
+                                            width="120">
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="status"
+                                            label="申请状态"
+                                            width="120">
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="insuranceCompany"
+                                            label="保险公司"
+                                            width="120">
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="操作"
+                                            width="120">
+                                    </el-table-column>
+
+                                </el-table>
+                            </div>
+
+                            <h5 style="text-align:left;padding-left: 20px;">还款信息</h5>
+
+                            <div>
+                                <el-table
+                                        :data="repaymentInfoTableData"
+                                        border
+                                        :height="85+'px'"
+                                        style="width: 100%;"
+                                        size="mini"
+                                        :row-style="{height:'20px'}"
+                                        :cell-style="{padding:'0px'}"
+                                        style="font-size: 10px">
+                                    <el-table-column
+                                            prop="cardNum"
+                                            label="卡号"
+                                            width="150">
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="branch"
+                                            label="分行"
+                                            width="140">
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="accountName"
+                                            sortable
+                                            label="开户名"
+                                            width="120">
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="contractStatus"
+                                            label="签约状态"
+                                            width="120">
+                                    </el-table-column>
+                                </el-table>
+                            </div>
+
+                            <h5 style="text-align:left;padding-left: 20px;">对公转账</h5>
+
+                            <div>
+                                <el-table
+                                        :data="publicTransferTableData"
+                                        border
+                                        :height="130+'px'"
+                                        style="width: 100%;"
+                                        size="mini"
+                                        :row-style="{height:'20px'}"
+                                        :cell-style="{padding:'0px'}"
+                                        style="font-size: 10px">
+                                    <el-table-column
+                                            prop="num"
+                                            label="合同号"
+                                            width="80"
+                                            height="35">
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="payer"
+                                            label="付款人"
+                                            width="80">
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="payableMoney"
+                                            sortable
+                                            label="到账金额"
+                                            width="120">
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="payableDate"
+                                            label="到账日期"
+                                            width="120">
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="writeOffDate"
+                                            sortable
+                                            label="核销时间"
+                                            width="120">
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="remarks"
+                                            sortable
+                                            label="备注"
+                                            width="120">
+                                    </el-table-column>
+
+                                </el-table>
+                            </div>
+
+                        </el-tab-pane>
+                        <el-tab-pane label="小结/工单" name="fifth">
+
+                            <div style="font-size: 14px;margin: 10px;display: flex">
+
+                                <div style="border: 0px solid #0c0c0c;width: 50%;display: block;">
+
+                                        <div>
+                                            <span style="display: block;text-align: left;padding-left: 25px;">小结</span>
+                                        </div>
+
+                                        <div>
+                                            <span style="width: 80px;display: inline-block; text-align: left;">合同编号 </span><input style="width: 100px">
+                                        </div>
+
+                                        <div>
+                                            <span style="width: 80px;display: inline-block; text-align: left;">客户触点 </span><input style="width: 100px">
+                                        </div>
+
+                                        <div>
+                                            <span style="width: 80px;display: inline-block; text-align: left;">来源 </span><input style="width: 100px">
+                                        </div>
+
+                                        <div>
+                                            <span style="width: 80px;display: inline-block; text-align: left;">咨询者名称 </span><input style="width: 100px">
+                                        </div>
+
+                                </div>
+
+                                <div style="border: 0px solid #9F3A38;width: 50%;display: block;">
+
+                                    <div style="height:21px">
+                                        <button style="display: block;width: 80px;position:absolute;right:20px;">提交</button>
+                                    </div>
+
+                                    <div>
+                                        <span>客户经理 </span><input style="width: 100px">
+                                    </div>
+
+                                    <div>
+                                        <span>问题分类 </span><input style="width: 100px">
+                                    </div>
+
+                                    <div>
+                                        <span>是否报销 </span><input style="width: 100px">
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div style="font-size: 14px;height:80px;width: 300px;margin-left: 25px;">
+
+                                <div style="height:50px;width: 80px;float: left;display: inline">
+
+                                    <span>项目描述 </span><input style="width: 400px">
+
+                                </div>
+
+                            </div>
+
+
+
+
+                            <div style="font-size: 14px;margin: 10px;display: flex">
+
+                                <div style="border: 0px solid #0c0c0c;width: 50%;display: block;">
+
+                                    <div>
+                                        <span style="display: block;text-align: left;padding-left: 25px;">工单</span>
+                                    </div>
+
+                                    <div>
+                                        <span style="width: 80px;display: inline-block; text-align: left;">工单类型 </span><input style="width: 100px">
+                                    </div>
+
+                                    <div>
+                                        <span style="width: 80px;display: inline-block; text-align: left;">来源 </span><input style="width: 100px">
+                                    </div>
+
+                                    <div>
+                                        <span style="width: 80px;display: inline-block; text-align: left;">问题分类 </span><input style="width: 100px">
+                                    </div>
+
+                                    <div>
+                                        <span style="width: 80px;display: inline-block; text-align: left;">咨询者名称 </span><input style="width: 100px">
+                                    </div>
+                                </div>
+
+                                <div style="border: 0px solid #9F3A38;width: 50%;display: block;">
+
+                                    <div style="height: 21px;">
+                                        <button style="display: block;width: 80px;position: absolute;right: 20px">提交</button>
+                                    </div>
+
+                                    <div>
+                                        <span style="width: 60px;text-align: left">工单级别 </span><input style="width: 100px">
+                                    </div>
+
+                                    <div>
+                                        <span style="width: 60px;text-align: left">客户触点 </span><input style="width: 100px">
+                                    </div>
+
+                                    <div>
+                                        <span style="width: 60px;text-align: left">原因分类 </span><input style="width: 100px">
+                                    </div>
+
+                                    <div>
+                                        <span style="width: 60px;text-align: left">是否报销 </span><input style="width: 100px">
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div style="font-size: 14px;height:50px;width: 300px;margin-left: 25px;">
+
+                                <div style="height:50px;width: 80px;float: left;display: inline">
+
+                                    <span style="width: 80px">客户声音 </span><input style="width: 400px;">
+
+                                </div>
+
+                            </div>
+
+
+
+                            <div style="font-size: 14px;height:50px;width: 300px;margin-left: 25px;">
+
+                                <div style="height:50px;width: 80px;float: left;display: inline">
+
+                                    <span>备注 </span><input style="width: 400px">
+
+                                </div>
+
+                            </div>
+
+                            <br>
+
+                        </el-tab-pane>
+                    </el-tabs>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+<script>
+    let id = 1000;
+
+    var vue = new Vue({
+        el: '#app',
+        data: {
+            activeName: 'first',
+            Words:'Common',
+            customerInfoTableData: [{
+                name: '王小虎',
+                num: 'HTH20200402',
+                sex: '男',
+                age: '22',
+                birthday: '1995-01-02',
+                type: '商用车',
+                phone: '18012345423',
+                address: '上海市普陀区金沙江路 1517 弄',
+                mate: '李筱月',
+                matePhone: '13832142567',
+                ecp: '王麻子',
+                ecpPhone: '18726543745',
+                brand: '马自达',
+                vehicleType: '500',
+                color: '红色',
+                LicensePlate: '沪A 88888',
+                financingAmount: '1000000',
+                financingPeriod: '10'
+            }, {
+                name: '王小虎',
+                num: 'HTH20200403',
+                sex: '男',
+                age: '23',
+                birthday: '1995-01-02',
+                type: '商用车',
+                phone: '18012345423',
+                address: '上海市普陀区金沙江路 1517 弄',
+                mate: '李筱月',
+                matePhone: '13832142567',
+                ecp: '王麻子',
+                ecpPhone: '18726543745',
+                brand: '马自达',
+                vehicleType: '500',
+                color: '红色',
+                LicensePlate: '沪A 88888',
+                financingAmount: '1000000',
+                financingPeriod: '11'
+            }, {
+                name: '王小虎',
+                num: 'HTH20200404',
+                sex: '男',
+                age: '24',
+                birthday: '1995-01-02',
+                type: '商用车',
+                phone: '18012345423',
+                address: '上海市普陀区金沙江路 1517 弄',
+                mate: '李筱月',
+                matePhone: '13832142567',
+                ecp: '王麻子',
+                ecpPhone: '18726543745',
+                brand: '马自达',
+                vehicleType: '500',
+                color: '红色',
+                LicensePlate: '沪A 88888',
+                financingAmount: '1000000',
+                financingPeriod: '10'
+            }, {
+                name: '王小虎',
+                num: 'HTH20200405',
+                sex: '男',
+                age: '25',
+                birthday: '1995-01-02',
+                type: '商用车',
+                phone: '18012345423',
+                address: '上海市普陀区金沙江路 1517 弄',
+                mate: '李筱月',
+                matePhone: '13832142567',
+                ecp: '王麻子',
+                ecpPhone: '18726543745',
+                brand: '马自达',
+                vehicleType: '500',
+                color: '红色',
+                LicensePlate: '沪A 88888',
+                financingAmount: '1000000',
+                financingPeriod: '12'
+            }],
+
+            cycData : [{
+                id: 1,
+                label: '问候',
+                children: [{
+                    id: 2,
+                    label: '您好！请问您有什么要咨询？'
+                },
+                    {
+                        id: 3,
+                        label: '您好！请问您有什么要咨询？'
+                },
+                    {
+                        id: 4,
+                        label: '您好！请问您有什么要咨询？'
+                    }]
+            }],
+
+            currentRow: null,
+
+            historyTableData : [{
+                advisoryChannel: '金服',
+                consultationTime: '2020-04-01',
+                dealingWithPeople: '张思锐',
+                telephone: '13287861643',
+                orCirculation: '是',
+                customerContact: '白青青',
+                type: '投诉',
+                result: '已完成'
+            },
+                {
+                    advisoryChannel: '金服',
+                    consultationTime: '2020-04-01',
+                    dealingWithPeople: '张思锐',
+                    telephone: '13287861643',
+                    orCirculation: '是',
+                    customerContact: '白青青',
+                    type: '投诉',
+                    result: '已完成'
+                },
+                {
+                    advisoryChannel: '金服',
+                    consultationTime: '2020-04-01',
+                    dealingWithPeople: '张思锐',
+                    telephone: '13287861643',
+                    orCirculation: '是',
+                    customerContact: '白青青',
+                    type: '投诉',
+                    result: '已完成'
+                },
+                {
+                    advisoryChannel: '金服',
+                    consultationTime: '2020-04-01',
+                    dealingWithPeople: '张思锐',
+                    telephone: '13287861643',
+                    orCirculation: '是',
+                    customerContact: '白青青',
+                    type: '投诉',
+                    result: '已完成'
+                },
+                {
+                    advisoryChannel: '金服',
+                    consultationTime: '2020-04-01',
+                    dealingWithPeople: '张思锐',
+                    telephone: '13287861643',
+                    orCirculation: '是',
+                    customerContact: '白青青',
+                    type: '投诉',
+                    result: '已完成'
+                },
+                {
+                    advisoryChannel: '金服',
+                    consultationTime: '2020-04-01',
+                    dealingWithPeople: '张思锐',
+                    telephone: '13287861643',
+                    orCirculation: '是',
+                    customerContact: '白青青',
+                    type: '投诉',
+                    result: '已完成'
+                }],
+            radio: '1',
+            checkedIds: ['1', '2'],
+            sureData: [
+                {id: 1, name: "客户证件号码：", result:"******202003130000"},
+                {id: 2, name: "手机号码：", result:"135****1234"},
+                {id: 3, name: "合同号：", result:" "},
+                {id: 4, name: "配偶姓名/电话：", result:" "},
+                {id: 5, name: "车品牌/车型：", result:" "},
+                {id: 6, name: "扣款银行：", result:" "},
+                {id: 7, name: "月租金/期数：", result:"3333元/24期"},
+                {id: 8, name: "直系亲属姓名/电话：", result:" "},
+                {id: 9, name: "紧急联系人姓名/电话：", result:" "},
+                {id: 10, name: "保证人姓名/电话：", result:" "}
+            ],
+            earlySettlementTableData: [{
+                num: "hth12345",
+                applicationDate: "2020-04-01",
+                clearingType: "未知",
+                applicationStatus: "已申请",
+                approvalOpinion: "同意",
+                courierNumber: "86291861",
+                postTime: "2020-04-02"
+            },
+                {
+                    num: "hth12342",
+                    applicationDate: "2020-04-01",
+                    clearingType: "未知",
+                    applicationStatus: "已申请",
+                    approvalOpinion: "同意",
+                    courierNumber: "86291861",
+                    postTime: "2020-04-02"
+                }
+            ],
+            disposalVehicleTableData: [{
+                num: "hth12346",
+                applicationDate: "2020-04-01",
+                status: "完成",
+                orActiveInterchange: "主动",
+                completionTime: "2020-04-03"
+            },
+              {
+                  num: "hth12346",
+                  applicationDate: "2020-04-01",
+                  status: "完成",
+                  orActiveInterchange: "主动",
+                  completionTime: "2020-04-03"
+            }],
+            selectClaimLetterTableData: [{
+                num: "hth12346",
+                applicationDate: "2020-04-01",
+                settlementAmount: "100w",
+                status: "未知",
+                insuranceCompany: "中国平安"
+            }],
+            repaymentInfoTableData: [{
+                cardNum: "6238 2987 1872 1827",
+                branch: "上海分行总行",
+                accountName: "高尚",
+                contractStatus: "已签约"
+            }],
+            publicTransferTableData: [{
+                num: "hth12346",
+                payer: "李亥",
+                payableMoney: "10000",
+                payableDate: "2020-04-09",
+                writeOffDate: "2020-04-10",
+                remarks: " "
+            },
+                {
+                num: "hth12346",
+                payer: "李亥",
+                payableMoney: "10000",
+                payableDate: "2020-04-09",
+                writeOffDate: "2020-04-10",
+                remarks: " "
+                },{
+                    num: "hth12346",
+                    payer: "李亥",
+                    payableMoney: "10000",
+                    payableDate: "2020-04-09",
+                    writeOffDate: "2020-04-10",
+                    remarks: " "
+            }],
+            messageData:{
+                num:"18762541726",
+                name:"王二麻",
+                description:" "
+            },
+            dialogFormVisible: false,//控制添加窗口显示/隐藏
+            menuName: "fa-envelope",
+
+
+        },
+        created() {
+
+        },
+        methods: {
+            handleClick(row) {
+                console.log(row);
+            },
+            append(data) {
+                const newChild = { id: id++, label: 'testtest', children: [] };
+                if (!data.children) {
+                    this.$set(data, 'children', []);
+                }
+                data.children.push(newChild);
+            },
+            remove(node, data) {
+                const parent = node.parent;
+                const children = parent.data.children || parent.data;
+                const index = children.findIndex(d => d.id === data.id);
+                children.splice(index, 1);
+            },
+
+            // setCurrent(row) {
+            //     this.$refs.singleTable.setCurrentRow(row);
+            // },
+            handleCurrentChange(val) {
+                this.currentRow = val;
+            },
+            handleSend(){
+                this.dialogFormVisible = true;
+                // alert("dida dida");
+            },
+        }
+    });
+</script>
+
+</html>
