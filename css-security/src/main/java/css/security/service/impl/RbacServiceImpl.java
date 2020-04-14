@@ -53,14 +53,14 @@ public class RbacServiceImpl implements RbacService {
             }
             //添加初始主界面，但凡登陆成功都可以访问
             urls.add("/index");
-            System.out.println(urls);
+//            System.out.println(urls);
 
             //添加permission表里的权限
             HashSet<String> permissionUrls = permissionMapper.selectAllKeywords();
             for (String permissionUrl : permissionUrls) {
                 urls.add("/"+permissionUrl);
             }
-            System.out.println("end:"+urls);
+//            System.out.println("end:"+urls);
 
             //注意这里不能用equals判断，因为有些URL是有参数的，所以要用AntPathMatcher来比较
             for (String url : urls){

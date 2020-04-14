@@ -39,11 +39,17 @@ public class UserController {
 
     //分页查询
 //    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @RequestMapping("/findPage")
+/*    @RequestMapping("/findPage")
     public ResponseEntity findPage(@RequestBody SysUserDTO userDTO){
         PageResult pageResult = userService.findPage(userDTO);{
         return ResponseEntity.ok(pageResult);
-    }}
+    }}*/
+
+    @RequestMapping("/findPage")
+    public ResponseEntity findPage(@RequestBody SysUserDTO userDTO){
+        PageResult pageResult = userService.findPage(userDTO);{
+            return ResponseEntity.ok(pageResult);
+        }}
 
     @RequestMapping("/add")
     public Result add(@RequestBody UserTable user){

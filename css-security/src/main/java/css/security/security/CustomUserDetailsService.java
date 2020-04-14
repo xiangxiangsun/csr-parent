@@ -50,7 +50,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         //添加权限，一个用户仅一个角色
         String role = userRoleService.selectByUserId(user.getId());
 
-
         // 返回UserDetails实现类
         return new LoginUser(user.getUsername(),user.getPassword(),role,true,true,true,true);
     }

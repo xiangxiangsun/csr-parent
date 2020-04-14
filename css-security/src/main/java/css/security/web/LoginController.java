@@ -53,32 +53,32 @@ public class LoginController {
         return "index.html";
     }
 
-    @RequestMapping("/userPage")
+    @RequestMapping("/system/userManage")
     public String user(){
         return "user.html";
     }
 
-    @RequestMapping("/rolePage")
+    @RequestMapping("/system/role")
     public String rolePage(){
         return "role.html";
     }
 
-    @RequestMapping("/permissionPage")
+    @RequestMapping("/system/auth")
     public String permission(){
         return "permission.html";
     }
 
-    @RequestMapping("/updatePSWPage")
+    @RequestMapping("/system/changePwd")
     public String updatePSW(){
         return "updatePSW.html";
     }
 
-    @RequestMapping("/menuPage")
+    @RequestMapping("/system/menu")
     public String menu(){
         return "menu.html";
     }
 
-    @RequestMapping("/deptPage")
+    @RequestMapping("/system/dept")
     public String dept(){
         return "dept.html";
     }
@@ -86,5 +86,10 @@ public class LoginController {
     @RequestMapping("/workOrderPage")
     public String workOrder(){
         return "workOrder.html";
+    }
+
+    @RequestMapping("/system/ucp")
+    public String UCP(){
+        return "UCP.html";
     }
 }
