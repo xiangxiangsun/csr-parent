@@ -106,7 +106,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/sms")
+    @RequestMapping("/sms")
     public Result SmsTest(String tel){
         try {
             JuheSmsUtils.sendTz(tel);
