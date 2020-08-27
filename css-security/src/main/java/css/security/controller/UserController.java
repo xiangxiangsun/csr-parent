@@ -110,9 +110,9 @@ public class UserController {
     public Result SmsTest(String tel){
         try {
             JuheSmsUtils.sendTz(tel);
-            return new Result(true,"查询成功");
+            return new Result(true,"短信发送成功");
         } catch (Exception e) {
-            return new Result(false,"查询失败");
+            return new Result(false,"短信发送失败");
         }
     }
 }
