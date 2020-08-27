@@ -174,14 +174,6 @@ public class UserServiceImpl implements UserService {
     public void job(){
         System.out.println(DateUtil.date());
         JuheSmsUtils.sendTz("13671541479");
-
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(new Date());
-        int i = cal.get(Calendar.DAY_OF_WEEK);
-        if (6 == i) {
-            JuheSmsUtils.sendTz("18961748589");
-        }
-
     }
 
 }
