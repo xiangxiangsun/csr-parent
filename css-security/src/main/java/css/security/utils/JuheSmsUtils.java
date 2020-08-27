@@ -85,8 +85,6 @@ public class JuheSmsUtils {
         }
     }
 
-
-
     public static void main(String[] args) {
         JuheSmsUtils.sendTz("15828563308");
     }

@@ -7,12 +7,14 @@ import css.security.security.LoginUser;
 import css.security.service.UserService;
 import css.security.entity.PageResult;
 import css.security.entity.Result;
+import css.security.utils.JuheSmsUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -101,6 +103,16 @@ public class UserController {
             return new Result(true,"数据删除成功");
         } catch (Exception e) {
             return new Result(false,"数据删除失败");
+        }
+    }
+
+    @GetMapping("/SmsTest")
+    public Result SmsTest(String tel){
+        try {
+            JuheSmsUtils.sendTz(tel);
+            return new Result(true,"查询成功");
+        } catch (Exception e) {
+            return new Result(false,"查询失败");
         }
     }
 }
