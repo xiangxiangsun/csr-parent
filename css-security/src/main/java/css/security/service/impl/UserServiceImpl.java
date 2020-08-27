@@ -177,9 +177,4 @@ public class UserServiceImpl implements UserService {
         System.out.println("短信发送成功，时间："+ DateUtil.date());
     }
 
-    @Scheduled(cron="0/5 * * * * ?")
-    public void test(){
-        System.out.println("短信发送成功，时间："+ DateUtil.date());
-    }
-
 }

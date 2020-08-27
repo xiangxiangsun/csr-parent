@@ -115,4 +115,9 @@ public class UserController {
             return new Result(false,"短信发送失败");
         }
     }
+
+    @GetMapping("/get")
+    public Result get(){
+        return new Result(true,"查询成功");
+    }
 }
