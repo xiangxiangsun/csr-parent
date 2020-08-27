@@ -2,6 +2,7 @@ package css.security.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,6 +19,7 @@ public class TreeSelect implements Serializable {
     /** 子节点 */
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private List<TreeSelect> children;
+
 
     public TreeSelect()
     {

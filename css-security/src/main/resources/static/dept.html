@@ -155,7 +155,21 @@
             // 表格树数据
             deptList: [],
             // 部门部门树选项
-            deptOptions: undefined,
+            // deptOptions: undefined,
+            deptOptions: [
+                {id:1,
+                label:"上班",
+                children:[
+                    {id:1,
+                        label:"上班",
+                        children:[]}
+                ]},
+                {
+                    id:2,
+                    label:"休息",
+                    children:[]
+                }
+            ],
             // 弹出层标题
             title: "",
             // 是否显示弹出层
