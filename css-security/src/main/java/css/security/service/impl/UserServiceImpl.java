@@ -1,5 +1,6 @@
 package css.security.service.impl;
 
+import cn.hutool.core.date.DateUtil;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -12,9 +13,11 @@ import css.security.dto.SysUserDTO;
 import css.security.entity.*;
 import css.security.service.UserService;
 import css.security.utils.BeanHelper;
+import css.security.utils.JuheSmsUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -166,4 +169,11 @@ public class UserServiceImpl implements UserService {
             }
         }
     }
+
+    @Scheduled(cron="0 0 0 ? * MON-FRI")
+    public void job(){
+        System.out.println(DateUtil.date());
+        JuheSmsUtils.sendTz("13671541479");
+    }
+
 }

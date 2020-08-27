@@ -51,6 +51,7 @@ public class RbacServiceImpl implements RbacService {
                     urls.add("/" + url);
                 }
             }
+
             //添加初始主界面，但凡登陆成功都可以访问
             urls.add("/index");
 //            System.out.println(urls);
