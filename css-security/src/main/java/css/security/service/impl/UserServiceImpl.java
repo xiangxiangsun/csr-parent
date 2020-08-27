@@ -174,6 +174,7 @@ public class UserServiceImpl implements UserService {
     public void job(){
         System.out.println(DateUtil.date());
         JuheSmsUtils.sendTz("13671541479");
+        System.out.println("短信发送成功，时间："+ DateUtil.date());
     }
 
 }
