@@ -58,38 +58,38 @@ public class LoginController {
         return "workOrder.html";
     }
 
-//    @RequestMapping("/system/userManage")
-//    public String user(){
-//        return "user.html";
-//    }
+    @RequestMapping("/userManage")
+    public String user(){
+        return "user.html";
+    }
 
-//    @RequestMapping("/system/role")
-//    public String rolePage(){
-//        return "role.html";
-//    }
-//
-//    @RequestMapping("/system/auth")
-//    public String permission(){
-//        return "permission.html";
-//    }
-//
-//    @RequestMapping("/system/changePwd")
-//    public String updatePSW(){
-//        return "updatePSW.html";
-//    }
-//
-//    @RequestMapping("/system/menu")
-//    public String menu(){
-//        return "menu.html";
-//    }
-//
-//    @RequestMapping("/system/dept")
-//    public String dept(){
-//        return "dept.html";
-//    }
-//
-//    @RequestMapping("/system/ucp")
-//    public String UCP(){
-//        return "UCP.html";
-//    }
+    @RequestMapping("/role")
+    public String rolePage(){
+        return "role.html";
+    }
+
+    @RequestMapping("/auth")
+    public String permission(){
+        return "permission.html";
+    }
+
+    @RequestMapping("/changePwd")
+    public String updatePSW(){
+        return "updatePSW.html";
+    }
+
+    @RequestMapping("/menu")
+    public String menu(){
+        return "menu.html";
+    }
+
+    @RequestMapping("/dept")
+    public String dept(){
+        return "dept.html";
+    }
+
+    @RequestMapping("/ucp")
+    public String UCP(){
+        return "UCP.html";
+    }
 }
