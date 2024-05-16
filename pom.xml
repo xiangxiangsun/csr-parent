@@ -27,7 +27,7 @@
     <spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
     <lombok.version>1.16.18</lombok.version>
 <!--    <pagehelper.version>5.1.4</pagehelper.version>-->
-    <hutool.version>4.5.5</hutool.version>
+    <hutool.version>5.8.21</hutool.version>
     <pageHelper.starter.version>1.2.10</pageHelper.starter.version>
   </properties>
 
